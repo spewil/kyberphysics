@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "/krg9fC9mlB8eJN89d61GjCdOTohfRiVEOTV+6IgJ8usS1QH1vtWsBBtZkiKUcBdro+rWnNH4UE4aLcy+th/Iw==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\spencer\\Documents\\bon_control\\Extensions.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\spencer\\.nuget\\packages\\bonsai.core\\2.5.0\\bonsai.core.2.5.0.nupkg.sha512",
+    "C:\\Users\\spencer\\.nuget\\packages\\rx-core\\2.2.5\\rx-core.2.2.5.nupkg.sha512",
+    "C:\\Users\\spencer\\.nuget\\packages\\rx-interfaces\\2.2.5\\rx-interfaces.2.2.5.nupkg.sha512",
+    "C:\\Users\\spencer\\.nuget\\packages\\rx-linq\\2.2.5\\rx-linq.2.2.5.nupkg.sha512"
+  ],
+  "logs": []
+}
