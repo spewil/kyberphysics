@@ -31,7 +31,8 @@ with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
     
     for i in range(10):
         side = np.random.randint(2) * 2.0 - 1 
-        client.send_message("/start", [side, 1.0, 0.6, 0.8, 5000, 500, 500, 5000])
+        direction = np.random.randint(2) * 2.0 - 1
+        client.send_message("/start", [side, direction, 0.6, 0.8, 5000, 500, 500, 5000])
         server.handle_request()
         time.sleep(1)
         
