@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.5.0"
+<WorkflowBuilder Version="2.5.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:osc="clr-namespace:Bonsai.Osc;assembly=Bonsai.Osc"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
@@ -8,9 +8,9 @@
                  xmlns:p1="clr-namespace:;assembly=Extensions"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
+                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:p2="clr-namespace:OpenCV.Net;assembly=OpenCV.Net"
-                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -170,7 +170,7 @@
                             <dsp:Min>0</dsp:Min>
                             <dsp:Max>5000</dsp:Max>
                             <dsp:RangeMin>0</dsp:RangeMin>
-                            <dsp:RangeMax>0.2</dsp:RangeMax>
+                            <dsp:RangeMax>1</dsp:RangeMax>
                             <dsp:RescaleType>Linear</dsp:RescaleType>
                           </Combinator>
                         </Expression>
@@ -201,25 +201,26 @@
 Item1 as ViewMatrix,
 Item2 as Parameters,
 Item3 as Feedback,
-Item2.Index == Item4 ? 0 : 1 as Highlight)</scr:Expression>
+Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="InputMapping">
                     <PropertyMappings>
                       <Property Name="LocationX" Selector="Parameters.Value.X" />
                       <Property Name="LocationY" Selector="Parameters.Value.Y" />
-                      <Property Name="Diameter" Selector="Feedback" />
-                      <Property Name="ColorG" Selector="Highlight" />
-                      <Property Name="ColorB" Selector="Highlight" />
+                      <Property Name="Diameter" Selector="Highlight" />
+                      <Property Name="ColorG" Selector="Feedback" />
+                      <Property Name="ColorB" Selector="Feedback" />
                     </PropertyMappings>
                     <Selector>ViewMatrix</Selector>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
                     <LocationX>0.75</LocationX>
                     <LocationY>0.75</LocationY>
-                    <Diameter>0.005837279</Diameter>
+                    <Layer>0</Layer>
+                    <Diameter>0.1</Diameter>
                     <ColorR>1</ColorR>
-                    <ColorG>1</ColorG>
-                    <ColorB>1</ColorB>
+                    <ColorG>0.0463537425</ColorG>
+                    <ColorB>0.0463537425</ColorB>
                     <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="WorkflowOutput" />
