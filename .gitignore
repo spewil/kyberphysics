@@ -4,3 +4,5 @@ Data
 Packages
 *.exe
 *.exe.settings
+*.csv
+.vs

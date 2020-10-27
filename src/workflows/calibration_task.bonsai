@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.5.1"
+<WorkflowBuilder Version="2.5.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:osc="clr-namespace:Bonsai.Osc;assembly=Bonsai.Osc"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
@@ -9,8 +9,6 @@
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
                  xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
-                 xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                 xmlns:p2="clr-namespace:OpenCV.Net;assembly=OpenCV.Net"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -122,6 +120,9 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:ElementIndex" />
             </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Max" />
+            </Expression>
             <Expression xsi:type="SelectMany">
               <Name>GridDot</Name>
               <Workflow>
@@ -137,6 +138,12 @@
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
                     <Name>DotParameters</Name>
+                  </Expression>
+                  <Expression xsi:type="SubscribeSubject">
+                    <Name>Highlight</Name>
+                  </Expression>
+                  <Expression xsi:type="ExternalizedMapping">
+                    <Property Name="Max" />
                   </Expression>
                   <Expression xsi:type="GroupWorkflow">
                     <Name>FeedbackParameters</Name>
@@ -165,6 +172,9 @@
                             <Value>63</Value>
                           </Operand>
                         </Expression>
+                        <Expression xsi:type="ExternalizedMapping">
+                          <Property Name="Max" />
+                        </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:Rescale">
                             <dsp:Min>0</dsp:Min>
@@ -182,13 +192,11 @@
                         <Edge From="2" To="3" Label="Source2" />
                         <Edge From="3" To="4" Label="Source1" />
                         <Edge From="4" To="5" Label="Source1" />
-                        <Edge From="5" To="6" Label="Source1" />
-                        <Edge From="6" To="7" Label="Source1" />
+                        <Edge From="5" To="7" Label="Source1" />
+                        <Edge From="6" To="7" Label="Source2" />
+                        <Edge From="7" To="8" Label="Source1" />
                       </Edges>
                     </Workflow>
-                  </Expression>
-                  <Expression xsi:type="SubscribeSubject">
-                    <Name>Highlight</Name>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:CombineLatest" />
@@ -216,27 +224,27 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
                     <LocationX>0.75</LocationX>
                     <LocationY>0.75</LocationY>
-                    <Layer>0</Layer>
                     <Diameter>0.1</Diameter>
                     <ColorR>1</ColorR>
-                    <ColorG>0.0463537425</ColorG>
-                    <ColorB>0.0463537425</ColorB>
+                    <ColorG>3.12164</ColorG>
+                    <ColorB>3.12164</ColorB>
                     <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="WorkflowOutput" />
                 </Nodes>
                 <Edges>
                   <Edge From="0" To="1" Label="Source1" />
-                  <Edge From="2" To="6" Label="Source1" />
-                  <Edge From="2" To="7" Label="Source2" />
-                  <Edge From="3" To="6" Label="Source2" />
-                  <Edge From="4" To="6" Label="Source3" />
-                  <Edge From="5" To="6" Label="Source4" />
-                  <Edge From="6" To="7" Label="Source1" />
+                  <Edge From="2" To="7" Label="Source1" />
+                  <Edge From="2" To="8" Label="Source2" />
+                  <Edge From="3" To="7" Label="Source2" />
+                  <Edge From="4" To="7" Label="Source4" />
+                  <Edge From="5" To="6" Label="Source1" />
+                  <Edge From="6" To="7" Label="Source3" />
                   <Edge From="7" To="8" Label="Source1" />
                   <Edge From="8" To="9" Label="Source1" />
                   <Edge From="9" To="10" Label="Source1" />
                   <Edge From="10" To="11" Label="Source1" />
+                  <Edge From="11" To="12" Label="Source1" />
                 </Edges>
               </Workflow>
             </Expression>
@@ -247,7 +255,8 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="4" To="5" Label="Source1" />
             <Edge From="5" To="6" Label="Source1" />
-            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="6" To="8" Label="Source1" />
+            <Edge From="7" To="8" Label="Source2" />
           </Edges>
         </Workflow>
       </Expression>
@@ -402,7 +411,19 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
         <Name>Feedback</Name>
         <Workflow>
           <Nodes>
-            <Expression xsi:type="IncludeWorkflow" Path="Extensions\SoftEmg.bonsai" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="p1:EMGSource">
+                <p1:BufferSize>10</p1:BufferSize>
+                <p1:NumChannels>64</p1:NumChannels>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="dsp:ConvertScale">
+                <dsp:Depth>F32</dsp:Depth>
+                <dsp:Scale>0.0002861</dsp:Scale>
+                <dsp:Shift>0</dsp:Shift>
+              </Combinator>
+            </Expression>
             <Expression xsi:type="PublishSubject">
               <Name>Signal</Name>
             </Expression>
@@ -422,10 +443,6 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
               <Name>Feedback</Name>
             </Expression>
             <Expression xsi:type="WorkflowOutput" />
-            <Expression xsi:type="PropertySource" TypeArguments="dsp:ConvertToArray,sys:Nullable(p2:Depth)">
-              <MemberName>Depth</MemberName>
-              <Value>F32</Value>
-            </Expression>
           </Nodes>
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
@@ -434,6 +451,7 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="4" To="5" Label="Source1" />
             <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
