@@ -169,7 +169,7 @@
                         </Expression>
                         <Expression xsi:type="Index">
                           <Operand xsi:type="IntProperty">
-                            <Value>63</Value>
+                            <Value>15</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="ExternalizedMapping">
@@ -222,12 +222,12 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
                     <Selector>ViewMatrix</Selector>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                    <LocationX>0.75</LocationX>
-                    <LocationY>0.75</LocationY>
+                    <LocationX>-0.107142866</LocationX>
+                    <LocationY>-0.535714269</LocationY>
                     <Diameter>0.1</Diameter>
                     <ColorR>1</ColorR>
-                    <ColorG>3.12164</ColorG>
-                    <ColorB>3.12164</ColorB>
+                    <ColorG>6.82463E-05</ColorG>
+                    <ColorB>6.82463E-05</ColorB>
                     <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="WorkflowOutput" />

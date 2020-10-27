@@ -24,7 +24,7 @@ public class EMGSource
     }
     public int BufferSize{get;set;} 
     public int NumChannels{get;set;} 
-    static short CreateCommands(int num_channels, bool start = true)
+    static short CreateCommand(int num_channels, bool start = true)
     {
         // FSAMP
         // # if MODE != 3: 0 = 500 Hz,  1 = 1000 Hz, 2 = 2000 Hz
@@ -107,33 +107,23 @@ public class EMGSource
                 // https://stackoverflow.com/questions/1318933/c-sharp-int-to-byte
                 // command ints for 64 channels
                 // int start_digits = 49496; // little
-                short start_digits = 22721; // big -- this is what is used
-                byte[] start_command = ConvertToBytes(start_digits); 
+                // short start_digits = 22721; // big -- this is what is used
+                // byte[] start_command = ConvertToBytes(start_digits); 
 
                 // these are the digits to setup the device, add 1 to start recording
                 // int stop_digits = 49240; // 0b1100000001011000; // little endian
-                short stop_digits = 22720; // 0b101100011000000; // big endian
+                // short stop_digits = 22720; // 0b101100011000000; // big endian
+                // byte[] stop_command = ConvertToBytes(stop_digits);
+
+                short start_digits = EMGSource.CreateCommand(NumChannels, true);
+                short stop_digits = EMGSource.CreateCommand(NumChannels, false);
                 byte[] stop_command = ConvertToBytes(stop_digits);
+                byte[] start_command = ConvertToBytes(start_digits);
 
-                short computed_start_digits = EMGSource.CreateCommands(NumChannels, true);
-                short computed_stop_digits = EMGSource.CreateCommands(NumChannels, false);
-
-                byte[] computed_stop_command = BitConverter.GetBytes(computed_stop_digits);
-                if (BitConverter.IsLittleEndian)
-                    Array.Reverse(computed_stop_command);
-                byte[] computed_start_command = BitConverter.GetBytes(computed_start_digits);
-                if (BitConverter.IsLittleEndian)
-                    Array.Reverse(computed_start_command);
-
-                Console.WriteLine("start command {0}", String.Join(",", start_digits));
-                Console.WriteLine("Computed start command: {0}", String.Join(",", computed_start_digits));
-                Console.WriteLine("stop command {0}", String.Join(",", stop_digits));
-                Console.WriteLine("Computed stop command: {0}", String.Join(",", computed_stop_digits));
-
-                Console.WriteLine("start command {0}", String.Join(",", start_command));
-                Console.WriteLine("Computed start command: {0}", String.Join(",", computed_start_command));
-                Console.WriteLine("stop command {0}", String.Join(",", stop_command));
-                Console.WriteLine("Computed stop command: {0}", String.Join(",", computed_stop_command));
+                Console.WriteLine("Computed start command: {0}", String.Join(",", start_digits));
+                Console.WriteLine("Computed start command: {0}", String.Join(",", start_command));
+                Console.WriteLine("Computed stop command: {0}", String.Join(",", stop_digits));
+                Console.WriteLine("Computed stop command: {0}", String.Join(",", stop_command));
 
                 // channels * bytes_per_sample = number of bytes per sample buffer
                 var NumTotalChannels = NumChannels + 4;
@@ -167,9 +157,6 @@ public class EMGSource
                             }
                             output_buffer[i] = value;
                         }
-                        // Console.WriteLine(num_recvd);
-
-                        // Add 4 to account for aux and counter channels
                         var outputArray = Mat.FromArray(output_buffer).Reshape(1,NumTotalChannels);
                         // var transposeArray = new Mat(outputArray.Cols,outputArray.Rows,outputArray.Depth,outputArray.Channels);
                         // CV.Transpose(outputArray,transposeArray);
