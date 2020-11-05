@@ -160,7 +160,7 @@ public class EMGSource
                         var outputArray = Mat.FromArray(output_buffer).Reshape(1,NumTotalChannels);
                         // var transposeArray = new Mat(outputArray.Cols,outputArray.Rows,outputArray.Depth,outputArray.Channels);
                         // CV.Transpose(outputArray,transposeArray);
-                        observer.OnNext(sample_buffer);
+                        observer.OnNext(Array.ConvertAll(sample_buffer, x => x));
                     }
                     Console.WriteLine("Stop and shutdown.");
                     client.Client.Send(stop_command);
