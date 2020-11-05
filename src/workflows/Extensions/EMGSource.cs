@@ -98,9 +98,9 @@ public class EMGSource
             Array.Reverse(command);
         return command;
     }
-    public IObservable<byte[]> Process()
+    public IObservable<Mat> Process()
     {
-        return Observable.Create<byte[]>((observer, cancellationToken) =>
+        return Observable.Create<Mat>((observer, cancellationToken) =>
         {
             return Task.Factory.StartNew(() =>
             {
@@ -129,6 +129,7 @@ public class EMGSource
                 var NumTotalChannels = NumChannels + 4;
                 int sample_size = NumTotalChannels*3*BufferSize;
                 var sample_buffer = new byte[sample_size];
+                var output_buffer = new int[NumTotalChannels*BufferSize];
                 var listener = new TcpListener(new IPEndPoint(IPAddress.Parse("192.168.1.2"), 45454));
                 listener.Start(1);
                 Console.WriteLine("Accepting...");
@@ -142,7 +143,6 @@ public class EMGSource
                     while (!cancellationToken.IsCancellationRequested)
                     {
                         var num_recvd = 0;
-                        var output_buffer = new int[NumTotalChannels*BufferSize];
                         while (num_recvd < sample_buffer.Length)
                         {
                         num_recvd += stream.Read(sample_buffer, num_recvd, sample_buffer.Length-num_recvd);
@@ -157,10 +157,16 @@ public class EMGSource
                             }
                             output_buffer[i] = value;
                         }
-                        var outputArray = Mat.FromArray(output_buffer).Reshape(1,NumTotalChannels);
-                        // var transposeArray = new Mat(outputArray.Cols,outputArray.Rows,outputArray.Depth,outputArray.Channels);
-                        // CV.Transpose(outputArray,transposeArray);
-                        observer.OnNext(Array.ConvertAll(sample_buffer, x => x));
+
+                        var transposeArray = new Mat(NumTotalChannels, BufferSize,Depth.S32,1);
+                        using (var outputArray = Mat.CreateMatHeader(output_buffer, BufferSize, NumTotalChannels, Depth.S32, 1))
+                        {
+                        // var outputArray = Mat.FromArray(output_buffer).Reshape(1,NumTotalChannels);
+                        CV.Transpose(outputArray,transposeArray);    
+                        // observer.OnNext(Array.ConvertAll(sample_buffer, x => x));
+                        // observer.OnNext(outputArray);
+                        }
+                        observer.OnNext(transposeArray);
                     }
                     Console.WriteLine("Stop and shutdown.");
                     client.Client.Send(stop_command);
