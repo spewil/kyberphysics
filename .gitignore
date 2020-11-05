@@ -1,8 +1,8 @@
 bin
 obj
-Data
+data
 Packages
+*.png
 *.exe
 *.exe.settings
-*.csv
 .vs

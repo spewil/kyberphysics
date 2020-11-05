@@ -98,9 +98,9 @@ public class EMGSource
             Array.Reverse(command);
         return command;
     }
-    public IObservable<Mat> Process()
+    public IObservable<byte[]> Process()
     {
-        return Observable.Create<Mat>((observer, cancellationToken) =>
+        return Observable.Create<byte[]>((observer, cancellationToken) =>
         {
             return Task.Factory.StartNew(() =>
             {
@@ -160,7 +160,7 @@ public class EMGSource
                         var outputArray = Mat.FromArray(output_buffer).Reshape(1,NumTotalChannels);
                         // var transposeArray = new Mat(outputArray.Cols,outputArray.Rows,outputArray.Depth,outputArray.Channels);
                         // CV.Transpose(outputArray,transposeArray);
-                        observer.OnNext(outputArray);
+                        observer.OnNext(sample_buffer);
                     }
                     Console.WriteLine("Stop and shutdown.");
                     client.Client.Send(stop_command);
