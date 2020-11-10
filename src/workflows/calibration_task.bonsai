@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.5.0"
+<WorkflowBuilder Version="2.5.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:osc="clr-namespace:Bonsai.Osc;assembly=Bonsai.Osc"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
@@ -224,6 +224,7 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
                     <LocationX>-0.107142866</LocationX>
                     <LocationY>-0.535714269</LocationY>
+                    <Layer>0</Layer>
                     <Diameter>0.1</Diameter>
                     <ColorR>1</ColorR>
                     <ColorG>6.82463E-05</ColorG>
@@ -412,9 +413,9 @@ Item2.Index == Item4 ? 0.2 : 0.1 as Highlight)</scr:Expression>
         <Workflow>
           <Nodes>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p1:EMGSource">
+              <Combinator xsi:type="p1:EmgAcquisition">
                 <p1:BufferSize>10</p1:BufferSize>
-                <p1:NumChannels>64</p1:NumChannels>
+                <p1:NumChannels>8</p1:NumChannels>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">

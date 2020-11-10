@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.5.0"
+<WorkflowBuilder Version="2.5.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:p1="clr-namespace:;assembly=Extensions"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
@@ -7,14 +7,14 @@
   <Workflow>
     <Nodes>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p1:EMGSource">
+        <Combinator xsi:type="p1:EmgAcquisition">
           <p1:BufferSize>10</p1:BufferSize>
-          <p1:NumChannels>16</p1:NumChannels>
+          <p1:NumChannels>8</p1:NumChannels>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
-          <dsp:Path>C:\Users\spencer\Documents\kyberphysics\data\Testing\test.bin</dsp:Path>
+          <dsp:Path>Data\Testing\test.bin</dsp:Path>
           <dsp:Suffix>Timestamp</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
