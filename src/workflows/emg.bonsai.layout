@@ -3,16 +3,33 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  >
   <DialogSettings>
-    <Visible>false</Visible>
+    <Visible>true</Visible>
     <Location>
-      <X>0</X>
-      <Y>0</Y>
+      <X>52</X>
+      <Y>52</Y>
     </Location>
     <Size>
-      <Width>0</Width>
-      <Height>0</Height>
+      <Width>881</Width>
+      <Height>676</Height>
     </Size>
     <WindowState>Normal</WindowState>
+    <VisualizerTypeName>Bonsai.Dsp.Design.MatVisualizer</VisualizerTypeName>
+    <VisualizerSettings>
+      <MatVisualizer>
+        <XMin>0</XMin>
+        <XMax>1000</XMax>
+        <YMin>-3000</YMin>
+        <YMax>3000</YMax>
+        <AutoScaleX>true</AutoScaleX>
+        <AutoScaleY>true</AutoScaleY>
+        <SelectedPage>0</SelectedPage>
+        <ChannelsPerPage>16</ChannelsPerPage>
+        <OverlayChannels>false</OverlayChannels>
+        <ChannelOffset>0</ChannelOffset>
+        <HistoryLength>100</HistoryLength>
+        <WaveformBufferLength>1</WaveformBufferLength>
+      </MatVisualizer>
+    </VisualizerSettings>
   </DialogSettings>
   <DialogSettings>
     <Visible>false</Visible>

@@ -32,7 +32,7 @@ public class EmgAcquisition
     static ushort CreateCommand(int numChannels, bool start = true)
     {
         var command =
-            AcquisitionFlags.Sampling8000Hz |
+            AcquisitionFlags.Sampling2000Hz |
             AcquisitionFlags.Monopolar |
             AcquisitionFlags.Depth24 |
             AcquisitionFlags.HighPassFilter |
@@ -83,8 +83,10 @@ public class EmgAcquisition
                 byte[] startCommand = ConvertToBytes(startDigits);
 
                 // channels * bytes_per_sample = number of bytes per sample buffer
+                int BytesPerSample = 3;
+                int NumFakeSamples = 50;
                 var NumTotalChannels = NumChannels + 4;
-                int readBufferSize = NumTotalChannels * 3 * BufferSize;
+                int readBufferSize = NumTotalChannels * BytesPerSample * BufferSize;
                 var readBuffer = new byte[readBufferSize];
                 var conversionBuffer = new int[NumTotalChannels * BufferSize];
                 var listener = new TcpListener(new IPEndPoint(IPAddress.Parse(EmgAddress), EmgPort));
@@ -96,9 +98,18 @@ public class EmgAcquisition
                 {
                     // Send start command to the device.
                     stream.Write(startCommand, 0, startCommand.Length);
+                    // Read first NumFakeSamples number of samples to account for leftover samples from previous acquisition
+                    // These will be subsequently written over in the loop below
+                    var bytesReceived = 0;
+                    var totalFakeBytes = NumFakeSamples * NumTotalChannels * BytesPerSample;
+                    while (bytesReceived < totalFakeBytes)
+                    {
+                        bytesReceived += stream.Read(readBuffer, 0, Math.Min(readBuffer.Length, totalFakeBytes - bytesReceived));
+                    }
+                    Console.WriteLine(bytesReceived);
                     while (!cancellationToken.IsCancellationRequested)
                     {
-                        var bytesReceived = 0;
+                        bytesReceived = 0;
                         while (bytesReceived < readBuffer.Length)
                         {
                             bytesReceived += stream.Read(readBuffer, bytesReceived, readBuffer.Length - bytesReceived);
@@ -184,9 +195,9 @@ public class EmgAcquisition
         // FSAMP
         // # if MODE != 3: 0 = 500 Hz,  1 = 1000 Hz, 2 = 2000 Hz
         // # if MODE == 3: 0 = 2000 Hz, 1 = 4000 Hz, 2 = 8000 Hz
-        Sampling2000Hz = 0 << 13,
-        Sampling4000Hz = 1 << 13,
-        Sampling8000Hz = 2 << 13,
+        Sampling500Hz = 0 << 13,
+        Sampling1000Hz = 1 << 13,
+        Sampling2000Hz = 2 << 13,
 
         // GETSET
         // # 0 = Set settings, 1 = Get settings (this will close the socket)

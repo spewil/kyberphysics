@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.5.1"
+<WorkflowBuilder Version="2.5.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:p1="clr-namespace:;assembly=Extensions"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
@@ -14,7 +14,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:MatrixWriter">
-          <dsp:Path>Data\Testing\test.bin</dsp:Path>
+          <dsp:Path>..\..\data\Testing\test64.bin</dsp:Path>
           <dsp:Suffix>Timestamp</dsp:Suffix>
           <dsp:Overwrite>false</dsp:Overwrite>
           <dsp:Layout>ColumnMajor</dsp:Layout>
