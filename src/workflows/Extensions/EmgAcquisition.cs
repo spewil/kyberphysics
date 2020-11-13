@@ -65,7 +65,7 @@ public class EmgAcquisition
     {
         return Observable.Create<Mat>((observer, cancellationToken) =>
         {
-            return Task.Factory.StartNew(async () =>
+            return Task.Factory.StartNew(() =>
             {
                 // https://stackoverflow.com/questions/1318933/c-sharp-int-to-byte
                 // command ints for 64 channels
@@ -91,7 +91,7 @@ public class EmgAcquisition
                 listener.Start(1);
 
                 using (var cancellation = cancellationToken.Register(listener.Stop))
-                using (var client = await listener.AcceptTcpClientAsync())
+                using (var client = listener.AcceptTcpClient())
                 using (var stream = client.GetStream())
                 {
                     // Send start command to the device.
