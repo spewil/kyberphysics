@@ -106,7 +106,7 @@ public class EmgAcquisition
                     {
                         bytesReceived += stream.Read(readBuffer, 0, Math.Min(readBuffer.Length, totalFakeBytes - bytesReceived));
                     }
-                    Console.WriteLine(bytesReceived);
+
                     while (!cancellationToken.IsCancellationRequested)
                     {
                         bytesReceived = 0;
