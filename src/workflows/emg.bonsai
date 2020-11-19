@@ -9,7 +9,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:EmgAcquisition">
           <p1:BufferSize>10</p1:BufferSize>
-          <p1:NumChannels>8</p1:NumChannels>
+          <p1:NumChannels>64</p1:NumChannels>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">

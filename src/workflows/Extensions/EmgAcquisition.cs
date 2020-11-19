@@ -101,11 +101,11 @@ public class EmgAcquisition
                     // Read first NumFakeSamples number of samples to account for leftover samples from previous acquisition
                     // These will be subsequently written over in the loop below
                     var bytesReceived = 0;
-                    var totalFakeBytes = NumFakeSamples * NumTotalChannels * BytesPerSample;
-                    while (bytesReceived < totalFakeBytes)
-                    {
-                        bytesReceived += stream.Read(readBuffer, 0, Math.Min(readBuffer.Length, totalFakeBytes - bytesReceived));
-                    }
+                    // var totalFakeBytes = NumFakeSamples * NumTotalChannels * BytesPerSample;
+                    // while (bytesReceived < totalFakeBytes)
+                    // {
+                    //     bytesReceived += stream.Read(readBuffer, 0, Math.Min(readBuffer.Length, totalFakeBytes - bytesReceived));
+                    // }
 
                     while (!cancellationToken.IsCancellationRequested)
                     {

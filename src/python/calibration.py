@@ -23,14 +23,25 @@ def print_compute_handler(unused_addr, args, volume):
 def default_handler(address, *args):
     print(f"DEFAULT {address}: {args}")
 
+numchannels = 16
+channel_grid_dict = {}
+channel_grid_dict[16] = [4,4]
+channel_grid_dict[64] = [8,8]
+
+
 dispatcher = dispatcher.Dispatcher()
 dispatcher.set_default_handler(default_handler)
 
 client = udp_client.SimpleUDPClient("127.0.0.1", 5005)
 with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
-    client.send_message("/grid", [8,8])
+
+    client.send_message("/metadata", [numchannels, "../../data/calibration"])
+    msg = server.handle_request()
+    print(msg)
+
+    client.send_message("/grid", channel_grid_dict[numchannels])
     
-    trials = np.random.choice(np.arange(64),64)
+    trials = np.random.choice(np.arange(numchannels),numchannels,replace=False)
     for i in trials:
         client.send_message("/select", [int(i)])
         server.handle_request()
