@@ -23,8 +23,9 @@ def print_compute_handler(unused_addr, args, volume):
 def default_handler(address, *args):
     print(f"DEFAULT {address}: {args}")
 
-numchannels = 16
+numchannels = 8
 channel_grid_dict = {}
+channel_grid_dict[8] = [2,4]
 channel_grid_dict[16] = [4,4]
 channel_grid_dict[64] = [8,8]
 
@@ -44,41 +45,6 @@ with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
     trials = np.random.choice(np.arange(numchannels),numchannels,replace=False)
     for i in trials:
         client.send_message("/select", [int(i)])
-        server.handle_request()
+        server.handle_request() # blocks to recieve message
     
     client.send_message("/end", [0])
-    
-
-# reply = 0
-
-# def filter_handler(address, *args):
-#     global reply
-#     reply = args[0]
-#     # print(f"{address}: {args}")
-#     print("reply: ",reply)
-
-# dispatcher = dispatcher.Dispatcher()
-# dispatcher.map("/filter", filter_handler)
-
-# ip = "127.0.0.1"
-# port = 5006
-
-# async def loop():
-#     global reply
-#     """Example main loop that only runs for 10 iterations before finishing"""
-#     while reply < 60:
-#         if reply > 10:
-#             client.send_message("/client", [random.randint(0,10),time.time()])
-#             client.send_message("/python", random.random())
-#         await asyncio.sleep(1)
-
-# async def init_main():
-#     server = osc_server.AsyncIOOSCUDPServer((ip, port), dispatcher, asyncio.get_event_loop())
-#     transport, protocol = await server.create_serve_endpoint()  # Create datagram endpoint and start serving
-#     await loop()  # Enter main loop of program
-#     transport.close()  # Clean up serve endpoint
-
-# asyncio.run(init_main())
-
-# print("done.")
-
