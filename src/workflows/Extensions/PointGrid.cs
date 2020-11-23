@@ -61,7 +61,7 @@ public class PointGrid
                 x = 0;
                 y += heightStep;
             }
-
+            // outputs an array of Vec2's 
             return Observable.Return(points);
         });
     }

@@ -29,6 +29,7 @@ channel_grid_dict[8] = [2,4]
 channel_grid_dict[16] = [4,4]
 channel_grid_dict[64] = [8,8]
 
+# when bonsai starts, it cant record because it needs metadata for the recording
 
 dispatcher = dispatcher.Dispatcher()
 dispatcher.set_default_handler(default_handler)
@@ -36,12 +37,18 @@ dispatcher.set_default_handler(default_handler)
 client = udp_client.SimpleUDPClient("127.0.0.1", 5005)
 with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
 
+    # we are acquiring data from the device
+    # send the metadata
     client.send_message("/metadata", [numchannels, "../../data/calibration"])
+    # get an "initialized" response
     msg = server.handle_request()
     print(msg)
 
+    # all set up, waiting for grid
+    # send grid  
     client.send_message("/grid", channel_grid_dict[numchannels])
     
+    # signal is piped into a row of "data" when select message is sent 
     trials = np.random.choice(np.arange(numchannels),numchannels,replace=False)
     for i in trials:
         client.send_message("/select", [int(i)])

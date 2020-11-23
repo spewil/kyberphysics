@@ -11,7 +11,7 @@ suffix = ".bin"
 # filename = "calibration2020-11-19T19_19_07"
 
 folder = "testing/unplugged/"
-filename = "2020-11-19T19_51_55"
+filename = "2020-11-23T14_18_59"
 
 fname = prefix+folder+filename+suffix
 
