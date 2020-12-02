@@ -23,11 +23,17 @@ def print_compute_handler(unused_addr, args, volume):
 def default_handler(address, *args):
     print(f"DEFAULT {address}: {args}")
 
-numchannels = 8
+numchannels = 32
 channel_grid_dict = {}
-channel_grid_dict[8] = [2,4]
+channel_grid_dict[8] = [8,1]
 channel_grid_dict[16] = [4,4]
+channel_grid_dict[32] = [8,4]
 channel_grid_dict[64] = [8,8]
+
+sample_frequency = 2000
+buffer_length = 50
+seconds_per_trial = 10
+buffers_per_trial = (sample_frequency//buffer_length)*seconds_per_trial
 
 # when bonsai starts, it cant record because it needs metadata for the recording
 
@@ -39,7 +45,7 @@ with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
 
     # we are acquiring data from the device
     # send the metadata
-    client.send_message("/metadata", [numchannels, "../../data/calibration"])
+    client.send_message("/metadata", [numchannels, "../../data/calibration/andy", buffers_per_trial])
     # get an "initialized" response
     msg = server.handle_request()
     print(msg)
@@ -55,3 +61,15 @@ with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
         server.handle_request() # blocks to recieve message
     
     client.send_message("/end", [0])
+
+# edit c# PointGrid.cs script to change the dot layout etc
+
+# for each of these sessions, there will be a data block (trials x channels x time) upt o transpose
+# .csv file with the channel order sent through the select message
+# metadata from subject, day, etc etc --> another .csv 
+
+# todo;
+# - compute abs path here for data file, send entire path to bonsai
+# - 
+
+# sending data filename, format it like a python string

@@ -21,7 +21,9 @@ def print_compute_handler(unused_addr, args, volume):
 
 
 def default_handler(address, *args):
-    print(f"DEFAULT {address}: {args}")
+	pass
+    # print(f"DEFAULT {address}: {args}")
+
 dispatcher = dispatcher.Dispatcher()
 dispatcher.set_default_handler(default_handler)
 
@@ -33,17 +35,18 @@ suffix = "/.bin"
 buffer_size = 10
 sampling_freq = 2000
 
-num_channels = 8
-folder_name = "testing/unplugged"
+num_channels = 32
+folder_name = "andy/fingers/3"
 num_seconds = 10
 
 filepath = prefix + folder_name + suffix
 num_samples = sampling_freq*num_seconds
-for i in range(1):
+commands = ["index flexion","middle flexion","ring flexion","pinky flexion", "index extension","middle extension","ring extension","pinky extension"]
+for i in range(8):
+	print(commands[i])
 	client.send_message("/recording_params", [num_samples, num_channels, buffer_size, filepath])
-	print([num_samples, num_channels, buffer_size])
+	# print([num_samples, num_channels, buffer_size])
 	msg = server.handle_request() # blocks to recieve message
-
 client.send_message("/stop", 1)
 
 

@@ -123,6 +123,10 @@ public class EmgAcquisition
                             {
                                 value -= 16777216;
                             }
+                            if (value < 0)
+                            {
+                                value += 512;
+                            }
                             conversionBuffer[i] = value;
                         }
 
