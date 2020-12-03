@@ -36,17 +36,29 @@ buffer_size = 10
 sampling_freq = 2000
 
 num_channels = 32
-folder_name = "andy/fingers/3"
 num_seconds = 10
 
-filepath = prefix + folder_name + suffix
 num_samples = sampling_freq*num_seconds
 commands = ["index flexion","middle flexion","ring flexion","pinky flexion", "index extension","middle extension","ring extension","pinky extension"]
-for i in range(8):
-	print(commands[i])
-	client.send_message("/recording_params", [num_samples, num_channels, buffer_size, filepath])
-	# print([num_samples, num_channels, buffer_size])
-	msg = server.handle_request() # blocks to recieve message
+
+noise_record = True
+
+if noise_record:
+	folder_name = "andy/fingers/3_12_20/noise_outside_box"
+	filepath = prefix + folder_name + suffix
+	for i in range(1):
+		print("BE STILL")
+		client.send_message("/recording_params", [num_samples, num_channels, buffer_size, filepath])
+		# print([num_samples, num_channels, buffer_size])
+		msg = server.handle_request() # blocks to recieve message
+else:
+	folder_name = "andy/fingers/3_12_20/3"
+	filepath = prefix + folder_name + suffix
+	for i in range(8):
+		print(commands[i])
+		client.send_message("/recording_params", [num_samples, num_channels, buffer_size, filepath])
+		# print([num_samples, num_channels, buffer_size])
+		msg = server.handle_request() # blocks to recieve message
 client.send_message("/stop", 1)
 
 

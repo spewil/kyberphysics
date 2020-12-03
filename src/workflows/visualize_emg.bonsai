@@ -12,33 +12,30 @@
           <p1:NumChannels>32</p1:NumChannels>
         </Combinator>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="dsp:Abs" />
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="dsp:ConvertScale">
-          <dsp:Depth>F32</dsp:Depth>
-          <dsp:Scale>1</dsp:Scale>
-          <dsp:Shift>0</dsp:Shift>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="dsp:Reduce">
-          <dsp:Axis>1</dsp:Axis>
-          <dsp:Operation>Avg</dsp:Operation>
-        </Combinator>
-      </Expression>
       <Expression xsi:type="Disable">
-        <Builder xsi:type="dsp:ConvertToArray">
-          <dsp:Depth>F32</dsp:Depth>
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="dsp:FrequencyFilter">
+            <dsp:SampleRate>2000</dsp:SampleRate>
+            <dsp:Cutoff1>45</dsp:Cutoff1>
+            <dsp:Cutoff2>55</dsp:Cutoff2>
+            <dsp:KernelLength>2000</dsp:KernelLength>
+            <dsp:FilterType>BandStop</dsp:FilterType>
+          </Combinator>
         </Builder>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Butterworth">
+          <dsp:SampleRate>2000</dsp:SampleRate>
+          <dsp:Cutoff1>45</dsp:Cutoff1>
+          <dsp:Cutoff2>55</dsp:Cutoff2>
+          <dsp:FilterOrder>3</dsp:FilterOrder>
+          <dsp:FilterType>BandStop</dsp:FilterType>
+        </Combinator>
       </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="1" To="2" Label="Source1" />
-      <Edge From="2" To="3" Label="Source1" />
-      <Edge From="3" To="4" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

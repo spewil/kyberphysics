@@ -18,6 +18,7 @@ public class DotProduct
             var result = new Mat(value.Item1.Rows,value.Item2.Cols,value.Item1.Depth,value.Item1.Channels);
             CV.GEMM(value.Item1,value.Item2,1,null,1,result);
             return result;
+
         });
     }
 }

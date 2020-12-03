@@ -102,7 +102,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>../../data/andy/fingers/3/.bin</dsp:Path>
+                <dsp:Path>../../data/andy/fingers/3_12_20/noise_outside_box/.bin</dsp:Path>
                 <dsp:Suffix>Timestamp</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>

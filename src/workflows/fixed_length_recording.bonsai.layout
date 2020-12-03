@@ -65,12 +65,12 @@
   <DialogSettings xsi:type="WorkflowEditorSettings">
     <Visible>false</Visible>
     <Location>
-      <X>74</X>
-      <Y>562</Y>
+      <X>234</X>
+      <Y>234</Y>
     </Location>
     <Size>
-      <Width>1131</Width>
-      <Height>708</Height>
+      <Width>416</Width>
+      <Height>279</Height>
     </Size>
     <WindowState>Normal</WindowState>
     <VisualizerTypeName>Bonsai.Design.Visualizers.TimeSeriesVisualizer</VisualizerTypeName>
@@ -85,12 +85,12 @@
     <EditorDialogSettings>
       <Visible>false</Visible>
       <Location>
-        <X>109</X>
-        <Y>592</Y>
+        <X>88</X>
+        <Y>365</Y>
       </Location>
       <Size>
-        <Width>860</Width>
-        <Height>568</Height>
+        <Width>783</Width>
+        <Height>415</Height>
       </Size>
       <WindowState>Normal</WindowState>
     </EditorDialogSettings>

@@ -135,7 +135,6 @@ public class EmgAcquisition
                         {
                             CV.Transpose(bufferHeader, result);
                         }
-                        Console.WriteLine(result.Size);
                         observer.OnNext(result);
                     }
                     client.Client.Send(stopCommand);
