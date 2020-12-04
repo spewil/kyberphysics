@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.5.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:p1="clr-namespace:;assembly=Extensions"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:EmgAcquisition">
+          <p1:BufferSize>100</p1:BufferSize>
+          <p1:NumChannels>32</p1:NumChannels>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Range">
+          <dsp:BufferLength>32</dsp:BufferLength>
+          <dsp:Depth>F32</dsp:Depth>
+          <dsp:Start>0</dsp:Start>
+          <dsp:End>32</dsp:End>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="dsp:ConvertToArray">
+        <dsp:Depth>S32</dsp:Depth>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Channels" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:SelectChannels">
+          <dsp:Channels>
+            <dsp:int>0</dsp:int>
+            <dsp:int>1</dsp:int>
+            <dsp:int>2</dsp:int>
+            <dsp:int>3</dsp:int>
+            <dsp:int>4</dsp:int>
+            <dsp:int>5</dsp:int>
+            <dsp:int>6</dsp:int>
+            <dsp:int>7</dsp:int>
+            <dsp:int>8</dsp:int>
+            <dsp:int>9</dsp:int>
+            <dsp:int>10</dsp:int>
+            <dsp:int>11</dsp:int>
+            <dsp:int>12</dsp:int>
+            <dsp:int>13</dsp:int>
+            <dsp:int>14</dsp:int>
+            <dsp:int>15</dsp:int>
+            <dsp:int>16</dsp:int>
+            <dsp:int>17</dsp:int>
+            <dsp:int>18</dsp:int>
+            <dsp:int>19</dsp:int>
+            <dsp:int>20</dsp:int>
+            <dsp:int>21</dsp:int>
+            <dsp:int>22</dsp:int>
+            <dsp:int>23</dsp:int>
+            <dsp:int>24</dsp:int>
+            <dsp:int>25</dsp:int>
+            <dsp:int>26</dsp:int>
+            <dsp:int>27</dsp:int>
+            <dsp:int>28</dsp:int>
+            <dsp:int>29</dsp:int>
+            <dsp:int>30</dsp:int>
+            <dsp:int>31</dsp:int>
+          </dsp:Channels>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:ConvertScale">
+          <dsp:Depth>F32</dsp:Depth>
+          <dsp:Scale>1</dsp:Scale>
+          <dsp:Shift>0</dsp:Shift>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:UpdateDecoder">
+          <p1:BufferSize>100</p1:BufferSize>
+          <p1:DecoderFileName>C:\Users\spencer\Documents\kyberphysics\src\python\decoder.bin</p1:DecoderFileName>
+          <p1:DynamicsFileName>C:\Users\spencer\Documents\kyberphysics\src\python\dynamics.bin</p1:DynamicsFileName>
+        </Combinator>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="4" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source2" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>

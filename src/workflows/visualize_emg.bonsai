@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.5.0"
+<WorkflowBuilder Version="2.5.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:p1="clr-namespace:;assembly=Extensions"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
@@ -11,17 +11,6 @@
           <p1:BufferSize>10</p1:BufferSize>
           <p1:NumChannels>32</p1:NumChannels>
         </Combinator>
-      </Expression>
-      <Expression xsi:type="Disable">
-        <Builder xsi:type="Combinator">
-          <Combinator xsi:type="dsp:FrequencyFilter">
-            <dsp:SampleRate>2000</dsp:SampleRate>
-            <dsp:Cutoff1>45</dsp:Cutoff1>
-            <dsp:Cutoff2>55</dsp:Cutoff2>
-            <dsp:KernelLength>2000</dsp:KernelLength>
-            <dsp:FilterType>BandStop</dsp:FilterType>
-          </Combinator>
-        </Builder>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:Butterworth">
@@ -35,7 +24,6 @@
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
-      <Edge From="1" To="2" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -123,6 +123,7 @@ public class EmgAcquisition
                             {
                                 value -= 16777216;
                             }
+                            // not sure why this needs to be here... 
                             if (value < 0)
                             {
                                 value += 512;
