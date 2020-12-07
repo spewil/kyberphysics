@@ -13,6 +13,6 @@ public class ConvertToVector2
 {
     public IObservable<Vector2> Process(IObservable<Mat> source)
     {
-        return source.Select(value => new Vector2((float)value.GetReal(0), (float)value.GetReal(0)));
+        return source.Select(value => new Vector2((float)value.GetReal(0), (float)value.GetReal(1)));
     }
 }
