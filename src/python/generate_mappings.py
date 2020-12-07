@@ -14,6 +14,12 @@ def roots_of_unity(num_points, radius=1, offset=0):
     ]
 
 
+# channel_to_visualize = 12
+# state_dim_to_place_channel = 1
+# decoder = np.zeros(shape=(state_dimensionality, numchannels),dtype=np.float32)
+# decoder[state_dim_to_place_channel,channel_to_visualize] = 1
+
+
 def write_dynamics_to_disk(dynamics, decoder):
     with open("dynamics.bin", "wb") as file:
         file.write(dynamics.tobytes())
