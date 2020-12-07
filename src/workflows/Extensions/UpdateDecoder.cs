@@ -58,8 +58,9 @@ public class UpdateDecoder
                 // (state_dim,state_dim)*(state_dim,1)
                 DotProduct(decoder,input,control);
                 DotProduct(dynamics,state,state);
-                CV.Add(state,control,state);
-                return state;
+                CV.Add(control,state,state);
+                // have to copy this for the outside world
+                return state.Clone();
             });
         });
     }
