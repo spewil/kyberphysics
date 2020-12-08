@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def roots_of_unity(num_points, radius=1, offset=0):
     # offset in radians
     c = 2j * np.pi / num_points
