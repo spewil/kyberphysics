@@ -1,96 +1,84 @@
 import numpy as np
-import matplotlib
-matplotlib.use("Qt4Agg")
+# import matplotlib
+# import sys
+# if sys.platform == "darwin":
+#     matplotlib.use("Qt4Agg")
+#     print("on mac")
+# else: 
+#     print("on windows")
 import matplotlib.pyplot as plt
+import utils
 
 
-def roots_of_unity(num_points, radius=1, offset=0):
-    # offset in radians
-    c = 2j * np.pi / num_points
-    return [
-        [np.around(x.imag, decimals=2),
-         np.around(x.real, decimals=2)] for x in
-        [radius * np.exp((k * c) + 1j * offset) for k in range(num_points)]
-    ]
-
-
-# channel_to_visualize = 12
-# state_dim_to_place_channel = 1
-# decoder = np.zeros(shape=(state_dimensionality, numchannels),dtype=np.float32)
-# decoder[state_dim_to_place_channel,channel_to_visualize] = 1
-
-
-def write_dynamics_to_disk(dynamics, decoder):
-    with open("dynamics.bin", "wb") as file:
-        file.write(dynamics.tobytes())
-
-    with open("decoder.bin", "wb") as file:
-        file.write(decoder.tobytes())
-
-
-def generate_dynamics(num_channels=32,
-                      scale_factor=0.25,
-                      tau=0.1,
-                      state_dimensionality=6):
-    dynamics = np.eye(state_dimensionality, dtype=np.float32) * scale_factor
-    dynamics[0, 2] = tau
-    dynamics[1, 3] = tau
-    dynamics[2, -2] = tau
-    dynamics[3, -1] = tau
-    dynamics[-1, -1] = 0
-    dynamics[-2, -2] = 0
+def generate_dynamics_and_mapping(num_channels=32,
+                      state_dimensionality=6,
+                      mapping_type="circle",
+                      passive_dynamics_off=True,
+                      **kwargs):
     decoder = np.zeros(shape=(state_dimensionality, num_channels),
-                       dtype=np.float32)
+                   dtype=np.float32)
+    if mapping_type == "direct":
+        decoder[0,kwargs["channel_1"]] = 1
+        decoder[1, kwargs["channel_2"]] = 1
+
+    elif mapping_type == "circle":
+        roots = utils.roots_of_unity(num_channels).T
+        decoder[-2:, :] = roots
+
+    if passive_dynamics_off:
+        dynamics = np.zeros((6,6),dtype=np.float32)
+
+    else:
+        dynamics = np.eye(state_dimensionality, dtype=np.float32) * kwargs["scale_factor"]
+        dynamics[0, 2] = kwargs["tau"]
+        dynamics[1, 3] = kwargs["tau"]
+        dynamics[2, -2] = kwargs["tau"]
+        dynamics[3, -1] = kwargs["tau"]
+        dynamics[-1, -1] = 0
+        dynamics[-2, -2] = 0
+
     return dynamics, decoder
 
 
-def generate_test_dynamics(num_channels=32,
-                           channel_to_visualize=12,
-                           state_dim_to_place_channel=0,
-                           scale_factor=0,
-                           state_dimensionality=6):
-    dynamics = np.eye(state_dimensionality, dtype=np.float32) * scale_factor
-    decoder = np.zeros(shape=(state_dimensionality, num_channels),
-                       dtype=np.float32)
-    decoder[state_dim_to_place_channel, channel_to_visualize] = 1
-    return dynamics, decoder
+# if __name__ == '__main__':
 
+# roots of unity mapping, no dynamics
+dynamics, decoder = generate_dynamics_and_mapping()
 
-def advance_dynamics(A, state, B, control):
-    return np.dot(A, state) + np.dot(B, control)
+# dynamics, decoder = generate_dynamics_and_mapping(passive_dynamics_off=False,scale_factor=0.9, tau=0.1)
+# dynamics, decoder = generate_dynamics_and_mapping(mapping_type="direct",channel_1=20, channel_2=8)
 
+print(dynamics)
+print(decoder)
 
-if __name__ == '__main__':
+directions = [(decoder[-2,i],decoder[-1,i]) for i in range(32)]
+print(directions)
 
-    roots = np.array(roots_of_unity(32)).T
-    dynamics, decoder = generate_dynamics(32, 0.6)
-    decoder[-2:, :] = roots
+electrode_layout = np.arange(32).reshape(4,8)
+print(electrode_layout)
+# ELBOW
+            # [[ 0  1  2  3  4  5  6  7]  
+# FIXED END    [ 8  9 10 11 12 13 14 15] FREE END  
+            #  [16 17 18 19 20 21 22 23]
+            #  [24 25 26 27 28 29 30 31]]
+# WRIST
+electrodes_in_directional_order = np.hstack(electrode_layout.T)
+print(electrodes_in_directional_order)
 
-    # print(roots @ np.ones((32, 1)))
-    for r in roots.T:
-        plt.plot(r[0], r[1], 'ko')
+# plot arrows of unity root direction for each direction
+x = np.linspace(0,1,4)
+y = np.linspace(0,1,8)
+print(x,y)
+fig, ax = plt.subplots() # note we must use plt.subplots, not plt.subplot
+for i in range(5):
+    for j in range(8):
+        plt.circle()
+        circle = plt.Circle((x[i], y[j]), electrode_layout[i,j], color='k')
+        ax.add_artist(circle)
 
-    timesteps = 100
-    states = np.zeros((6, timesteps))
-    state = np.zeros((6, 1))
-    controls = np.zeros((32, timesteps))
-    controls[7, :] = np.hstack(
-        [np.ones(timesteps // 4) * .1,
-         np.zeros(3 * timesteps // 4)])
+plt.savefig(fig, 'plotcircles.png')
+# for channel_idx, direction in zip(electrodes_in_directional_order, directions):
+#     plt.arrow()
 
-    plt.figure()
-    for c in controls:
-        plt.plot(c)
-
-    for i in range(timesteps):
-        states[:, i] = state[:, 0]
-        state = advance_dynamics(dynamics, state, decoder,
-                                 controls[:, i].reshape(-1, 1))
-
-    plt.figure()
-    plt.plot(states[0, :], 'o', label="posx")
-    plt.plot(states[1, :], 'o', label="posy")
-    plt.plot(states[2, :], 'o', label="velx")
-    plt.plot(states[3, :], 'o', label="vely")
-    plt.legend()
-    plt.show()
+utils.write_array_to_disk(dynamics, "dynamics.bin")
+utils.write_array_to_disk(decoder, "decoder.bin")

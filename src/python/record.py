@@ -44,7 +44,7 @@ commands = ["index flexion","middle flexion","ring flexion","pinky flexion", "in
 noise_record = False
 
 if noise_record:
-	folder_name = "andy/fingers/4_12_20/noise_outside_box"
+	folder_name = "andy/fingers/7_12_20/noise_outside_box"
 	filepath = prefix + folder_name + suffix
 	for i in range(1):
 		print("BE STILL")
@@ -52,7 +52,7 @@ if noise_record:
 		# print([num_samples, num_channels, buffer_size])
 		msg = server.handle_request() # blocks to recieve message
 else:
-	folder_name = "andy/fingers/4_12_20/3"
+	folder_name = "andy/fingers/7_12_20/1"
 	filepath = prefix + folder_name + suffix
 	for i in range(8):
 		print(commands[i])
