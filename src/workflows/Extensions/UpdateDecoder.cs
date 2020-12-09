@@ -56,6 +56,9 @@ public class UpdateDecoder
                 // (state_dim,num_channels)*(num_channels,acquisition_buffer_length)
                 // + 
                 // (state_dim,state_dim)*(state_dim,1)
+                // Console.WriteLine(input.Size);
+                // Console.WriteLine(decoder.Size);
+                // Console.WriteLine(dynamics.Size);
                 DotProduct(decoder,input,control);
                 DotProduct(dynamics,state,state);
                 CV.Add(control,state,state);

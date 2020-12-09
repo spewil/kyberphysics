@@ -61,18 +61,23 @@ def generate_dynamics_and_mapping(num_channels=32,
         dynamics[-1, -1] = 0
         dynamics[-2, -2] = 0
 
+
     return dynamics, decoder
 
 
 if __name__ == '__main__':
 
     # roots of unity mapping, no dynamics
-    dynamics, decoder = generate_dynamics_and_mapping()
+    # dynamics, decoder = generate_dynamics_and_mapping()
     # column mapping, no dynamics
     dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
 
-    # print(dynamics)
-    # print(decoder)
+    # dynamics has to be on for position feedback to work
+    # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column", scale_factor=0.9, tau=0.1)
+
+
+    print(dynamics)
+    print(decoder)
 
     #  how the electrodes are spatially arranged
     electrode_layout = np.arange(32).reshape(4, 8)
@@ -113,14 +118,14 @@ if __name__ == '__main__':
     y = np.linspace(0, 1, 4)[::-1]
     x = np.linspace(0, 1, 8)
 
-    fig, ax = plt.subplots()  # note we must use plt.subplots, not plt.subplot
-    plt.axis("off")
-    ax.set_ylim([-0.1, 1.1])
-    ax.set_xlim([-0.1, 1.1])
-    for i in range(4):
-        for j in range(8):
-            plt.arrow(x[j], y[i], weightsx[i, j] * 0.1, weightsy[i, j] * 0.1)
-    plt.show()
+    # fig, ax = plt.subplots()  # note we must use plt.subplots, not plt.subplot
+    # plt.axis("off")
+    # ax.set_ylim([-0.1, 1.1])
+    # ax.set_xlim([-0.1, 1.1])
+    # for i in range(4):
+    #     for j in range(8):
+    #         plt.arrow(x[j], y[i], weightsx[i, j] * 0.1, weightsy[i, j] * 0.1)
+    # plt.show()
 
-    # utils.write_array_to_disk(dynamics, "dynamics.bin")
-    # utils.write_array_to_disk(decoder, "decoder.bin")
+    utils.write_array_to_disk(dynamics, "dynamics.bin")
+    utils.write_array_to_disk(decoder, "decoder.bin")
