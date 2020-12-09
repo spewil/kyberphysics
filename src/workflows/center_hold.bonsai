@@ -8,7 +8,6 @@
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:p2="clr-namespace:Bonsai.Physics;assembly=Bonsai.Physics"
                  xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
-                 xmlns:p3="clr-namespace:;assembly=Extensions"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns="https://bonsai-rx.org/2018/workflow">
@@ -40,8 +39,8 @@
           <gl:CursorVisible>true</gl:CursorVisible>
           <gl:Location xsi:nil="true" />
           <gl:WindowBorder>Resizable</gl:WindowBorder>
-          <gl:WindowState>Normal</gl:WindowState>
-          <gl:DisplayDevice>Primary</gl:DisplayDevice>
+          <gl:WindowState>Fullscreen</gl:WindowState>
+          <gl:DisplayDevice>Second</gl:DisplayDevice>
           <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
@@ -172,97 +171,8 @@
             <Expression xsi:type="SubscribeSubject">
               <Name>Draw</Name>
             </Expression>
-            <Expression xsi:type="GroupWorkflow">
-              <Name>DecodeEMG</Name>
-              <Workflow>
-                <Nodes>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="BufferSize" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p3:EmgAcquisition">
-                      <p3:BufferSize>10</p3:BufferSize>
-                      <p3:NumChannels>32</p3:NumChannels>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="PublishSubject">
-                    <Name>Signal</Name>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="dsp:Submatrix">
-                      <dsp:StartRow>0</dsp:StartRow>
-                      <dsp:EndRow>32</dsp:EndRow>
-                      <dsp:StartCol>0</dsp:StartCol>
-                      <dsp:EndCol xsi:nil="true" />
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="dsp:ConvertScale">
-                      <dsp:Depth>F32</dsp:Depth>
-                      <dsp:Scale>1</dsp:Scale>
-                      <dsp:Shift>0</dsp:Shift>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p3:UpdateDecoder">
-                      <p3:BufferSize>10</p3:BufferSize>
-                      <p3:DecoderFileName>C:\Users\spencer\Documents\kyberphysics\src\python\decoder.bin</p3:DecoderFileName>
-                      <p3:DynamicsFileName>C:\Users\spencer\Documents\kyberphysics\src\python\dynamics.bin</p3:DynamicsFileName>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="dsp:Submatrix">
-                      <dsp:StartRow>0</dsp:StartRow>
-                      <dsp:EndRow>2</dsp:EndRow>
-                      <dsp:StartCol>0</dsp:StartCol>
-                      <dsp:EndCol>10</dsp:EndCol>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="dsp:Abs" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="dsp:Buffer">
-                      <dsp:Count>100</dsp:Count>
-                      <dsp:Skip>1</dsp:Skip>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="dsp:Reduce">
-                      <dsp:Axis>1</dsp:Axis>
-                      <dsp:Operation>Avg</dsp:Operation>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="dsp:Rescale">
-                      <dsp:Min>-1000000</dsp:Min>
-                      <dsp:Max>1000000</dsp:Max>
-                      <dsp:RangeMin>-1</dsp:RangeMin>
-                      <dsp:RangeMax>1</dsp:RangeMax>
-                      <dsp:RescaleType>Linear</dsp:RescaleType>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p3:ConvertToVector2" />
-                  </Expression>
-                  <Expression xsi:type="WorkflowOutput" />
-                </Nodes>
-                <Edges>
-                  <Edge From="0" To="1" Label="Source1" />
-                  <Edge From="0" To="5" Label="Source2" />
-                  <Edge From="1" To="2" Label="Source1" />
-                  <Edge From="2" To="3" Label="Source1" />
-                  <Edge From="3" To="4" Label="Source1" />
-                  <Edge From="4" To="5" Label="Source1" />
-                  <Edge From="5" To="6" Label="Source1" />
-                  <Edge From="6" To="7" Label="Source1" />
-                  <Edge From="7" To="8" Label="Source1" />
-                  <Edge From="8" To="9" Label="Source1" />
-                  <Edge From="9" To="10" Label="Source1" />
-                  <Edge From="10" To="11" Label="Source1" />
-                  <Edge From="11" To="12" Label="Source1" />
-                </Edges>
-              </Workflow>
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\DecodeEMG.bonsai">
+              <BufferSize>10</BufferSize>
             </Expression>
             <Expression xsi:type="GroupWorkflow">
               <Name>UpdateCursor</Name>
@@ -282,8 +192,8 @@
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="gl:CreateVector3">
-                      <gl:X>0</gl:X>
-                      <gl:Y>0</gl:Y>
+                      <gl:X>0.221203119</gl:X>
+                      <gl:Y>0.2479069</gl:Y>
                       <gl:Z>0</gl:Z>
                     </Combinator>
                   </Expression>
@@ -299,8 +209,8 @@
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="p2:SetTransform">
                       <p2:Position>
-                        <p2:X>0</p2:X>
-                        <p2:Y>0</p2:Y>
+                        <p2:X>0.22120311856269836</p2:X>
+                        <p2:Y>0.247906893491745</p2:Y>
                         <p2:Z>0</p2:Z>
                       </p2:Position>
                       <p2:Orientation xsi:nil="true" />
@@ -337,8 +247,8 @@ Position.Y as LocationY,
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-              <LocationX>0</LocationX>
-              <LocationY>0</LocationY>
+              <LocationX>0.221203119</LocationX>
+              <LocationY>0.2479069</LocationY>
               <Layer>0</Layer>
               <Diameter>0.1</Diameter>
               <ColorR>0.8</ColorR>
@@ -720,8 +630,8 @@ Position.Y as LocationY,
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>-0.5</gl:X>
-                                  <gl:Y>0</gl:Y>
+                                  <gl:X>0.2</gl:X>
+                                  <gl:Y>0.98</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -737,8 +647,8 @@ Position.Y as LocationY,
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:SetTransform">
                                   <p2:Position>
-                                    <p2:X>-0.5</p2:X>
-                                    <p2:Y>0</p2:Y>
+                                    <p2:X>0.20000000298023224</p2:X>
+                                    <p2:Y>0.98000001907348633</p2:Y>
                                     <p2:Z>0</p2:Z>
                                   </p2:Position>
                                   <p2:Orientation xsi:nil="true" />
@@ -772,8 +682,8 @@ Position.Y as LocationY,
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>-0.5</LocationX>
-                          <LocationY>0</LocationY>
+                          <LocationX>0.2</LocationX>
+                          <LocationY>0.98</LocationY>
                           <Layer>0</Layer>
                           <Diameter>0.2</Diameter>
                           <ColorR>0</ColorR>
@@ -959,7 +869,7 @@ new(Item2.Item1 as Outcome, single(Item1.Item2) as HoldTime, single(Item2.Item2)
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path>../../data/reaching/test/emg__direction_6_trial_1.bin</dsp:Path>
+                      <dsp:Path>../../data/andy//center_hold/emg__direction_1_trial_31.bin</dsp:Path>
                       <dsp:Suffix>Timestamp</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -1048,7 +958,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="io:CsvWriter">
-                                <io:FileName>../../data/reaching/test/emg__direction_6_trial_1.csv</io:FileName>
+                                <io:FileName>../../data/andy//center_hold/emg__direction_1_trial_31.csv</io:FileName>
                                 <io:Delimiter>,</io:Delimiter>
                                 <io:Append>false</io:Append>
                                 <io:Overwrite>false</io:Overwrite>
@@ -1128,7 +1038,7 @@ Item1 as Value)</scr:Expression>
               <osc:Address>/end</osc:Address>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>../../data/reaching/test/_behavior.csv</io:FileName>
+              <io:FileName>../../data/andy//center_hold/_behavior.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>

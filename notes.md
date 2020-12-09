@@ -10,9 +10,6 @@
 
 - fix filenames / messages for center hold task
 
-
-- andy 7/12/20 -- fix data folders into 2 and 3 
-
 --- 
 
 bonsai notes

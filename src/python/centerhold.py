@@ -28,8 +28,8 @@ dispatcher = dispatcher.Dispatcher()
 dispatcher.set_default_handler(default_handler)
 
 
-folder = "../../data/reaching"
-base_filename = folder + "/test/"
+folder = "../../data/andy/"
+base_filename = folder + "/center_hold_circular_1/"
 metadata_filename = base_filename + "_behavior"
 num_channels = 32
 random_channels = np.random.choice(range(num_channels), size=num_channels, replace=False)
@@ -52,7 +52,7 @@ with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
         # Item4 as TimeoutTime
         # Item5 as HoldingTime
         # Item6 as ReachTime
-        data_filename = base_filename + "emg__direction_" + str(target_channel) + "_trial_" + str(i)
+        data_filename = base_filename + "emg__direction_" + str(target_channel) + "_trial_" + str(i) + "__"
         client.send_message("/start", [data_filename, float(x[target_channel]), float(y[target_channel]) , 0.1, 5000, 500, 5000])
         server.handle_request()
         time.sleep(ITI)

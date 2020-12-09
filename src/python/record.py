@@ -52,7 +52,7 @@ if noise_record:
 		# print([num_samples, num_channels, buffer_size])
 		msg = server.handle_request() # blocks to recieve message
 else:
-	folder_name = "andy/fingers/9_12_20/1"
+	folder_name = "andy/fingers/9_12_20/3"
 	filepath = prefix + folder_name + suffix
 	for i in range(8):
 		print(commands[i])

@@ -68,9 +68,9 @@ def generate_dynamics_and_mapping(num_channels=32,
 if __name__ == '__main__':
 
     # roots of unity mapping, no dynamics
-    # dynamics, decoder = generate_dynamics_and_mapping()
+    dynamics, decoder = generate_dynamics_and_mapping()
     # column mapping, no dynamics
-    dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
+    # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
 
     # dynamics has to be on for position feedback to work
     # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column", scale_factor=0.9, tau=0.1)

@@ -45,7 +45,7 @@ with osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher) as server:
 
     # we are acquiring data from the device
     # send the metadata
-    client.send_message("/metadata", [numchannels, "../../data/calibration/andy", buffers_per_trial])
+    client.send_message("/metadata", [numchannels, "../../data/andy/dot_calibration", buffers_per_trial])
     # get an "initialized" response
     msg = server.handle_request()
     print(msg)
