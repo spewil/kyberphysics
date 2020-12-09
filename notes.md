@@ -20,3 +20,11 @@ if count > incoming
 - delete and replace in other workflows
 
 - externalized property + workflow output = outer level properties
+
+
+--- 
+
+data notes
+
+calibration
+- makes one csv and one bin file
