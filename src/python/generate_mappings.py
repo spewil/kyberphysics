@@ -7,7 +7,7 @@ if sys.platform == "darwin":
 else:
     print("on windows")
 import matplotlib.pyplot as plt
-import utils
+from utils import files, utils
 
 
 def generate_dynamics_and_mapping(num_channels=32,
@@ -30,11 +30,11 @@ def generate_dynamics_and_mapping(num_channels=32,
         # tile directions down the arm / rows -- into electrode configuration
         roots_xt = np.tile(roots_x, (num_channels // num_directions, 1))
         roots_yt = np.tile(roots_y, (num_channels // num_directions, 1))
-        print(roots_xt)
+        # print(roots_xt)
         roots_x_unrolled = np.hstack(roots_xt)
         roots_y_unrolled = np.hstack(roots_yt)
         roots = np.stack([roots_x_unrolled, roots_y_unrolled])
-        print(roots)
+        # print(roots)
         decoder[-2:, :] = roots
 
     elif mapping_type == "circle":
@@ -61,7 +61,6 @@ def generate_dynamics_and_mapping(num_channels=32,
         dynamics[-1, -1] = 0
         dynamics[-2, -2] = 0
 
-
     return dynamics, decoder
 
 
@@ -70,20 +69,20 @@ if __name__ == '__main__':
     # roots of unity mapping, no dynamics
     dynamics, decoder = generate_dynamics_and_mapping()
     # column mapping, no dynamics
-    # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
+    dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
 
     # dynamics has to be on for position feedback to work
     # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column", scale_factor=0.9, tau=0.1)
 
-
-    print(dynamics)
-    print(decoder)
+    # print(dynamics)
+    print(decoder.shape)
+    print(decoder[-2:, :].T)
 
     #  how the electrodes are spatially arranged
-    electrode_layout = np.arange(32).reshape(4, 8)
-    print(electrode_layout)
+    # electrode_layout = np.arange(32).reshape(4, 8)
+    # print(electrode_layout)
     # how to invert this
-    print(np.hstack(electrode_layout))
+    # print(np.hstack(electrode_layout))
     # #                 ELBOW
     # #  FIXED                             FREE
     # #
@@ -97,10 +96,10 @@ if __name__ == '__main__':
     # we want to "unroll" them into numerical order
 
     # how we want the order of directions to go
-    circle_order = np.arange(32).reshape(8, 4).T
-    print(circle_order)
+    # circle_order = np.arange(32).reshape(8, 4).T
+    # print(circle_order)
     # do the same inversion
-    print(np.hstack(circle_order))
+    # print(np.hstack(circle_order))
 
     # fig, ax = plt.subplots()  # note we must use plt.subplots, not plt.subplot
     # plt.axis("off")
@@ -127,5 +126,5 @@ if __name__ == '__main__':
     #         plt.arrow(x[j], y[i], weightsx[i, j] * 0.1, weightsy[i, j] * 0.1)
     # plt.show()
 
-    utils.write_array_to_disk(dynamics, "dynamics.bin")
-    utils.write_array_to_disk(decoder, "decoder.bin")
+    # files.write_array_to_disk(dynamics, "dynamics.bin")
+    # files.write_array_to_disk(decoder, "decoder.bin")
