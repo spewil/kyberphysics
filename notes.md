@@ -1,3 +1,15 @@
+# 3/6/21
+
+starting recordings again:
+
+- enter subject details
+- finger calibration
+- pick up filenames for calibration
+- compute NMF features
+- visually inspect features
+- store weights as decoder 64x4 (up.down,left,right)
+ 
+
 ## TODO
 
 - finish FakeEMG for testing 
