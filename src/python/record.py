@@ -54,9 +54,9 @@ if noise_record:
 else:
 	folder_name = "andy/fingers/9_12_20/3"
 	filepath = prefix + folder_name + suffix
-	for i in range(8):
-		print(commands[i])
-		client.send_message("/recording_params", [num_samples, num_channels, buffer_size, filepath])
+	for command in commands:
+		print(command)
+		client.send_message("/recording_params", [num_samples, num_channels, buffer_size, filepath, command])
 		# print([num_samples, num_channels, buffer_size])
 		msg = server.handle_request() # blocks to recieve message
 client.send_message("/stop", 1)
