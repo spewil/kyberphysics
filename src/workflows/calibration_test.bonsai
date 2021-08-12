@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.6.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
+                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
+                 xmlns:num="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
+                 xmlns:p1="clr-namespace:Bonsai.Numerics.Distributions;assembly=Bonsai.Numerics"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:CreateWindow">
+          <gl:Width>640</gl:Width>
+          <gl:Height>480</gl:Height>
+          <gl:VSync>On</gl:VSync>
+          <gl:SwapSync>false</gl:SwapSync>
+          <gl:ClearColor>Black</gl:ClearColor>
+          <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
+          <gl:CursorVisible>true</gl:CursorVisible>
+          <gl:Location xsi:nil="true" />
+          <gl:WindowBorder>Resizable</gl:WindowBorder>
+          <gl:WindowState>Normal</gl:WindowState>
+          <gl:DisplayDevice>Primary</gl:DisplayDevice>
+          <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
+          <gl:TargetUpdateFrequency xsi:nil="true" />
+          <gl:RenderState />
+          <gl:GraphicsMode>
+            <gl:ColorFormat>
+              <gl:Red>8</gl:Red>
+              <gl:Green>8</gl:Green>
+              <gl:Blue>8</gl:Blue>
+              <gl:Alpha>8</gl:Alpha>
+            </gl:ColorFormat>
+            <gl:Depth>16</gl:Depth>
+            <gl:Stencil>0</gl:Stencil>
+            <gl:Samples>0</gl:Samples>
+            <gl:AccumulatorFormat>
+              <gl:Red>0</gl:Red>
+              <gl:Green>0</gl:Green>
+              <gl:Blue>0</gl:Blue>
+              <gl:Alpha>0</gl:Alpha>
+            </gl:AccumulatorFormat>
+            <gl:Buffers>2</gl:Buffers>
+            <gl:Stereo>false</gl:Stereo>
+          </gl:GraphicsMode>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.BonVisionResources.bonsai" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="res:LoadResources" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:RenderFrame" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.NormalizedView.bonsai" />
+      <Expression xsi:type="PublishSubject">
+        <Name>Draw</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Draw</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="num:CreateRandom">
+          <num:Seed xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:CreateContinuousUniform">
+          <p1:Lower>0</p1:Lower>
+          <p1:Upper>1</p1:Upper>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:WithLatestFrom" />
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Item2</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:SampleArray">
+          <p1:Count>64</p1:Count>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:ConvertFromArray">
+          <dsp:Size>
+            <dsp:Width>1</dsp:Width>
+            <dsp:Height>64</dsp:Height>
+          </dsp:Size>
+          <dsp:Depth xsi:nil="true" />
+          <dsp:Channels xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PublishSubject">
+        <Name>BarData</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.ParameterRange.bonsai">
+        <RangeMin>-1</RangeMin>
+        <RangeMax>1</RangeMax>
+        <Count>64</Count>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:ElementIndex" />
+      </Expression>
+      <Expression xsi:type="SelectMany">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="AsyncSubject">
+              <Name>BarParams</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Draw</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>BarData</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>BarParams</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Index</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:CombineLatest" />
+            </Expression>
+            <Expression xsi:type="Index" />
+            <Expression xsi:type="MemberSelector">
+              <Selector>Val0</Selector>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>BarParams</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>TargetChannel</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:CombineLatest" />
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>new(
+Item2.value as LocX,
+0.01 as ExtX,
+Item1/2-0.8 as LocY,
+Item1 as ExtY,
+Item2.index == Item3?0:1 as IsColor)</scr:Expression>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:WithLatestFrom" />
+            </Expression>
+            <Expression xsi:type="InputMapping">
+              <PropertyMappings>
+                <Property Name="ExtentX" Selector="Item2.ExtX" />
+                <Property Name="ExtentY" Selector="Item2.ExtY" />
+                <Property Name="LocationX" Selector="Item2.LocX" />
+                <Property Name="LocationY" Selector="Item2.LocY" />
+                <Property Name="ColorG" Selector="Item2.IsColor" />
+                <Property Name="ColorB" Selector="Item2.IsColor" />
+              </PropertyMappings>
+              <Selector>Item1</Selector>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
+              <ExtentX>0.01</ExtentX>
+              <ExtentY>0.614911735</ExtentY>
+              <LocationX>1</LocationX>
+              <LocationY>-0.492544144</LocationY>
+              <Layer>0</Layer>
+              <Angle>0</Angle>
+              <ColorR>1</ColorR>
+              <ColorG>0</ColorG>
+              <ColorB>0</ColorB>
+              <ColorA>1</ColorA>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="2" To="13" Label="Source1" />
+            <Edge From="3" To="6" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source2" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="11" Label="Source1" />
+            <Edge From="9" To="11" Label="Source2" />
+            <Edge From="10" To="11" Label="Source3" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="12" To="13" Label="Source2" />
+            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="IntProperty">
+          <Value>63</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="BehaviorSubject">
+        <Name>TargetChannel</Name>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="6" To="9" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="8" To="9" Label="Source2" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
