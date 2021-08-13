@@ -1,4 +1,5 @@
 import argparse
+from os import replace
 import random
 import time
 from pythonosc import udp_client
@@ -8,6 +9,7 @@ import asyncio
 import sys
 import json
 from pathlib import Path
+import numpy as np
 
 def print_volume_handler(unused_addr, args, volume):
   print("[{0}] ~ {1}".format(args[0], volume))
@@ -42,7 +44,7 @@ experiment_data_folder = base_data_folder / experiment
 # assert experiment_data_folder.exists(), print(f"path {experiment_data_folder} not found" )
 subject_data_folder = experiment_data_folder / subject
 # assert subject_data_folder.exists(), print(f"path {subject_data_folder} not found" )
-record_path = subject_data_folder / "session_1"
+record_path = subject_data_folder / "session_2"
 
 print(subject_folder)
 print(subject_data_folder)
@@ -53,12 +55,9 @@ with open(experiment_folder / "experiment.json", 'r') as fp:
 with open(subject_folder / "metadata.json", 'r') as fp:
 	subject_metadata = json.load(fp)
 
-command_filepath = experiment_metadata["command_file"]
-command_file = open(experiment_folder / command_filepath, 'r')
-commands = [command.strip("\n") for command in command_file.readlines()]
-print(command_filepath)
-
 num_channels = experiment_metadata.get("num_channels", 64)
+commands = np.random.choice(np.arange(num_channels), num_channels, replace=False) # [command.strip("\n") for command in command_file.readlines()]
+
 sampling_freq = experiment_metadata.get("sampling_freq", 2000)
 # show the commmand for x seconds
 seconds_per_command = experiment_metadata.get("seconds_per_command",2)
@@ -66,7 +65,7 @@ seconds_per_command = experiment_metadata.get("seconds_per_command",2)
 # show command + cue for y seconds
 seconds_per_cue = experiment_metadata.get("seconds_per_cue", 5)
 num_repetitions = experiment_metadata.get("num_repetitions", 5)
-ITI = experiment_metadata.get("ITI", 1)
+ITI = experiment_metadata.get("ITI", 3)
 
 print(seconds_per_command)
 print(seconds_per_cue)
@@ -75,7 +74,6 @@ print(num_repetitions)
 # num_samples = sampling_freq*seconds_per_command
 # must be a multiple of buffer size for sample precision timing
 samples_per_command = sampling_freq*seconds_per_command
-samples_per_cue = sampling_freq*seconds_per_cue
 
 buffer_size = experiment_metadata.get("buffer_size", 10)
 
@@ -88,13 +86,14 @@ client.send_message("/recording_params", recording_params)
 msg = server.handle_request() # blocks to recieve message
 # separate task and acquisition specific stuff
 
-
+print(commands)
 input("Enter to begin recording session.")
-for command in commands:	
-	task_params = [samples_per_command, samples_per_cue, num_repetitions, command]
-	client.send_message("/task_params", task_params)
-	msg = server.handle_request() # blocks to recieve message
-	time.sleep(ITI)
+for command in commands:
+    task_params = [samples_per_command, int(command)]
+    client.send_message("/task_params", task_params)
+    msg = server.handle_request() # blocks to recieve message
+    print("SLEEP")
+    time.sleep(ITI)
 client.send_message("/stop", 1)
 
-command_file.close() 
+# command_file.close() 
