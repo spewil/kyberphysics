@@ -83,7 +83,8 @@ buffer_size = experiment_metadata.get("buffer_size", 10)
 # show command + cue for samples_per_cue
 # show blank for samples_per_ITI
 
-recording_params = [num_channels, buffer_size, str(record_path)]
+recording_params = [num_channels, buffer_size, sampling_freq, str(record_path)]
+
 client.send_message("/recording_params", recording_params)
 msg = server.handle_request() # blocks to recieve message
 # separate task and acquisition specific stuff

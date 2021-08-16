@@ -10,19 +10,21 @@
     <Nodes>
       <Expression xsi:type="osc:ReceiveMessage">
         <osc:Address>/recording_params</osc:Address>
-        <osc:TypeTag>iis</osc:TypeTag>
+        <osc:TypeTag>iiis</osc:TypeTag>
         <osc:Connection>CommandServer</osc:Connection>
       </Expression>
       <Expression xsi:type="scr:ExpressionTransform">
         <scr:Expression>new(
 Item1 as NumChannels,
 Item2 as BufferSize,
-Item3 as RecordPath)</scr:Expression>
+Item3 as SamplingFreq,
+Item4 as RecordPath)</scr:Expression>
       </Expression>
       <Expression xsi:type="BehaviorSubject">
         <Name>RecordingParams</Name>
       </Expression>
       <Expression xsi:type="SelectMany">
+        <Name>EMG</Name>
         <Workflow>
           <Nodes>
             <Expression xsi:type="SubscribeSubject">
