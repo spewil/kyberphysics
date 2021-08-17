@@ -71,7 +71,7 @@ ITI = experiment_metadata.get("ITI", 1)
 samples_per_command = sampling_freq*seconds_per_command
 
 buffer_size = experiment_metadata.get("buffer_size", 10)
-
+buffer_size = 20
 # show command for samples_per_command
 # show command + cue for samples_per_cue
 # show blank for samples_per_ITI
