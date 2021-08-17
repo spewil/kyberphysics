@@ -64,7 +64,7 @@ seconds_per_command = experiment_metadata.get("seconds_per_command",2)
 # data_extension = experiment_metadata.get("data_extension", ".bin")
 # show command + cue for y seconds
 num_repetitions = experiment_metadata.get("num_repetitions", 5)
-ITI = experiment_metadata.get("ITI", 3)
+ITI = experiment_metadata.get("ITI", 1)
 
 # num_samples = sampling_freq*seconds_per_command
 # must be a multiple of buffer size for sample precision timing
@@ -77,6 +77,7 @@ buffer_size = experiment_metadata.get("buffer_size", 10)
 # show blank for samples_per_ITI
 
 recording_params = [num_channels, buffer_size, sampling_freq, str(record_path)]
+
 client.send_message("/recording_params", recording_params)
 msg = server.handle_request() # blocks to recieve message
 input("Enter to begin recording session.")

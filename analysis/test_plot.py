@@ -9,21 +9,25 @@ suffix = ".bin"
 
 # filename = "calibration2020-11-19T19_19_07"
 
-filename = "59_2021_08_16_16_09"
-fname = prefix+filename+suffix
+for filename in os.listdir(prefix):
+# filename = "57_2021_08_17_12_56"
+	fname = prefix+filename
+	print(fname)
+	data = np.fromfile(fname,dtype=np.int32)
+	if "_V_" in fname:
+		numchannels = 64
+	else:
+		numchannels = 68
+	data = data.reshape(-1,numchannels).T
+	print(data.shape)
 
-data = np.fromfile(fname,dtype=np.int32)
-numchannels = 64
-data = data.reshape(-1,numchannels+4).T
-print(data.shape)
+# filename = "57_V_2021_08_17_12_56"
+# fname = prefix+filename+suffix
 
-filename = "59_V_2021_08_16_16_09"
-fname = prefix+filename+suffix
-
-data = np.fromfile(fname,dtype=np.float32)
-numchannels = 64
-data = data.reshape(-1,numchannels).T
-print(data.shape)
+# data = np.fromfile(fname,dtype=np.float32)
+# numchannels = 64
+# data = data.reshape(-1,numchannels).T
+# print(data.shape)
 
 
 # fig, ax = plt.subplots(1,1,figsize=(10,10))
