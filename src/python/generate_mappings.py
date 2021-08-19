@@ -1,13 +1,15 @@
 import numpy as np
 import matplotlib
 import sys
+
+from numpy.core.numeric import identity
 if sys.platform == "darwin":
     matplotlib.use("Qt4Agg")
     print("on mac")
 else:
     print("on windows")
 import matplotlib.pyplot as plt
-from utils import files, utils
+import utils
 
 
 def generate_dynamics_and_mapping(num_channels=32,
@@ -48,6 +50,10 @@ def generate_dynamics_and_mapping(num_channels=32,
         roots = np.stack([roots_x_arranged, roots_y_arranged])
         decoder[-2:, :] = roots
 
+    elif mapping_type == "identity":
+        decoder[-2,0] = 1
+        decoder[-1,1] = 1
+
     if passive_dynamics_off:
         dynamics = np.zeros((6, 6), dtype=np.float32)
 
@@ -61,22 +67,28 @@ def generate_dynamics_and_mapping(num_channels=32,
         dynamics[-1, -1] = 0
         dynamics[-2, -2] = 0
 
+    if kwargs["save"] == True:
+        utils.write_array_to_disk(dynamics, kwargs["dynamics_filename"])
+        utils.write_array_to_disk(decoder, kwargs["decoder_filename"])
+
     return dynamics, decoder
 
 
 if __name__ == '__main__':
 
     # roots of unity mapping, no dynamics
-    dynamics, decoder = generate_dynamics_and_mapping()
+    dynamics, decoder = generate_dynamics_and_mapping(num_channels=64, mapping_type="identity", save=True, dynamics_filename="dynamics.bin",decoder_filename="decoder.bin")
     # column mapping, no dynamics
-    dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
+    # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
 
     # dynamics has to be on for position feedback to work
     # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column", scale_factor=0.9, tau=0.1)
 
-    # print(dynamics)
+    print(dynamics)
+    print(decoder)
+    
     print(decoder.shape)
-    print(decoder[-2:, :].T)
+    print(dynamics.shape)
 
     #  how the electrodes are spatially arranged
     # electrode_layout = np.arange(32).reshape(4, 8)
@@ -111,11 +123,11 @@ if __name__ == '__main__':
     # plt.axis("square")
     # plt.axis("off")
 
-    weightsx = decoder[-2, :].reshape(4, 8)
-    weightsy = decoder[-1, :].reshape(4, 8)
+    # weightsx = decoder[-2, :].reshape(4, 8)
+    # weightsy = decoder[-1, :].reshape(4, 8)
 
-    y = np.linspace(0, 1, 4)[::-1]
-    x = np.linspace(0, 1, 8)
+    # y = np.linspace(0, 1, 4)[::-1]
+    # x = np.linspace(0, 1, 8)
 
     # fig, ax = plt.subplots()  # note we must use plt.subplots, not plt.subplot
     # plt.axis("off")
@@ -125,6 +137,3 @@ if __name__ == '__main__':
     #     for j in range(8):
     #         plt.arrow(x[j], y[i], weightsx[i, j] * 0.1, weightsy[i, j] * 0.1)
     # plt.show()
-
-    # files.write_array_to_disk(dynamics, "dynamics.bin")
-    # files.write_array_to_disk(decoder, "decoder.bin")
