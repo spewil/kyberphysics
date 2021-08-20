@@ -7,6 +7,8 @@
                  xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
+                 xmlns:num="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
+                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -34,13 +36,10 @@
             <Expression xsi:type="SubscribeSubject">
               <Name>FilteredEMG</Name>
             </Expression>
-            <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Scale" DisplayName="EMGtoBarScale" />
-            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:ConvertScale">
                 <dsp:Depth xsi:nil="true" />
-                <dsp:Scale>0.001</dsp:Scale>
+                <dsp:Scale>0.0001</dsp:Scale>
                 <dsp:Shift>0</dsp:Shift>
               </Combinator>
             </Expression>
@@ -53,11 +52,10 @@
             <Expression xsi:type="WorkflowOutput" />
           </Nodes>
           <Edges>
-            <Edge From="0" To="2" Label="Source1" />
-            <Edge From="1" To="2" Label="Source2" />
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
             <Edge From="2" To="3" Label="Source1" />
             <Edge From="3" To="4" Label="Source1" />
-            <Edge From="4" To="5" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -72,8 +70,8 @@
           <gl:CursorVisible>true</gl:CursorVisible>
           <gl:Location xsi:nil="true" />
           <gl:WindowBorder>Resizable</gl:WindowBorder>
-          <gl:WindowState>Normal</gl:WindowState>
-          <gl:DisplayDevice>Primary</gl:DisplayDevice>
+          <gl:WindowState>Fullscreen</gl:WindowState>
+          <gl:DisplayDevice>Second</gl:DisplayDevice>
           <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
@@ -208,7 +206,7 @@ Timestamp as Timestamp
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path>C:/Users/spencer/data/experiment_1/spencer_wilson/session_2/49_2021_08_17_15_50.bin</dsp:Path>
+                      <dsp:Path>C:/Users/spencer/data/experiment_1/spencer_wilson/session_2/9_2021_08_20_14_01.bin</dsp:Path>
                       <dsp:Suffix>None</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -265,6 +263,74 @@ Timestamp as Timestamp
               <RangeMin>-1</RangeMin>
               <RangeMax>1</RangeMax>
               <Count>64</Count>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RecordingParams</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>RecordPath</Selector>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>TaskParams</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>TargetChannel</Selector>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>TaskParams</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Timestamp</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}/{1}_V_{2:yyyy_MM_dd_H_mm}.bin</Format>
+              <Selector>Item1,Item2,Item3</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="Path" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>TaskParams</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>SamplesPerCommand</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="Count" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
+              <Count>6000</Count>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>BarHeightRendered</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:SubscribeWhen" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>23</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="Seed" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="num:CreateRandom">
+                <num:Seed>23</num:Seed>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="num:Permutation" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:ElementIndex" />
@@ -334,9 +400,9 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
                     <ExtentX>0.01</ExtentX>
-                    <ExtentY>0.00784764253</ExtentY>
+                    <ExtentY>0.412761182</ExtentY>
                     <LocationX>1</LocationX>
-                    <LocationY>-0.7960762</LocationY>
+                    <LocationY>-0.5936194</LocationY>
                     <Layer>0</Layer>
                     <Angle>0</Angle>
                     <ColorR>1</ColorR>
@@ -370,6 +436,12 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
                 </Edges>
               </Workflow>
             </Expression>
+            <Expression xsi:type="io:CsvWriter">
+              <io:Append>false</io:Append>
+              <io:Overwrite>false</io:Overwrite>
+              <io:Suffix>None</io:Suffix>
+              <io:IncludeHeader>false</io:IncludeHeader>
+            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:Buffer">
                 <dsp:Count>64</dsp:Count>
@@ -384,39 +456,9 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:Transpose" />
             </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>RecordingParams</Name>
-            </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>RecordPath</Selector>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>TaskParams</Name>
-            </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>TargetChannel</Selector>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>TaskParams</Name>
-            </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>Timestamp</Selector>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="Format">
-              <Format>{0}/{1}_V_{2:yyyy_MM_dd_H_mm}.bin</Format>
-              <Selector>Item1,Item2,Item3</Selector>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Path" />
-              </PropertyMappings>
-            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/experiment_1/spencer_wilson/session_2/49_V_2021_08_17_15_50.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/experiment_1/spencer_wilson/session_2/9_V_2021_08_20_14_01.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -424,26 +466,6 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             </Expression>
             <Expression xsi:type="PublishSubject">
               <Name>BarHeightRendered</Name>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>TaskParams</Name>
-            </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>SamplesPerCommand</Selector>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Count" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-              <Count>6000</Count>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>BarHeightRendered</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:SubscribeWhen" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:TakeUntil" />
@@ -456,30 +478,35 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             <Edge From="4" To="5" Label="Source1" />
             <Edge From="5" To="6" Label="Source1" />
             <Edge From="6" To="7" Label="Source1" />
-            <Edge From="6" To="10" Label="Source2" />
-            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="6" To="30" Label="Source2" />
+            <Edge From="7" To="26" Label="Source1" />
             <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="9" To="14" Label="Source1" />
             <Edge From="10" To="11" Label="Source1" />
-            <Edge From="11" To="12" Label="Source1" />
-            <Edge From="12" To="22" Label="Source1" />
-            <Edge From="13" To="14" Label="Source1" />
-            <Edge From="14" To="19" Label="Source1" />
+            <Edge From="11" To="14" Label="Source2" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="14" Label="Source3" />
+            <Edge From="14" To="15" Label="Source1" />
             <Edge From="15" To="16" Label="Source1" />
-            <Edge From="16" To="19" Label="Source2" />
+            <Edge From="16" To="33" Label="Source2" />
             <Edge From="17" To="18" Label="Source1" />
-            <Edge From="18" To="19" Label="Source3" />
+            <Edge From="18" To="19" Label="Source1" />
             <Edge From="19" To="20" Label="Source1" />
-            <Edge From="20" To="21" Label="Source1" />
+            <Edge From="20" To="22" Label="Source1" />
             <Edge From="21" To="22" Label="Source2" />
-            <Edge From="22" To="23" Label="Source1" />
-            <Edge From="23" To="30" Label="Source1" />
+            <Edge From="22" To="35" Label="Source2" />
+            <Edge From="23" To="24" Label="Source1" />
             <Edge From="24" To="25" Label="Source1" />
-            <Edge From="25" To="26" Label="Source1" />
+            <Edge From="25" To="26" Label="Source2" />
             <Edge From="26" To="27" Label="Source1" />
-            <Edge From="27" To="29" Label="Source1" />
-            <Edge From="28" To="29" Label="Source2" />
-            <Edge From="29" To="30" Label="Source2" />
+            <Edge From="26" To="29" Label="Source1" />
+            <Edge From="27" To="28" Label="Source1" />
+            <Edge From="28" To="30" Label="Source1" />
+            <Edge From="30" To="31" Label="Source1" />
+            <Edge From="31" To="32" Label="Source1" />
+            <Edge From="32" To="33" Label="Source1" />
+            <Edge From="33" To="34" Label="Source1" />
+            <Edge From="34" To="35" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>

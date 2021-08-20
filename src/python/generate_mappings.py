@@ -51,8 +51,8 @@ def generate_dynamics_and_mapping(num_channels=32,
         decoder[-2:, :] = roots
 
     elif mapping_type == "identity":
-        decoder[-2,0] = 1
-        decoder[-1,1] = 1
+        decoder[-2, 0] = 1
+        decoder[-1, 1] = 1
 
     if passive_dynamics_off:
         dynamics = np.zeros((6, 6), dtype=np.float32)
@@ -76,19 +76,20 @@ def generate_dynamics_and_mapping(num_channels=32,
 
 if __name__ == '__main__':
 
-    # roots of unity mapping, no dynamics
-    dynamics, decoder = generate_dynamics_and_mapping(num_channels=64, mapping_type="identity", save=True, dynamics_filename="dynamics.bin",decoder_filename="decoder.bin")
-    # column mapping, no dynamics
-    # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column")
+    # dynamics, decoder = generate_dynamics_and_mapping(num_channels=64, mapping_type="identity", save=True, dynamics_filename="dynamics.bin",decoder_filename="decoder.bin")
 
-    # dynamics has to be on for position feedback to work
-    # dynamics, decoder = generate_dynamics_and_mapping(mapping_type="column", scale_factor=0.9, tau=0.1)
+    fake_bars = np.hstack(np.arange(64).reshape(64, 1) for _ in range(10))
+    print(fake_bars.shape)
+    utils.write_array_to_disk(
+        fake_bars,
+        "/mnt/c/users/spencer/Dropbox (Personal)/phd/experiments/experiment_1/test_bars.bin"
+    )
 
-    print(dynamics)
-    print(decoder)
-    
-    print(decoder.shape)
-    print(dynamics.shape)
+    # print(dynamics)
+    # print(decoder)
+
+    # print(decoder.shape)
+    # print(dynamics.shape)
 
     #  how the electrodes are spatially arranged
     # electrode_layout = np.arange(32).reshape(4, 8)

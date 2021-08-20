@@ -14,15 +14,17 @@ todo
 	- pick up correct files
 	- dim reduce
 	- test?
+	- 
 
 - 2D task
 	- tinker with circle aesthetics
-	- use filtering module
+	- X use filtering module
 	- fix dynamics of the dot
 	- record raw
 	- record filtered
 	- record dot x,y 
 	- trial structure
+	- decouple trial from session?
 
 - decouple recording params from task params
 - make task params per-trial, send decoder

@@ -27,6 +27,7 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="GroupWorkflow">
+        <Name>Window</Name>
         <Workflow>
           <Nodes>
             <Expression xsi:type="Combinator">
@@ -40,8 +41,8 @@
                 <gl:CursorVisible>true</gl:CursorVisible>
                 <gl:Location xsi:nil="true" />
                 <gl:WindowBorder>Resizable</gl:WindowBorder>
-                <gl:WindowState>Normal</gl:WindowState>
-                <gl:DisplayDevice>Primary</gl:DisplayDevice>
+                <gl:WindowState>Fullscreen</gl:WindowState>
+                <gl:DisplayDevice>Second</gl:DisplayDevice>
                 <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
                 <gl:TargetUpdateFrequency xsi:nil="true" />
                 <gl:RenderState />
