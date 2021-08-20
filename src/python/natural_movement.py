@@ -12,7 +12,8 @@ subject = sys.argv[3]
 # compute record path
 record_path = utils.setup_record_path(experiment, session, subject)
 # grab the metadata
-experiment_metadata, session_metadata, subject_metadata = utils.get_metadata(experiment, session, subject)
+experiment_metadata, session_metadata, subject_metadata = utils.get_metadata(
+    experiment, session, subject)
 
 command_filepath = experiment_metadata["command_file"]
 commands = session_metadata["movements"]

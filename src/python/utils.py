@@ -59,20 +59,17 @@ def setup_osc():
 def get_metadata(experiment, session, subject):
 
     # basic paths
-    base_experiment_folder = Path(
-        "/mnt/c/Users/spencer/Dropbox (Personal)/phd/experiments/")
+    base_metadata_folder = Path("metadata")
 
     # confirm session folders have been made
-    experiment_folder = base_experiment_folder / experiment
+    experiment_folder = base_metadata_folder / experiment
     assert experiment_folder.exists(), print(
         f"Path {experiment_folder} not found")
     subject_folder = experiment_folder / "subjects" / subject
     assert subject_folder.exists(), print(f"Path {subject_folder} not found")
 
-
     print("SUBJECT FOLDER")
     print(subject_folder)
-
 
     with open(experiment_folder / "experiment.json", 'r') as fp:
         experiment_metadata = json.load(fp)
@@ -88,8 +85,10 @@ def get_metadata(experiment, session, subject):
 
 def setup_record_path(experiment, session, subject):
 
-    base_data_folder = Path("C:/Users/spencer/data/")
-
+    if sys.platform is "linux":
+        base_data_folder = Path("/mnt/c/Users/spencer/data/")
+    else:
+        base_data_folder = Path("~/phd_data/")
     experiment_data_folder = base_data_folder / experiment
     assert experiment_data_folder.exists(), print(
         f"Path {experiment_data_folder} not found")
