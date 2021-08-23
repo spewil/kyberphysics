@@ -10,7 +10,7 @@ import sys
 import json
 from pathlib import Path
 import numpy as np
-
+import utils
 
 def print_volume_handler(unused_addr, args, volume):
     print("[{0}] ~ {1}".format(args[0], volume))
@@ -35,37 +35,40 @@ dispatcher.set_default_handler(default_handler)
 client = udp_client.SimpleUDPClient("127.0.0.1", 5005)
 server = osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher)
 
-base_experiment_folder = Path(
-    "/mnt/c/Users/spencer/Dropbox (Personal)/phd/experiments/")
-base_data_folder = Path("C:/Users/spencer/data/")
-data_extension = ".bin"
+# base_experiment_folder = Path(
+#     "/mnt/c/Users/spencer/Documents/kyberphysics/metadata/")
+# base_data_folder = Path("C:/Users/spencer/data/")
+# data_extension = ".bin"
 
 experiment = sys.argv[1]
-subject = sys.argv[2]
+session = sys.argv[2]
+subject = sys.argv[3]
 
-experiment_folder = base_experiment_folder / experiment
-# assert experiment_folder.exists(), print(f"path {experiment_folder} not found" )
-subject_folder = experiment_folder / "subjects" / subject
-# assert subject_folder.exists(), print(f"path {subject_folder} not found" )
-experiment_data_folder = base_data_folder / experiment
-# assert experiment_data_folder.exists(), print(f"path {experiment_data_folder} not found" )
-subject_data_folder = experiment_data_folder / subject
-# assert subject_data_folder.exists(), print(f"path {subject_data_folder} not found" )
-record_path = subject_data_folder / "session_2"
+record_path = utils.setup_record_path(experiment, session, subject)
+experiment_metadata, session_metadata, subject_metadata = utils.get_metadata(experiment, session, subject)
 
-print(subject_folder)
-print(subject_data_folder)
+# experiment_folder = base_experiment_folder / experiment
+# # assert experiment_folder.exists(), print(f"path {experiment_folder} not found" )
+# subject_folder = experiment_folder / subject
+# # assert subject_folder.exists(), print(f"path {subject_folder} not found" )
+# experiment_data_folder = base_data_folder / experiment
+# # assert experiment_data_folder.exists(), print(f"path {experiment_data_folder} not found" )
+# subject_data_folder = experiment_data_folder / subject
+# # assert subject_data_folder.exists(), print(f"path {subject_data_folder} not found" )
+# record_path = subject_data_folder / "calibration_bars"
 
-with open(experiment_folder / "experiment.json", 'r') as fp:
-    experiment_metadata = json.load(fp)
+# print(subject_folder)
+# print(subject_data_folder)
 
-with open(subject_folder / "metadata.json", 'r') as fp:
-    subject_metadata = json.load(fp)
+# with open(experiment_folder / "recording.json", 'r') as fp:
+#     experiment_metadata = json.load(fp)
+
+# with open(subject_folder / "metadata.json", 'r') as fp:
+#     subject_metadata = json.load(fp)
 
 num_channels = experiment_metadata.get("num_channels", 64)
-commands = np.random.choice(
-    np.arange(num_channels), num_channels, replace=False
-)  # [command.strip("\n") for command in command_file.readlines()]
+commands = np.arange(num_channels)
+  # [command.strip("\n") for command in command_file.readlines()]
 
 sampling_freq = experiment_metadata.get("sampling_freq", 2000)
 # show the commmand for x seconds

@@ -1,9 +1,10 @@
 import numpy as np
+from numpy.core.records import record
 from pythonosc import udp_client
 from pythonosc import osc_server
 from pythonosc.dispatcher import Dispatcher
 import json
-from pathlib import Path
+import pathlib
 import sys
 import os
 
@@ -66,7 +67,7 @@ def get_metadata(experiment, session, subject):
 
     # basic paths
 
-    base_metadata_folder = Path(
+    base_metadata_folder = pathlib.Path(
         os.path.dirname(__file__)).parent.parent / "metadata"
 
     # confirm session folders have been made
@@ -93,9 +94,9 @@ def get_metadata(experiment, session, subject):
 def setup_record_path(experiment, session, subject):
 
     if sys.platform == "linux":
-        base_data_folder = Path("/mnt/c/Users/spencer/data/")
+        base_data_folder = pathlib.Path("/mnt/c/Users/spencer/data/")
     else:
-        base_data_folder = Path("/Users/spencerw/phd_data/")
+        base_data_folder = pathlib.Path("/Users/spencerw/phd_data/")
     experiment_data_folder = base_data_folder / experiment
     assert experiment_data_folder.exists(
     ), f"Path {experiment_data_folder} not found"
@@ -107,4 +108,12 @@ def setup_record_path(experiment, session, subject):
     print("RECORD PATH")
     print(record_path)
 
-    return record_path
+    path = "C:/"
+    for s in list(record_path.parts)[3:]:
+        path += (s+"/")
+
+    return path[:-1]
+
+if __name__ == "__main__":
+    record_path = setup_record_path("emg_olympics","calibration_bars","spencer")
+    print(record_path)

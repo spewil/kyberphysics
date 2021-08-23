@@ -37,7 +37,7 @@ sampling_freq = 2000
 home_path_windows = "C:/Users/spencer/"
 home_path_unix = "/mnt/c/Users/spencer/"
 record_path = home_path_windows + "data/experiment_1/spencer_wilson/session_3/"
-subject_folder = "Dropbox (Personal)/phd/experiments/experiment_1/subjects/spencer_wilson/"
+subject_folder = "Documents/kyberphysics/metadata/emg_olympics/spencer/"
 decoder_filename = subject_folder + "decoder.bin"
 dynamics_filename = subject_folder + "dynamics.bin"
 
@@ -54,7 +54,7 @@ decoding_params = [
     home_path_windows + decoder_filename, home_path_windows + dynamics_filename
 ]
 print(decoding_params)
-metadata_filename = subject_folder + "metadata.json"
+metadata_filename = home_path_windows + subject_folder + "metadata.json"
 random_targets = np.random.choice(range(num_targets),
                                   size=num_targets,
                                   replace=False)
