@@ -1,10 +1,7 @@
 {
-	"command_file": "movements.txt",
-	"num_channels": 64,
-	"buffer_size" : 10,
-    "sampling_freq" : 2000,
     "seconds_per_command" : 3,
 	"seconds_per_cue": 3,
+	"num_repetitions": 5,
 	"ITI": 2,
 	"movements": [
 		"index finger extension",

@@ -63,23 +63,33 @@ def setup_osc(handler=None):
     return client, server
 
 
-def get_metadata(experiment, session, subject):
-
-    # basic paths
+def get_experiment_folder(experiment):
 
     base_metadata_folder = pathlib.Path(
         os.path.dirname(__file__)).parent.parent / "metadata"
 
-    # confirm session folders have been made
     experiment_folder = base_metadata_folder / experiment
     assert experiment_folder.exists(), f"Path {experiment_folder} not found"
+
+    return experiment_folder
+
+
+def get_subject_folder(experiment, subject):
+
+    experiment_folder = get_experiment_folder(experiment)
+
     subject_folder = experiment_folder / subject
     assert subject_folder.exists(), f"Path {subject_folder} not found"
 
-    print("SUBJECT FOLDER")
-    print(subject_folder)
+    return subject_folder
 
-    with open(experiment_folder / ("recording" + ".json"), 'r') as fp:
+
+def get_metadata(experiment, session, subject):
+
+    experiment_folder = get_experiment_folder(experiment)
+    subject_folder = get_subject_folder(experiment, subject)
+
+    with open(experiment_folder / "recording.json", 'r') as fp:
         experiment_metadata = json.load(fp)
 
     with open(experiment_folder / (session + ".json"), 'r') as fp:
@@ -108,12 +118,10 @@ def setup_record_path(experiment, session, subject):
     print("RECORD PATH")
     print(record_path)
 
-    path = "C:/"
-    for s in list(record_path.parts)[3:]:
-        path += (s+"/")
 
-    return path[:-1]
-
-if __name__ == "__main__":
-    record_path = setup_record_path("emg_olympics","calibration_bars","spencer")
-    print(record_path)
+def convert_abspath_wsl_to_windows(abspath):
+    converted_path = "C:/"
+    for s in list(abspath.parts)[3:]:
+        converted_path += (s + "/")
+    converted_path = converted_path[:-1]
+    return converted_path

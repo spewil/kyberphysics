@@ -1,9 +1,8 @@
 {
-	"command_file": "movements.txt",
-	"num_channels": 64,
-	"buffer_size" : 10,
-    "sampling_freq" : 2000,
-    "seconds_per_command" : 3,
-	"seconds_per_cue": 3,
+	"num_targets" : 4,
+	"radius" : 0.05,
+	"timeout_time" : 5000,
+	"holding_time" : 500,
+	"reach_time" : 5000,
 	"ITI": 2
 }
