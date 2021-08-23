@@ -5,6 +5,7 @@ from pythonosc.dispatcher import Dispatcher
 import json
 from pathlib import Path
 import sys
+import os
 
 
 def test_dynamics():
@@ -43,12 +44,17 @@ def write_array_to_disk(a, name):
         file.write(a.tobytes())
 
 
-def setup_osc():
-    def default_handler(address, *args):
-        print(f"BONSAI {address}: {args}")
+def setup_osc(handler=None):
+    if handler is None:
 
-    dispatcher = Dispatcher()
-    dispatcher.set_default_handler(default_handler)
+        def default_handler(address, *args):
+            print(f"BONSAI {address}: {args}")
+
+        dispatcher = Dispatcher()
+        dispatcher.set_default_handler(default_handler)
+    else:
+        dispatcher = Dispatcher()
+        dispatcher.set_default_handler(handler)
 
     client = udp_client.SimpleUDPClient("127.0.0.1", 5005)
     server = osc_server.BlockingOSCUDPServer(("127.0.0.1", 5006), dispatcher)
@@ -59,22 +65,23 @@ def setup_osc():
 def get_metadata(experiment, session, subject):
 
     # basic paths
-    base_metadata_folder = Path("metadata")
+
+    base_metadata_folder = Path(
+        os.path.dirname(__file__)).parent.parent / "metadata"
 
     # confirm session folders have been made
     experiment_folder = base_metadata_folder / experiment
-    assert experiment_folder.exists(), print(
-        f"Path {experiment_folder} not found")
-    subject_folder = experiment_folder / "subjects" / subject
-    assert subject_folder.exists(), print(f"Path {subject_folder} not found")
+    assert experiment_folder.exists(), f"Path {experiment_folder} not found"
+    subject_folder = experiment_folder / subject
+    assert subject_folder.exists(), f"Path {subject_folder} not found"
 
     print("SUBJECT FOLDER")
     print(subject_folder)
 
-    with open(experiment_folder / "experiment.json", 'r') as fp:
+    with open(experiment_folder / ("recording" + ".json"), 'r') as fp:
         experiment_metadata = json.load(fp)
 
-    with open(experiment_folder / session + ".json", 'r') as fp:
+    with open(experiment_folder / (session + ".json"), 'r') as fp:
         session_metadata = json.load(fp)
 
     with open(subject_folder / "metadata.json", 'r') as fp:
@@ -85,16 +92,16 @@ def get_metadata(experiment, session, subject):
 
 def setup_record_path(experiment, session, subject):
 
-    if sys.platform is "linux":
+    if sys.platform == "linux":
         base_data_folder = Path("/mnt/c/Users/spencer/data/")
     else:
-        base_data_folder = Path("~/phd_data/")
+        base_data_folder = Path("/Users/spencerw/phd_data/")
     experiment_data_folder = base_data_folder / experiment
-    assert experiment_data_folder.exists(), print(
-        f"Path {experiment_data_folder} not found")
+    assert experiment_data_folder.exists(
+    ), f"Path {experiment_data_folder} not found"
     subject_data_folder = experiment_data_folder / subject
-    assert subject_data_folder.exists(), print(
-        f"Path {subject_data_folder} not found")
+    assert subject_data_folder.exists(
+    ), f"Path {subject_data_folder} not found"
     record_path = subject_data_folder / session
 
     print("RECORD PATH")

@@ -25,11 +25,11 @@ buffer_size = experiment_metadata.get("buffer_size", 10)
 
 # TASK
 # show the commmand for x seconds
-seconds_per_command = experiment_metadata.get("seconds_per_command")
+seconds_per_command = session_metadata.get("seconds_per_command")
 # show command + cue for y seconds
-seconds_per_cue = experiment_metadata.get("seconds_per_cue")
-num_repetitions = experiment_metadata.get("num_repetitions")
-ITI = experiment_metadata.get("ITI")
+seconds_per_cue = session_metadata.get("seconds_per_cue")
+num_repetitions = session_metadata.get("num_repetitions")
+ITI = session_metadata.get("ITI")
 
 samples_per_command = sampling_freq * seconds_per_command
 samples_per_cue = sampling_freq * seconds_per_cue
@@ -37,7 +37,7 @@ samples_per_cue = sampling_freq * seconds_per_cue
 recording_params = [num_channels, buffer_size, sampling_freq, str(record_path)]
 
 client.send_message("/recording_params", recording_params)
-msg = server.handle_request()  # blocks to recieve message
+server.handle_request()  # blocks to recieve message
 # separate task and acquisition specific stuff
 
 input("Enter to begin recording session.")
@@ -47,8 +47,6 @@ for command in commands:
         samples_per_command, samples_per_cue, num_repetitions, command
     ]
     client.send_message("/task_params", task_params)
-    msg = server.handle_request()  # blocks to recieve message
+    server.handle_request()  # blocks to recieve message
     time.sleep(ITI)
 client.send_message("/stop", 1)
-
-command_file.close()
