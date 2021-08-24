@@ -72,10 +72,24 @@ def generate_dynamics_and_mapping(num_channels=32,
     return dynamics, decoder
 
 
-def generate_decoder():
+def generate_identity_decoder(num_channels, state_dimensionality=6):
+    decoder = np.zeros(shape=(state_dimensionality, num_channels),
+                       dtype=np.float32)
+    decoder[-2, 0] = 1
+    decoder[-1, 1] = 1
+    return decoder
+
+def generate_null_dynamics(state_dimenstionality=6):
+    return np.zeros((state_dimenstionality, state_dimenstionality),
+                        dtype=np.float32)
+
+
+def generate_decoder(experiment, subject):
+    # pick up experiment / session metadata
     # grab data from subject folder
-    # run dim reduction
+    # run dim reduction on this data
     # save some plots
+    # have the option here to redo the calibration?
     # construct decoder matrix
     # save matrix in the subject folder
     pass
@@ -87,20 +101,24 @@ def generate_dynamics():
 
 if __name__ == '__main__':
 
-    # dynamics, decoder = generate_dynamics_and_mapping(num_channels=64, mapping_type="identity", save=True, dynamics_filename="dynamics.bin",decoder_filename="decoder.bin")
+    # MAKE DECODER
+    dynamics = generate_null_dynamics()
+    decoder = generate_identity_decoder(64)
 
-    fake_bars = np.hstack(np.arange(64).reshape(64, 1) for _ in range(10))
-    print(fake_bars.shape)
-    utils.write_array_to_disk(
-        fake_bars,
-        "/mnt/c/users/spencer/Dropbox (Personal)/phd/experiments/experiment_1/test_bars.bin"
-    )
+    subject_folder = utils.get_subject_folder("emg_olympics", "spencer")
 
-    # print(dynamics)
-    # print(decoder)
+    print(dynamics.shape)
+    print(dynamics)
 
-    # print(decoder.shape)
-    # print(dynamics.shape)
+    print(decoder.shape)
+    print(decoder)
+
+    # SAVE DECODER
+    utils.write_array_to_disk(dynamics, subject_folder / "dynamics.bin")
+    utils.write_array_to_disk(decoder, subject_folder / "decoder.bin")
+
+
+    
 
     #  how the electrodes are spatially arranged
     # electrode_layout = np.arange(32).reshape(4, 8)

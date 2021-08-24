@@ -154,7 +154,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:Take">
-                <rx:Count>8000</rx:Count>
+                <rx:Count>6000</rx:Count>
               </Combinator>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
@@ -180,7 +180,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/experiment_1/spencer_wilson/session_1/index finger extension_2021_08_13.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/natural_movement/ring finger flexion_2021_08_24_13_17.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -260,7 +260,7 @@ Item4 as Command)</scr:Expression>
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-                    <Count>10000</Count>
+                    <Count>6000</Count>
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
                     <Name>TaskParams</Name>
@@ -336,7 +336,7 @@ Item4 as Command)</scr:Expression>
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
-              <Text>index finger extension</Text>
+              <Text>ring finger flexion</Text>
               <Font>Rockwell, 100pt, style=Bold</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Near</LineAlignment>

@@ -12,6 +12,12 @@ subject = sys.argv[2]
 
 # compute record path
 record_path = utils.setup_record_path(experiment, session, subject)
+# session folder name is number of files in that folder + 1
+record_path = utils.add_session_folder(record_path)
+# convert to windows path
+record_path = str(utils.convert_abspath_wsl_to_windows(record_path))
+print("RECORD PATH")
+print(record_path)
 
 # grab the metadata
 experiment_metadata, session_metadata, subject_metadata = utils.get_metadata(
@@ -28,9 +34,15 @@ target_channels = np.arange(num_channels)
 seconds_per_trial = session_metadata["seconds_per_trial"]
 samples_per_trial = sampling_freq * seconds_per_trial
 ITI = session_metadata["ITI"]
+scale = session_metadata["emg_to_bar_scale"]
 
+print("sending recording params.")
 client.send_message("/recording_params", recording_params)
-msg = server.handle_request()
+# print("sending session params.")
+# client.send_message("/session_params", scale)
+print("waiting for initialization...")
+server.handle_request()
+print("bonsai initialized.")
 input("Enter to begin recording session.")
 
 for channel in target_channels:

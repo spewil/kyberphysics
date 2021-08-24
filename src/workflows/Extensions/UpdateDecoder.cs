@@ -21,6 +21,9 @@ public class UpdateDecoder
     [Editor("Bonsai.Design.OpenFileNameEditor, Bonsai.Design", DesignTypes.UITypeEditor)]
     public string DynamicsFileName { get; set; }
 
+    [Description("The dimensionality of the hidden dynamical state; must match upstream.")]
+    public int StateDimension { get; set; }
+
     static void DotProduct(Mat lhs, Mat rhs, Mat result)
     {
         CV.GEMM(lhs,rhs,1,null,1,result);
@@ -45,9 +48,9 @@ public class UpdateDecoder
         return Observable.Defer(() =>
         {
             // subscribe action (i.e. starting bonsai)
-            var decoder = LoadMatrix(DecoderFileName, rows: 6);
-            var dynamics = LoadMatrix(DynamicsFileName, rows: 6);
-            var state = Mat.Zeros(6, BufferSize, Depth.F32, 1);
+            var decoder = LoadMatrix(DecoderFileName, rows: StateDimension);
+            var dynamics = LoadMatrix(DynamicsFileName, rows: StateDimension);
+            var state = Mat.Zeros(StateDimension, BufferSize, Depth.F32, 1);
             // return our processed sequence (with decoder captured in the closure)
             return source.Select(input =>
             {

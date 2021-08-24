@@ -43,6 +43,8 @@ def write_array_to_disk(a, name):
     with open(name, "wb") as file:
         file.write(a.tobytes())
 
+def load_array_from_disk(path):
+    return np.fromfile()
 
 def setup_osc(handler=None):
     if handler is None:
@@ -113,14 +115,20 @@ def setup_record_path(experiment, session, subject):
     assert subject_data_folder.exists(
     ), f"Path {subject_data_folder} not found"
     record_path = subject_data_folder / session
+    assert record_path.exists(
+    ), f"Path {subject_data_folder / session} not found"
 
-    print("RECORD PATH")
-    print(record_path)
+    return record_path
+
+
+def add_session_folder(path):
+    return path / ("session_" +
+                   str(len([_ for _ in path.iterdir() if _.is_dir()])))
 
 
 def convert_abspath_wsl_to_windows(abspath):
     converted_path = "C:/"
     for s in list(abspath.parts)[3:]:
         converted_path += (s + "/")
-    converted_path = converted_path[:-1]
+    converted_path = pathlib.Path(converted_path[:-1])
     return converted_path

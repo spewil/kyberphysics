@@ -985,11 +985,26 @@ Item1 as Value)</scr:Expression>
                             <Property Name="DynamicsFileName" />
                           </PropertyMappings>
                         </Expression>
+                        <Expression xsi:type="ExternalizedMapping">
+                          <Property Name="Min" />
+                          <Property Name="Max" />
+                        </Expression>
+                        <Expression xsi:type="Combinator">
+                          <Combinator xsi:type="IntProperty">
+                            <Value>6</Value>
+                          </Combinator>
+                        </Expression>
+                        <Expression xsi:type="PropertyMapping">
+                          <PropertyMappings>
+                            <Property Name="StateDimension" />
+                          </PropertyMappings>
+                        </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="p3:UpdateDecoder">
                             <p3:BufferSize>1</p3:BufferSize>
                             <p3:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/spencer/decoder.bin</p3:DecoderFileName>
                             <p3:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/spencer/dynamics.bin</p3:DynamicsFileName>
+                            <p3:StateDimension>0</p3:StateDimension>
                           </Combinator>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -999,10 +1014,6 @@ Item1 as Value)</scr:Expression>
                             <dsp:StartCol>0</dsp:StartCol>
                             <dsp:EndCol xsi:nil="true" />
                           </Combinator>
-                        </Expression>
-                        <Expression xsi:type="ExternalizedMapping">
-                          <Property Name="Min" />
-                          <Property Name="Max" />
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:Rescale">
@@ -1020,18 +1031,20 @@ Item1 as Value)</scr:Expression>
                       </Nodes>
                       <Edges>
                         <Edge From="0" To="1" Label="Source1" />
-                        <Edge From="1" To="8" Label="Source1" />
+                        <Edge From="1" To="11" Label="Source1" />
                         <Edge From="2" To="3" Label="Source1" />
                         <Edge From="3" To="4" Label="Source1" />
-                        <Edge From="4" To="8" Label="Source2" />
+                        <Edge From="4" To="11" Label="Source2" />
                         <Edge From="5" To="6" Label="Source1" />
                         <Edge From="6" To="7" Label="Source1" />
-                        <Edge From="7" To="8" Label="Source3" />
-                        <Edge From="8" To="9" Label="Source1" />
-                        <Edge From="9" To="11" Label="Source1" />
-                        <Edge From="10" To="11" Label="Source2" />
+                        <Edge From="7" To="11" Label="Source3" />
+                        <Edge From="8" To="13" Label="Source2" />
+                        <Edge From="9" To="10" Label="Source1" />
+                        <Edge From="10" To="11" Label="Source4" />
                         <Edge From="11" To="12" Label="Source1" />
                         <Edge From="12" To="13" Label="Source1" />
+                        <Edge From="13" To="14" Label="Source1" />
+                        <Edge From="14" To="15" Label="Source1" />
                       </Edges>
                     </Workflow>
                   </Expression>
@@ -1192,16 +1205,12 @@ Position.Y as LocationY,
         <io:IncludeHeader>true</io:IncludeHeader>
       </Expression>
       <Expression xsi:type="osc:ReceiveMessage">
-        <osc:Address>/end_session</osc:Address>
+        <osc:Address>/stop</osc:Address>
         <osc:TypeTag />
         <osc:Connection>CommandServer</osc:Connection>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:SampleOnUpdateFrame" />
-      </Expression>
-      <Expression xsi:type="osc:SendMessage">
-        <osc:Connection>ResponseServer</osc:Connection>
-        <osc:Address>/end_session</osc:Address>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Take">
@@ -1233,7 +1242,6 @@ Position.Y as LocationY,
       <Edge From="31" To="32" Label="Source1" />
       <Edge From="32" To="33" Label="Source1" />
       <Edge From="33" To="34" Label="Source1" />
-      <Edge From="34" To="35" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

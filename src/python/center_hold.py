@@ -18,6 +18,12 @@ subject = sys.argv[2]
 
 # compute record path
 record_path = utils.setup_record_path(experiment, session, subject)
+# session folder name is number of files in that folder + 1
+record_path = utils.add_session_folder(record_path)
+# convert to windows path
+record_path = str(utils.convert_abspath_wsl_to_windows(record_path))
+print("RECORD PATH")
+print(record_path)
 
 # grab the metadata
 experiment_metadata, session_metadata, subject_metadata = utils.get_metadata(
@@ -27,7 +33,7 @@ experiment_metadata, session_metadata, subject_metadata = utils.get_metadata(
 num_channels = experiment_metadata["num_channels"]
 sampling_freq = experiment_metadata["sampling_freq"]
 buffer_size = experiment_metadata["buffer_size"]
-recording_params = [num_channels, buffer_size, sampling_freq, str(record_path)]
+recording_params = [num_channels, buffer_size, sampling_freq, record_path]
 
 # SESSION
 num_targets = session_metadata["num_targets"]
@@ -41,16 +47,16 @@ holding_time = session_metadata["holding_time"]
 reach_time = session_metadata["reach_time"]
 
 # SUBJECT
-subject_folder = utils.get_subject_folder(
-    experiment,
-    subject)  # "Documents/kyberphysics/metadata/emg_olympics/spencer/"
-decoder_filename = subject_folder / "decoder.bin"
-dynamics_filename = subject_folder / "dynamics.bin"
-decoding_params = [
-    str(decoder_filename.resolve()),
-    str(dynamics_filename.resolve())
-]
-print(decoding_params)
+subject_folder = utils.get_subject_folder(experiment, subject)
+decoder_filename = str(
+    utils.convert_abspath_wsl_to_windows(
+        (subject_folder / "decoder.bin").resolve()))
+dynamics_filename = str(
+    utils.convert_abspath_wsl_to_windows(
+        (subject_folder / "dynamics.bin").resolve()))
+decoding_params = [decoder_filename, dynamics_filename]
+
+
 
 # dynamics, decoder = generate_mappings.generate_dynamics_and_mapping(
 #     num_channels=64,
@@ -87,5 +93,4 @@ for i, target_idx in zip(range(num_targets), target_indices):
     client.send_message("/trial_index", i)  # use this for filename?
     server.handle_request()
     time.sleep(ITI)
-client.send_message("/end_session", 1)
-server.handle_request()
+client.send_message("/stop", 1)

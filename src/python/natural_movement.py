@@ -11,6 +11,12 @@ subject = sys.argv[2]
 
 # compute record path
 record_path = utils.setup_record_path(experiment, session, subject)
+# session folder name is number of files in that folder + 1
+record_path = utils.add_session_folder(record_path)
+# convert to windows path
+record_path = str(utils.convert_abspath_wsl_to_windows(record_path))
+print("RECORD PATH")
+print(record_path)
 
 # grab the metadata
 experiment_metadata, session_metadata, subject_metadata = utils.get_metadata(
@@ -29,15 +35,18 @@ samples_per_cue = sampling_freq * session_metadata["seconds_per_cue"]
 num_repetitions = session_metadata["num_repetitions"]
 ITI = session_metadata["ITI"]
 
+print("sending recording params.")
 client.send_message("/recording_params", recording_params)
+print("waiting for initialization...")
 server.handle_request()
-
+print("bonsai initialized.")
 input("Enter to begin recording session.")
 
-for command in commands:
+for i, command in enumerate(commands):
     task_params = [
         samples_per_command, samples_per_cue, num_repetitions, command
     ]
+    print("trial ", i, ": ", task_params)
     client.send_message("/task_params", task_params)
     server.handle_request()
     time.sleep(ITI)
