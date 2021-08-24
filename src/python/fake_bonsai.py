@@ -1,5 +1,4 @@
 # fake bonsai
-import utils
 from pythonosc import udp_client
 from pythonosc import osc_server
 from pythonosc.dispatcher import Dispatcher

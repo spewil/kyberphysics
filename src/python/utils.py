@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.core.records import record
 from pythonosc import udp_client
 from pythonosc import osc_server
 from pythonosc.dispatcher import Dispatcher

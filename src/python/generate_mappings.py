@@ -1,15 +1,13 @@
 import numpy as np
-import matplotlib
-import sys
-
-from numpy.core.numeric import identity
-if sys.platform == "darwin":
-    matplotlib.use("Qt4Agg")
-    print("on mac")
-else:
-    print("on windows")
-import matplotlib.pyplot as plt
 import utils
+
+# from numpy.core.numeric import identity
+# if sys.platform == "darwin":
+#     matplotlib.use("Qt4Agg")
+#     print("on mac")
+# else:
+#     print("on windows")
+# import matplotlib.pyplot as plt
 
 
 def generate_dynamics_and_mapping(num_channels=32,
@@ -72,6 +70,19 @@ def generate_dynamics_and_mapping(num_channels=32,
         utils.write_array_to_disk(decoder, kwargs["decoder_filename"])
 
     return dynamics, decoder
+
+
+def generate_decoder():
+    # grab data from subject folder
+    # run dim reduction
+    # save some plots
+    # construct decoder matrix
+    # save matrix in the subject folder
+    pass
+
+
+def generate_dynamics():
+    pass
 
 
 if __name__ == '__main__':

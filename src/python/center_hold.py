@@ -2,7 +2,7 @@ import time
 import sys
 import numpy as np
 import utils
-import generate_mappings
+# import generate_mappings
 
 home_path_windows = "C:/Users/spencer/"
 home_path_unix = "/mnt/c/Users/spencer/"
