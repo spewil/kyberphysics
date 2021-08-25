@@ -69,41 +69,44 @@ def setup_osc(handler=None):
 
 
 def get_experiment_folder(experiment):
-
-    base_metadata_folder = pathlib.Path(
-        os.path.dirname(__file__)).parent.parent / "metadata"
-
-    experiment_folder = base_metadata_folder / experiment
+    base_metadata_folder = pathlib.Path.cwd().parent.parent  # module path
+    experiment_folder = base_metadata_folder / "metadata" / experiment
     assert experiment_folder.exists(), f"Path {experiment_folder} not found"
-
     return experiment_folder
 
 
 def get_subject_folder(experiment, subject):
-
     experiment_folder = get_experiment_folder(experiment)
-
     subject_folder = experiment_folder / subject
     assert subject_folder.exists(), f"Path {subject_folder} not found"
 
     return subject_folder
 
 
-def get_metadata(experiment, session, subject):
-
+def get_experiment_metadata(experiment):
     experiment_folder = get_experiment_folder(experiment)
-    subject_folder = get_subject_folder(experiment, subject)
-
-    with open(experiment_folder / "recording.json", 'r') as fp:
+    with open(experiment_folder / "metadata.json", 'r') as fp:
         experiment_metadata = json.load(fp)
+    return experiment_metadata
 
+
+def get_session_metadata(experiment, session):
+    experiment_folder = get_experiment_folder(experiment)
     with open(experiment_folder / (session + ".json"), 'r') as fp:
         session_metadata = json.load(fp)
+    return session_metadata
 
+
+def get_subject_metadata(experiment, subject):
+    subject_folder = get_subject_folder(experiment, subject)
     with open(subject_folder / "metadata.json", 'r') as fp:
         subject_metadata = json.load(fp)
+    return subject_metadata
 
-    return experiment_metadata, session_metadata, subject_metadata
+
+def get_metadata(experiment, session, subject):
+    return get_experiment_metadata(experiment), get_session_metadata(
+        experiment, session), get_subject_metadata(experiment, subject)
 
 
 def setup_record_path(experiment, session, subject):
@@ -121,7 +124,6 @@ def setup_record_path(experiment, session, subject):
     record_path = subject_data_folder / session
     assert record_path.exists(
     ), f"Path {subject_data_folder / session} not found"
-    print(record_path)
     record_path = add_session_folder(record_path)
 
     if sys.platform == "linux":
@@ -132,7 +134,6 @@ def setup_record_path(experiment, session, subject):
 
 def add_session_folder(path):
     num_existing_folders = len([_ for _ in path.iterdir() if _.is_dir()])
-    print(num_existing_folders)
     new_path = path / ("session_" + str(num_existing_folders))
     return new_path
 
@@ -143,3 +144,39 @@ def convert_abspath_wsl_to_windows(abspath):
         converted_path += (s + "/")
     converted_path = pathlib.Path(converted_path)
     return converted_path
+
+
+def compute_experiment_time(experiment):
+    experiment_metadata = get_experiment_metadata(experiment)
+    tasks = experiment_metadata["tasks"]
+    total_time = 0
+    for task in tasks:
+        total_time += experiment_metadata["num_sessions_per_task"][task] * globals()["compute_" + task + "_time"](experiment)
+    total_time /= 3600  # hours
+    return total_time
+
+
+def compute_natural_movement_time(experiment):
+    session_metadata = get_session_metadata(experiment, "natural_movement")
+    # num_movements * (ITI + (command + cue)*reps)
+    return len(session_metadata["movements"]) * (
+        session_metadata["ITI"] + (session_metadata["num_repetitions"] *
+                                   (session_metadata["seconds_per_command"] +
+                                    session_metadata["seconds_per_cue"])))
+
+
+def compute_calibration_bars_time(experiment):
+    experiment_metadata = get_experiment_metadata(experiment)
+    session_metadata = get_session_metadata(experiment, "calibration_bars")
+    return experiment_metadata["num_channels"] * (
+        session_metadata["ITI"] + session_metadata["seconds_per_trial"])
+
+
+def compute_center_hold_time(experiment):
+    session_metadata = get_session_metadata(experiment, "center_hold")
+    return session_metadata["num_targets"] * 0.001 * (
+        session_metadata["holding_time"] + session_metadata["reach_time"])
+
+
+if __name__ == "__main__":
+    print(compute_experiment_time("emg_olympics"))

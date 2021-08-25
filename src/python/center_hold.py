@@ -70,7 +70,7 @@ server.handle_request()
 print("bonsai initialized.")
 input("Enter to begin recording session.")
 
-for i, target_idx in zip(range(num_targets), target_indices):
+for i, target_idx in enumerate(target_indices):
     task_params = [
         str(i),
         float(x[target_idx]),
