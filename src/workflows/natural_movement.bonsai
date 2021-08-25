@@ -180,7 +180,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/natural_movement/ring finger flexion_2021_08_24_13_17.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/natural_movement/index finger extension_2021_08_24_13_28.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -240,7 +240,7 @@ Item4 as Command)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
                     <LocationX>0</LocationX>
-                    <LocationY>0</LocationY>
+                    <LocationY>-0.25</LocationY>
                     <Layer>0</Layer>
                     <Diameter>0.5</Diameter>
                     <ColorR>0</ColorR>
@@ -336,7 +336,7 @@ Item4 as Command)</scr:Expression>
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
-              <Text>ring finger flexion</Text>
+              <Text>index finger extension</Text>
               <Font>Rockwell, 100pt, style=Bold</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Near</LineAlignment>

@@ -220,7 +220,7 @@ Timestamp as Timestamp
               <Combinator xsi:type="num:Permutation" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/calibration_bars/bar_order.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/calibration_bars/session_0/bar_order_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -328,7 +328,7 @@ Timestamp as Timestamp
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/calibration_bars/2_2021_08_24_16_07.bin</dsp:Path>
+                      <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/calibration_bars/session_0/10_2021_08_24_17_45.bin</dsp:Path>
                       <dsp:Suffix>None</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -491,9 +491,9 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
                     <ExtentX>0.01</ExtentX>
-                    <ExtentY>2.00007772</ExtentY>
+                    <ExtentY>2.625128</ExtentY>
                     <LocationX>0.4920635</LocationX>
-                    <LocationY>0.200038865</LocationY>
+                    <LocationY>0.512564</LocationY>
                     <Layer>0</Layer>
                     <Angle>0</Angle>
                     <ColorR>1</ColorR>
@@ -554,7 +554,7 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/calibration_bars/2_V_2021_08_24_16_07.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/calibration_bars/session_0/10_V_2021_08_24_17_45.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>

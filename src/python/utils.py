@@ -1,4 +1,6 @@
 import numpy as np
+from numpy.core.einsumfunc import _update_other_results
+from numpy.core.records import record
 from pythonosc import udp_client
 from pythonosc import osc_server
 from pythonosc.dispatcher import Dispatcher
@@ -43,8 +45,10 @@ def write_array_to_disk(a, name):
     with open(name, "wb") as file:
         file.write(a.tobytes())
 
+
 def load_array_from_disk(path):
-    return np.fromfile()
+    return np.fromfile(path, dtype=np.float32)
+
 
 def setup_osc(handler=None):
     if handler is None:
@@ -117,18 +121,25 @@ def setup_record_path(experiment, session, subject):
     record_path = subject_data_folder / session
     assert record_path.exists(
     ), f"Path {subject_data_folder / session} not found"
+    print(record_path)
+    record_path = add_session_folder(record_path)
 
-    return record_path
+    if sys.platform == "linux":
+        return convert_abspath_wsl_to_windows(record_path)
+    else:
+        return record_path
 
 
 def add_session_folder(path):
-    return path / ("session_" +
-                   str(len([_ for _ in path.iterdir() if _.is_dir()])))
+    num_existing_folders = len([_ for _ in path.iterdir() if _.is_dir()])
+    print(num_existing_folders)
+    new_path = path / ("session_" + str(num_existing_folders))
+    return new_path
 
 
 def convert_abspath_wsl_to_windows(abspath):
     converted_path = "C:/"
     for s in list(abspath.parts)[3:]:
         converted_path += (s + "/")
-    converted_path = pathlib.Path(converted_path[:-1])
+    converted_path = pathlib.Path(converted_path)
     return converted_path

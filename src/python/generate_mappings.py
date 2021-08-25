@@ -79,9 +79,10 @@ def generate_identity_decoder(num_channels, state_dimensionality=6):
     decoder[-1, 1] = 1
     return decoder
 
+
 def generate_null_dynamics(state_dimenstionality=6):
     return np.zeros((state_dimenstionality, state_dimenstionality),
-                        dtype=np.float32)
+                    dtype=np.float32)
 
 
 def generate_decoder(experiment, subject):
@@ -116,9 +117,6 @@ if __name__ == '__main__':
     # SAVE DECODER
     utils.write_array_to_disk(dynamics, subject_folder / "dynamics.bin")
     utils.write_array_to_disk(decoder, subject_folder / "decoder.bin")
-
-
-    
 
     #  how the electrodes are spatially arranged
     # electrode_layout = np.arange(32).reshape(4, 8)

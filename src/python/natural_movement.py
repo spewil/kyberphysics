@@ -10,11 +10,7 @@ session = __file__.split(".")[0]  # script name is session name
 subject = sys.argv[2]
 
 # compute record path
-record_path = utils.setup_record_path(experiment, session, subject)
-# session folder name is number of files in that folder + 1
-record_path = utils.add_session_folder(record_path)
-# convert to windows path
-record_path = str(utils.convert_abspath_wsl_to_windows(record_path))
+record_path = str(utils.setup_record_path(experiment, session, subject))
 print("RECORD PATH")
 print(record_path)
 

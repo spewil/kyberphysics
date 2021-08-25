@@ -4,7 +4,7 @@
 	"timeout_time" : 5000,
 	"holding_time" : 500,
 	"reach_time" : 5000,
-	"min_scale" : -1000,
-	"max_scale" : 1000,
+	"min_scale" : -100,
+	"max_scale" : 100,
 	"ITI": 2
 }
