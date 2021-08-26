@@ -38,6 +38,7 @@ server.handle_request()
 print("bonsai initialized.")
 input("Enter to begin recording session.")
 
+time.sleep(3)
 for i, command in enumerate(commands):
     task_params = [
         samples_per_command, samples_per_cue, num_repetitions, command

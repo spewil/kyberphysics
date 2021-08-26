@@ -75,8 +75,10 @@ def generate_dynamics_and_mapping(num_channels=32,
 def generate_identity_decoder(num_channels, state_dimensionality=6):
     decoder = np.zeros(shape=(state_dimensionality, num_channels),
                        dtype=np.float32)
-    decoder[-2, 0] = 1
-    decoder[-1, 1] = 1
+    decoder[-2, 24] = 1 # right
+    decoder[-1, 57] = 1 # up
+    decoder[-2, 5] = -1 # left
+    decoder[-1, 33] = -1 # down
     return decoder
 
 
@@ -106,7 +108,7 @@ if __name__ == '__main__':
     dynamics = generate_null_dynamics()
     decoder = generate_identity_decoder(64)
 
-    subject_folder = utils.get_subject_folder("emg_olympics", "spencer")
+    subject_folder = utils.get_subject_folder("self_test", "spencer")
 
     print(dynamics.shape)
     print(dynamics)
@@ -116,6 +118,9 @@ if __name__ == '__main__':
 
     # SAVE DECODER
     utils.write_array_to_disk(dynamics, subject_folder / "dynamics.bin")
+
+    _, decoder = generate_dynamics_and_mapping(num_channels=64,mapping_type="column", save=False)
+
     utils.write_array_to_disk(decoder, subject_folder / "decoder.bin")
 
     #  how the electrodes are spatially arranged

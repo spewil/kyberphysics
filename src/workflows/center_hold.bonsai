@@ -545,7 +545,7 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:CreateVector3">
-                                        <gl:X>-0.5</gl:X>
+                                        <gl:X>0.5</gl:X>
                                         <gl:Y>-0.87</gl:Y>
                                         <gl:Z>0</gl:Z>
                                       </Combinator>
@@ -562,7 +562,7 @@ Position.Y as LocationY,
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="p2:SetTransform">
                                         <p2:Position>
-                                          <p2:X>-0.5</p2:X>
+                                          <p2:X>0.5</p2:X>
                                           <p2:Y>-0.87000000476837158</p2:Y>
                                           <p2:Z>0</p2:Z>
                                         </p2:Position>
@@ -612,7 +612,7 @@ Position.Y as LocationY,
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <LocationX>-0.5</LocationX>
+                                <LocationX>0.5</LocationX>
                                 <LocationY>-0.87</LocationY>
                                 <Layer>0</Layer>
                                 <Diameter>0.15</Diameter>
@@ -815,7 +815,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_3/1_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -850,7 +850,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_3/1_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -948,7 +948,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_3/1_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -992,6 +992,22 @@ Item1 as Value)</scr:Expression>
                           <Format>{0},{1}</Format>
                           <Selector>LocationX,LocationY</Selector>
                           <Name>Events</Name>
+                        </Expression>
+                        <Expression xsi:type="SubscribeSubject">
+                          <Name>TrialParams</Name>
+                        </Expression>
+                        <Expression xsi:type="MemberSelector">
+                          <Selector>Radius</Selector>
+                        </Expression>
+                        <Expression xsi:type="Multiply">
+                          <Operand xsi:type="FloatProperty">
+                            <Value>2</Value>
+                          </Operand>
+                        </Expression>
+                        <Expression xsi:type="PropertyMapping">
+                          <PropertyMappings>
+                            <Property Name="Diameter" />
+                          </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="SubscribeSubject">
                           <Name>Draw</Name>
@@ -1123,8 +1139,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>0.0105795814</gl:X>
-                                  <gl:Y>0.0112306755</gl:Y>
+                                  <gl:X>0.0224946458</gl:X>
+                                  <gl:Y>0.0262105875</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1140,8 +1156,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:SetTransform">
                                   <p2:Position>
-                                    <p2:X>0.010579581372439861</p2:X>
-                                    <p2:Y>0.011230675503611565</p2:Y>
+                                    <p2:X>0.022494645789265633</p2:X>
+                                    <p2:Y>0.026210587471723557</p2:Y>
                                     <p2:Z>0</p2:Z>
                                   </p2:Position>
                                   <p2:Orientation xsi:nil="true" />
@@ -1176,25 +1192,9 @@ Position.Y as LocationY,
                             <Property Name="LocationY" Selector="LocationY" />
                           </PropertyMappings>
                         </Expression>
-                        <Expression xsi:type="SubscribeSubject">
-                          <Name>TrialParams</Name>
-                        </Expression>
-                        <Expression xsi:type="MemberSelector">
-                          <Selector>Radius</Selector>
-                        </Expression>
-                        <Expression xsi:type="Multiply">
-                          <Operand xsi:type="FloatProperty">
-                            <Value>2</Value>
-                          </Operand>
-                        </Expression>
-                        <Expression xsi:type="PropertyMapping">
-                          <PropertyMappings>
-                            <Property Name="Diameter" />
-                          </PropertyMappings>
-                        </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>0.0105795814</LocationX>
-                          <LocationY>0.0112306755</LocationY>
+                          <LocationX>0.0224946458</LocationX>
+                          <LocationY>0.0262105875</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1240,17 +1240,17 @@ Position.Y as LocationY,
                         <Edge From="37" To="38" Label="Source1" />
                         <Edge From="38" To="39" Label="Source2" />
                         <Edge From="40" To="41" Label="Source1" />
-                        <Edge From="42" To="53" Label="Source1" />
+                        <Edge From="42" To="43" Label="Source1" />
                         <Edge From="43" To="44" Label="Source1" />
                         <Edge From="44" To="45" Label="Source1" />
-                        <Edge From="45" To="46" Label="Source1" />
-                        <Edge From="46" To="47" Label="Source1" />
+                        <Edge From="45" To="53" Label="Source3" />
+                        <Edge From="46" To="53" Label="Source1" />
                         <Edge From="47" To="48" Label="Source1" />
-                        <Edge From="48" To="53" Label="Source2" />
+                        <Edge From="48" To="49" Label="Source1" />
                         <Edge From="49" To="50" Label="Source1" />
                         <Edge From="50" To="51" Label="Source1" />
                         <Edge From="51" To="52" Label="Source1" />
-                        <Edge From="52" To="53" Label="Source3" />
+                        <Edge From="52" To="53" Label="Source2" />
                       </Edges>
                     </Workflow>
                   </Expression>
@@ -1283,7 +1283,7 @@ Position.Y as LocationY,
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_3/session_result_HT_RT_TX_TY.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/session_result_HT_RT_TX_TY.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>None</io:Suffix>

@@ -1,5 +1,5 @@
 {
-	"num_targets" : 4,
+	"num_targets" : 12,
 	"radius" : 0.05,
 	"timeout_time" : 5000,
 	"holding_time" : 500,

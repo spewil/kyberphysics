@@ -55,30 +55,30 @@
     </EditorDialogSettings>
   </DialogSettings>
   <DialogSettings xsi:type="WorkflowEditorSettings">
-    <Visible>false</Visible>
+    <Visible>true</Visible>
     <Location>
-      <X>1256</X>
-      <Y>0</Y>
+      <X>955</X>
+      <Y>139</Y>
     </Location>
     <Size>
-      <Width>416</Width>
-      <Height>279</Height>
+      <Width>974</Width>
+      <Height>895</Height>
     </Size>
     <WindowState>Normal</WindowState>
     <VisualizerTypeName>Bonsai.Dsp.Design.MatVisualizer</VisualizerTypeName>
     <VisualizerSettings>
       <MatVisualizer>
         <XMin>0</XMin>
-        <XMax>1</XMax>
-        <YMin>0</YMin>
-        <YMax>1.1</YMax>
+        <XMax>1000</XMax>
+        <YMin>-20000</YMin>
+        <YMax>20000</YMax>
         <AutoScaleX>true</AutoScaleX>
         <AutoScaleY>true</AutoScaleY>
         <SelectedPage>0</SelectedPage>
-        <ChannelsPerPage>16</ChannelsPerPage>
-        <OverlayChannels>true</OverlayChannels>
+        <ChannelsPerPage>64</ChannelsPerPage>
+        <OverlayChannels>false</OverlayChannels>
         <ChannelOffset>0</ChannelOffset>
-        <HistoryLength>1</HistoryLength>
+        <HistoryLength>100</HistoryLength>
         <WaveformBufferLength>1</WaveformBufferLength>
       </MatVisualizer>
     </VisualizerSettings>
@@ -89,7 +89,7 @@
         <Y>3</Y>
       </Location>
       <Size>
-        <Width>687</Width>
+        <Width>542</Width>
         <Height>894</Height>
       </Size>
       <WindowState>Normal</WindowState>
