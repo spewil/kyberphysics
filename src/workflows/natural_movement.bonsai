@@ -154,7 +154,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:Take">
-                <rx:Count>6000</rx:Count>
+                <rx:Count>4000</rx:Count>
               </Combinator>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
@@ -180,7 +180,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/self_test/spencer/natural_movement/session_0/index finger flexion_2021_08_25_16_56.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/self_test/spencer/natural_movement/session_1/little finger flexion_2021_08_25_19_39.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -260,7 +260,7 @@ Item4 as Command)</scr:Expression>
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-                    <Count>6000</Count>
+                    <Count>4000</Count>
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
                     <Name>TaskParams</Name>
@@ -274,7 +274,7 @@ Item4 as Command)</scr:Expression>
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-                    <Count>6000</Count>
+                    <Count>4000</Count>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:TakeUntil" />
@@ -336,7 +336,7 @@ Item4 as Command)</scr:Expression>
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
-              <Text>index finger flexion</Text>
+              <Text>little finger flexion</Text>
               <Font>Rockwell, 100pt, style=Bold</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Near</LineAlignment>

@@ -30,7 +30,7 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\TriggeredAcquisition.bonsai" />
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\FilteredEMG.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\CursorFilteredEMG.bonsai" />
       <Expression xsi:type="osc:ReceiveMessage">
         <osc:Address>/decoding_params</osc:Address>
         <osc:TypeTag>ss</osc:TypeTag>
@@ -545,8 +545,8 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:CreateVector3">
-                                        <gl:X>0.5</gl:X>
-                                        <gl:Y>-0.87</gl:Y>
+                                        <gl:X>0</gl:X>
+                                        <gl:Y>1</gl:Y>
                                         <gl:Z>0</gl:Z>
                                       </Combinator>
                                     </Expression>
@@ -562,8 +562,8 @@ Position.Y as LocationY,
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="p2:SetTransform">
                                         <p2:Position>
-                                          <p2:X>0.5</p2:X>
-                                          <p2:Y>-0.87000000476837158</p2:Y>
+                                          <p2:X>0</p2:X>
+                                          <p2:Y>1</p2:Y>
                                           <p2:Z>0</p2:Z>
                                         </p2:Position>
                                         <p2:Orientation xsi:nil="true" />
@@ -612,8 +612,8 @@ Position.Y as LocationY,
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <LocationX>0.5</LocationX>
-                                <LocationY>-0.87</LocationY>
+                                <LocationX>0</LocationX>
+                                <LocationY>1</LocationY>
                                 <Layer>0</Layer>
                                 <Diameter>0.15</Diameter>
                                 <ColorR>1</ColorR>
@@ -815,7 +815,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/11_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -850,7 +850,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/11_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -948,7 +948,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/11_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1090,8 +1090,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="dsp:Rescale">
-                                  <dsp:Min>-1000</dsp:Min>
-                                  <dsp:Max>1000</dsp:Max>
+                                  <dsp:Min>-50</dsp:Min>
+                                  <dsp:Max>50</dsp:Max>
                                   <dsp:RangeMin>-1</dsp:RangeMin>
                                   <dsp:RangeMax>1</dsp:RangeMax>
                                   <dsp:RescaleType>Clamp</dsp:RescaleType>
@@ -1139,8 +1139,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>0.0224946458</gl:X>
-                                  <gl:Y>0.0262105875</gl:Y>
+                                  <gl:X>0.3103552</gl:X>
+                                  <gl:Y>0.212917611</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1156,8 +1156,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:SetTransform">
                                   <p2:Position>
-                                    <p2:X>0.022494645789265633</p2:X>
-                                    <p2:Y>0.026210587471723557</p2:Y>
+                                    <p2:X>0.31035518646240234</p2:X>
+                                    <p2:Y>0.21291761100292206</p2:Y>
                                     <p2:Z>0</p2:Z>
                                   </p2:Position>
                                   <p2:Orientation xsi:nil="true" />
@@ -1193,8 +1193,8 @@ Position.Y as LocationY,
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>0.0224946458</LocationX>
-                          <LocationY>0.0262105875</LocationY>
+                          <LocationX>0.3103552</LocationX>
+                          <LocationY>0.212917611</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1283,7 +1283,7 @@ Position.Y as LocationY,
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/session_result_HT_RT_TX_TY.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/session_result_HT_RT_TX_TY.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>None</io:Suffix>

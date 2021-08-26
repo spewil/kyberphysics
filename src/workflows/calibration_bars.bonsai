@@ -28,7 +28,7 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\TriggeredAcquisition.bonsai" />
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\FilteredEMG.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\BarFilteredEMG.bonsai" />
       <Expression xsi:type="osc:ReceiveMessage">
         <osc:Address>/session_params</osc:Address>
         <osc:TypeTag>f</osc:TypeTag>
@@ -220,7 +220,7 @@ Timestamp as Timestamp
               <Combinator xsi:type="num:Permutation" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_1/bar_order_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_4/bar_order_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -328,7 +328,7 @@ Timestamp as Timestamp
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_1/63_2021_08_25_20_04.bin</dsp:Path>
+                      <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_4/16_2021_08_26_13_23.bin</dsp:Path>
                       <dsp:Suffix>None</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -491,14 +491,14 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
                     <ExtentX>0.01</ExtentX>
-                    <ExtentY>0.230850309</ExtentY>
+                    <ExtentY>0.03739642</ExtentY>
                     <LocationX>0.4920635</LocationX>
-                    <LocationY>-0.684574842</LocationY>
+                    <LocationY>-0.7813018</LocationY>
                     <Layer>0</Layer>
                     <Angle>0</Angle>
                     <ColorR>1</ColorR>
-                    <ColorG>0</ColorG>
-                    <ColorB>0</ColorB>
+                    <ColorG>1</ColorG>
+                    <ColorB>1</ColorB>
                     <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="MemberSelector">
@@ -554,7 +554,7 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_1/63_V_2021_08_25_20_04.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_4/16_V_2021_08_26_13_23.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>

@@ -1,15 +1,15 @@
 {
     "seconds_per_command" : 2,
 	"seconds_per_cue": 2,
-	"num_repetitions": 5,
+	"num_repetitions": 3,
 	"ITI": 1,
 	"movements": [
-		"index finger extension",
-		"index finger flexion",
-		"middle finger extension",
-		"middle finger flexion",
-		"ring finger extension",
-		"ring finger flexion",
-		"little finger extension",
-		"little finger flexion"]
+		"index finger up",
+		"index finger down",
+		"middle finger up",
+		"middle finger down",
+		"ring finger up",
+		"ring finger down",
+		"little finger up",
+		"little finger down"]
 }

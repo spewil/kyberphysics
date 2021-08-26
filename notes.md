@@ -1,3 +1,18 @@
+# 8_26_21
+## second self test
+filtering is better, scaling needs work
+calibration bars outside of box, then took sleeve off
+
+
+## miranda
+
+# 8_25_21
+
+first self test
+using wrong decoder
+filtering/scaling is horrible
+check this for data sanity, etc
+how to visualize "space" of activations?
 # 3/6/21
 
 starting recordings again:
