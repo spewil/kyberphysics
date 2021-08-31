@@ -108,6 +108,17 @@ def fill_time_array(dataset):
 
 
 if __name__ == "__main__":
-    for i in range(64):
-        if i % 2 == 0:
-            print(i)
+
+    def make_off_channels():
+        channels = []
+        for i in range(8):
+            for j in range(0, 7, 2):
+                if i % 2 == 0:
+                    channels.append(j + (i * 8))
+                else:
+                    channels.append(j + (i * 8) + 1)
+        return channels
+
+    channels = make_off_channels()
+    print(np.array(channels).reshape(-1, 4))
+    print(len(channels))

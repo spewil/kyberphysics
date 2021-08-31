@@ -1,5 +1,5 @@
 {
-	"seconds_per_trial" : 13,
+	"seconds_per_trial" : 12,
 	"emg_to_bar_scale" : 0.001,
 	"ITI" : 2
 }
