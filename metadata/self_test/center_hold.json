@@ -2,8 +2,8 @@
 	"num_targets" : 12,
 	"radius" : 0.05,
 	"timeout_time" : 3000,
-	"holding_time" : 1000,
-	"reach_time" : 4000,
+	"holding_time" : 750,
+	"reach_time" : 3000,
 	"min_scale" : -50,
 	"max_scale" : 50,
 	"ITI": 2

@@ -3,6 +3,16 @@ import time
 import sys
 import utils
 
+def make_target_channels():
+    channels = []
+    for i in range(8):
+        for j in range(0, 7, 2):
+            if i % 2 == 0:
+                channels.append(j + (i * 8))
+            else:
+                channels.append(j + (i * 8) + 1)
+    return channels
+
 client, server = utils.setup_osc()
 
 # grab experiment name and subject name
@@ -26,7 +36,9 @@ buffer_size = experiment_metadata["buffer_size"]
 recording_params = [num_channels, buffer_size, sampling_freq, record_path]
 
 # SESSION
-channels = np.arange(num_channels)
+target_channels = make_target_channels()
+print(np.array(target_channels).reshape(-1, 4))
+print(len(target_channels))
 seconds_per_trial = session_metadata["seconds_per_trial"]
 samples_per_trial = sampling_freq * seconds_per_trial
 ITI = session_metadata["ITI"]
@@ -41,8 +53,8 @@ server.handle_request()
 print("bonsai initialized.")
 input("Enter to begin recording session.")
 
-for i, channel in enumerate(channels):
-    print(f"TRIAL {i}")
+for i, channel in enumerate(target_channels):
+    print(f"TRIAL {i} : CHANNEL {channel}")
     task_params = [samples_per_trial, int(channel)]
     client.send_message("/task_params", task_params)
     msg = server.handle_request()
