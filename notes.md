@@ -1,3 +1,6 @@
+- paths sent to bonsai must be in windows format
+- paths checked in python must be in wsl format
+
 # 3/6/21
 
 starting recordings again:
