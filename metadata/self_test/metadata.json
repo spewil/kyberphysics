@@ -6,8 +6,8 @@
 	"tasks" : ["natural_movement", "calibration_bars", "center_hold"],
 	"num_sessions_per_task": 
 	{
-		"natural_movement": 3,
-		"calibration_bars": 3, 
-		"center_hold" : 40
+		"natural_movement": 1,
+		"calibration_bars": 2, 
+		"center_hold" : 100
 	}
 }

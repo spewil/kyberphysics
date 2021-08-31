@@ -6,3 +6,4 @@ Packages
 *.exe
 *.exe.settings
 .vs
+*.DS_Store

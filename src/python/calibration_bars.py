@@ -26,7 +26,7 @@ buffer_size = experiment_metadata["buffer_size"]
 recording_params = [num_channels, buffer_size, sampling_freq, record_path]
 
 # SESSION
-target_channels = np.arange(num_channels)
+channels = np.arange(num_channels)
 seconds_per_trial = session_metadata["seconds_per_trial"]
 samples_per_trial = sampling_freq * seconds_per_trial
 ITI = session_metadata["ITI"]
@@ -41,7 +41,8 @@ server.handle_request()
 print("bonsai initialized.")
 input("Enter to begin recording session.")
 
-for channel in target_channels:
+for i, channel in enumerate(channels):
+    print(f"TRIAL {i}")
     task_params = [samples_per_trial, int(channel)]
     client.send_message("/task_params", task_params)
     msg = server.handle_request()

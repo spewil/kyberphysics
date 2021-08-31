@@ -7,6 +7,7 @@
                  xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -42,7 +43,7 @@
                 <gl:Location xsi:nil="true" />
                 <gl:WindowBorder>Resizable</gl:WindowBorder>
                 <gl:WindowState>Fullscreen</gl:WindowState>
-                <gl:DisplayDevice>Second</gl:DisplayDevice>
+                <gl:DisplayDevice>First</gl:DisplayDevice>
                 <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
                 <gl:TargetUpdateFrequency xsi:nil="true" />
                 <gl:RenderState />
@@ -154,7 +155,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:Take">
-                <rx:Count>6000</rx:Count>
+                <rx:Count>1800</rx:Count>
               </Combinator>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
@@ -180,7 +181,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/self_test/spencer/natural_movement/session_0/index finger flexion_2021_08_25_16_56.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/self_test/spencer/natural_movement/session_1/wrist out_2021_08_31_13_58.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -260,7 +261,7 @@ Item4 as Command)</scr:Expression>
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-                    <Count>6000</Count>
+                    <Count>4000</Count>
                   </Expression>
                   <Expression xsi:type="SubscribeSubject">
                     <Name>TaskParams</Name>
@@ -274,7 +275,7 @@ Item4 as Command)</scr:Expression>
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-                    <Count>6000</Count>
+                    <Count>2000</Count>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:TakeUntil" />
@@ -315,10 +316,73 @@ Item4 as Command)</scr:Expression>
                 <Property Name="Count" />
               </PropertyMappings>
             </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RecordingParams</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>RecordPath</Selector>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>TaskParams</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Command</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}/{1}_cue_.csv</Format>
+              <Selector>Item1,Item2</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="FileName" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="gl:UpdateFrame" />
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>TimeStep.ElapsedTime</Selector>
+            </Expression>
+            <Expression xsi:type="rx:Accumulate" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="gl:CreateVector2">
+                <gl:X>0</gl:X>
+                <gl:Y>0</gl:Y>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="gl:CreateVector2">
+                <gl:X>0</gl:X>
+                <gl:Y>0</gl:Y>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Concat" />
+            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:RepeatCount">
-                <rx:Count>5</rx:Count>
+                <rx:Count>3</rx:Count>
               </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:WithLatestFrom" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Last" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:TakeUntil" />
+            </Expression>
+            <Expression xsi:type="io:CsvWriter">
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/natural_movement/session_1/wrist out_cue_.csv</io:FileName>
+              <io:Append>false</io:Append>
+              <io:Overwrite>false</io:Overwrite>
+              <io:Suffix>Timestamp</io:Suffix>
+              <io:IncludeHeader>false</io:IncludeHeader>
+              <io:Selector>Item1,Item2.X,Item2.Y</io:Selector>
             </Expression>
             <Expression xsi:type="WorkflowOutput" />
             <Expression xsi:type="SubscribeSubject">
@@ -336,7 +400,7 @@ Item4 as Command)</scr:Expression>
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
-              <Text>index finger flexion</Text>
+              <Text>wrist out</Text>
               <Font>Rockwell, 100pt, style=Bold</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Near</LineAlignment>
@@ -356,15 +420,33 @@ Item4 as Command)</scr:Expression>
             </Expression>
           </Nodes>
           <Edges>
-            <Edge From="0" To="4" Label="Source1" />
+            <Edge From="0" To="16" Label="Source2" />
             <Edge From="1" To="2" Label="Source1" />
             <Edge From="2" To="3" Label="Source1" />
-            <Edge From="3" To="4" Label="Source2" />
+            <Edge From="3" To="17" Label="Source2" />
             <Edge From="4" To="5" Label="Source1" />
-            <Edge From="6" To="10" Label="Source1" />
-            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="5" To="8" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source2" />
             <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source2" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="10" To="21" Label="Source2" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="18" Label="Source1" />
+            <Edge From="14" To="16" Label="Source3" />
+            <Edge From="15" To="16" Label="Source1" />
+            <Edge From="16" To="17" Label="Source1" />
+            <Edge From="17" To="18" Label="Source2" />
+            <Edge From="17" To="19" Label="Source1" />
+            <Edge From="18" To="20" Label="Source1" />
+            <Edge From="19" To="20" Label="Source2" />
+            <Edge From="20" To="21" Label="Source1" />
+            <Edge From="21" To="22" Label="Source1" />
+            <Edge From="23" To="27" Label="Source1" />
+            <Edge From="24" To="25" Label="Source1" />
+            <Edge From="25" To="26" Label="Source1" />
+            <Edge From="26" To="27" Label="Source2" />
           </Edges>
         </Workflow>
       </Expression>

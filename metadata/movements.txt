@@ -6,6 +6,7 @@ ring finger extension
 ring finger flexion
 little finger extension
 little finger flexion
+
 index and middle finger extension
 index and middle finger flexion
 index and ring finger extension
@@ -22,6 +23,7 @@ little and middle finger extension
 little and middle finger flexion
 middle, ring and little finger extension
 middle, ring, and little finger flexion
+
 index finger pinch
 index finger reverse pinch
 middle finger pinch
@@ -31,6 +33,7 @@ ring finger reverse pinch
 little finger pinch
 little finger reverse pinch
 all finger pinch
+
 hand open
 hand grasp
 wrist extension

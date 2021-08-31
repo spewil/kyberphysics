@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.6.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Description>Using DSP buffer, sliding window of N samples is averaged.
+Cutoff 1 is the lowpass cutoff frequency in Hz. Then subsample
+using Submatrix. </Description>
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>EmgData</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Channel56Average.bonsai" />
+      <Expression xsi:type="SubscribeSubject">
+        <Name>RecordingParams</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>SamplingFreq</Selector>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="SampleRate" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>RecordingParams</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>SamplingFreq</Selector>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="SampleRate" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:FrequencyFilter">
+          <dsp:SampleRate>2000</dsp:SampleRate>
+          <dsp:Cutoff1>0.1</dsp:Cutoff1>
+          <dsp:Cutoff2>0</dsp:Cutoff2>
+          <dsp:KernelLength>250</dsp:KernelLength>
+          <dsp:FilterType>HighPass</dsp:FilterType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Abs" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:ConvertScale">
+          <dsp:Depth>F32</dsp:Depth>
+          <dsp:Scale>1</dsp:Scale>
+          <dsp:Shift>0</dsp:Shift>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:FrequencyFilter">
+          <dsp:SampleRate>2000</dsp:SampleRate>
+          <dsp:Cutoff1>5</dsp:Cutoff1>
+          <dsp:Cutoff2>0</dsp:Cutoff2>
+          <dsp:KernelLength>250</dsp:KernelLength>
+          <dsp:FilterType>LowPass</dsp:FilterType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow xsi:nil="true" />
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol>1</dsp:EndCol>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PublishSubject">
+        <Name>FilteredEMG</Name>
+      </Expression>
+      <Expression xsi:type="WorkflowOutput" />
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="8" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="11" Label="Source2" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source2" />
+      <Edge From="8" To="9" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="13" To="14" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
