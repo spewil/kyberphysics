@@ -56,7 +56,7 @@ Item2 as DynamicsFilename
           <gl:CursorVisible>true</gl:CursorVisible>
           <gl:Location xsi:nil="true" />
           <gl:WindowBorder>Resizable</gl:WindowBorder>
-          <gl:WindowState>Fullscreen</gl:WindowState>
+          <gl:WindowState>Normal</gl:WindowState>
           <gl:DisplayDevice>Second</gl:DisplayDevice>
           <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
@@ -545,8 +545,8 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:CreateVector3">
-                                        <gl:X>0</gl:X>
-                                        <gl:Y>1</gl:Y>
+                                        <gl:X>-1</gl:X>
+                                        <gl:Y>-0</gl:Y>
                                         <gl:Z>0</gl:Z>
                                       </Combinator>
                                     </Expression>
@@ -562,8 +562,8 @@ Position.Y as LocationY,
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="p2:SetTransform">
                                         <p2:Position>
-                                          <p2:X>0</p2:X>
-                                          <p2:Y>1</p2:Y>
+                                          <p2:X>-1</p2:X>
+                                          <p2:Y>-0</p2:Y>
                                           <p2:Z>0</p2:Z>
                                         </p2:Position>
                                         <p2:Orientation xsi:nil="true" />
@@ -612,8 +612,8 @@ Position.Y as LocationY,
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <LocationX>0</LocationX>
-                                <LocationY>1</LocationY>
+                                <LocationX>-1</LocationX>
+                                <LocationY>-0</LocationY>
                                 <Layer>0</Layer>
                                 <Diameter>0.15</Diameter>
                                 <ColorR>1</ColorR>
@@ -780,6 +780,11 @@ Position.Y as LocationY,
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="rx:Zip" />
                         </Expression>
+                        <Expression xsi:type="Combinator">
+                          <Combinator xsi:type="rx:Take">
+                            <rx:Count>1</rx:Count>
+                          </Combinator>
+                        </Expression>
                         <Expression xsi:type="scr:ExpressionTransform">
                           <scr:Expression>Item2 == null ?
 new("No Hold" as Outcome, single(Item1.Item2) as HoldTime, single.NaN as ReachTime, single(Item3.TargetX) as TargetX, single(Item3.TargetY) as TargetY) :
@@ -815,7 +820,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/11_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/3_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -850,7 +855,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/11_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/3_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -948,7 +953,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/11_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/3_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1075,8 +1080,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p3:UpdateDecoder">
                                   <p3:BufferSize>1</p3:BufferSize>
-                                  <p3:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/spencer/decoder.bin</p3:DecoderFileName>
-                                  <p3:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/spencer/dynamics.bin</p3:DynamicsFileName>
+                                  <p3:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/self_test/spencer/decoder.bin</p3:DecoderFileName>
+                                  <p3:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/self_test/spencer/dynamics.bin</p3:DynamicsFileName>
                                   <p3:StateDimension>6</p3:StateDimension>
                                 </Combinator>
                               </Expression>
@@ -1139,8 +1144,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>0.3103552</gl:X>
-                                  <gl:Y>0.212917611</gl:Y>
+                                  <gl:X>-1</gl:X>
+                                  <gl:Y>-1</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1156,8 +1161,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:SetTransform">
                                   <p2:Position>
-                                    <p2:X>0.31035518646240234</p2:X>
-                                    <p2:Y>0.21291761100292206</p2:Y>
+                                    <p2:X>-1</p2:X>
+                                    <p2:Y>-1</p2:Y>
                                     <p2:Z>0</p2:Z>
                                   </p2:Position>
                                   <p2:Orientation xsi:nil="true" />
@@ -1193,8 +1198,8 @@ Position.Y as LocationY,
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>0.3103552</LocationX>
-                          <LocationY>0.212917611</LocationY>
+                          <LocationX>-1</LocationX>
+                          <LocationY>-1</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1215,42 +1220,43 @@ Position.Y as LocationY,
                         <Edge From="9" To="10" Label="Source3" />
                         <Edge From="10" To="11" Label="Source1" />
                         <Edge From="11" To="12" Label="Source1" />
-                        <Edge From="13" To="21" Label="Source1" />
-                        <Edge From="14" To="15" Label="Source1" />
-                        <Edge From="15" To="18" Label="Source2" />
-                        <Edge From="16" To="17" Label="Source1" />
+                        <Edge From="12" To="13" Label="Source1" />
+                        <Edge From="14" To="22" Label="Source1" />
+                        <Edge From="15" To="16" Label="Source1" />
+                        <Edge From="16" To="19" Label="Source2" />
                         <Edge From="17" To="18" Label="Source1" />
                         <Edge From="18" To="19" Label="Source1" />
                         <Edge From="19" To="20" Label="Source1" />
-                        <Edge From="20" To="21" Label="Source2" />
-                        <Edge From="22" To="30" Label="Source1" />
-                        <Edge From="23" To="24" Label="Source1" />
-                        <Edge From="24" To="27" Label="Source2" />
-                        <Edge From="25" To="26" Label="Source1" />
+                        <Edge From="20" To="21" Label="Source1" />
+                        <Edge From="21" To="22" Label="Source2" />
+                        <Edge From="23" To="31" Label="Source1" />
+                        <Edge From="24" To="25" Label="Source1" />
+                        <Edge From="25" To="28" Label="Source2" />
                         <Edge From="26" To="27" Label="Source1" />
                         <Edge From="27" To="28" Label="Source1" />
                         <Edge From="28" To="29" Label="Source1" />
-                        <Edge From="29" To="30" Label="Source2" />
-                        <Edge From="31" To="39" Label="Source1" />
-                        <Edge From="32" To="33" Label="Source1" />
-                        <Edge From="33" To="36" Label="Source2" />
-                        <Edge From="34" To="35" Label="Source1" />
+                        <Edge From="29" To="30" Label="Source1" />
+                        <Edge From="30" To="31" Label="Source2" />
+                        <Edge From="32" To="40" Label="Source1" />
+                        <Edge From="33" To="34" Label="Source1" />
+                        <Edge From="34" To="37" Label="Source2" />
                         <Edge From="35" To="36" Label="Source1" />
                         <Edge From="36" To="37" Label="Source1" />
                         <Edge From="37" To="38" Label="Source1" />
-                        <Edge From="38" To="39" Label="Source2" />
-                        <Edge From="40" To="41" Label="Source1" />
-                        <Edge From="42" To="43" Label="Source1" />
+                        <Edge From="38" To="39" Label="Source1" />
+                        <Edge From="39" To="40" Label="Source2" />
+                        <Edge From="41" To="42" Label="Source1" />
                         <Edge From="43" To="44" Label="Source1" />
                         <Edge From="44" To="45" Label="Source1" />
-                        <Edge From="45" To="53" Label="Source3" />
-                        <Edge From="46" To="53" Label="Source1" />
-                        <Edge From="47" To="48" Label="Source1" />
+                        <Edge From="45" To="46" Label="Source1" />
+                        <Edge From="46" To="54" Label="Source3" />
+                        <Edge From="47" To="54" Label="Source1" />
                         <Edge From="48" To="49" Label="Source1" />
                         <Edge From="49" To="50" Label="Source1" />
                         <Edge From="50" To="51" Label="Source1" />
                         <Edge From="51" To="52" Label="Source1" />
-                        <Edge From="52" To="53" Label="Source2" />
+                        <Edge From="52" To="53" Label="Source1" />
+                        <Edge From="53" To="54" Label="Source2" />
                       </Edges>
                     </Workflow>
                   </Expression>
@@ -1283,7 +1289,7 @@ Position.Y as LocationY,
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_1/session_result_HT_RT_TX_TY.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/session_result_HT_RT_TX_TY.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>None</io:Suffix>
