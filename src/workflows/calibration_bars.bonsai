@@ -202,7 +202,7 @@ it as BarScale
               <Combinator xsi:type="num:Permutation" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_3/bar_order_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_5/bar_order_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -365,14 +365,14 @@ Timestamp as Timestamp
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-                    <Count>26000</Count>
+                    <Count>24000</Count>
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="rx:TakeUntil" />
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_3/15_emg_.bin</dsp:Path>
+                      <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_5/13_emg_.bin</dsp:Path>
                       <dsp:Suffix>Timestamp</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -456,7 +456,7 @@ Timestamp as Timestamp
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="Extensions\EmgTimer.bonsai">
-              <Count>26000</Count>
+              <Count>24000</Count>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>BarHeightRendered</Name>
@@ -535,9 +535,9 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
                     <ExtentX>0.01</ExtentX>
-                    <ExtentY>0.0141497888</ExtentY>
+                    <ExtentY>0.0159153156</ExtentY>
                     <LocationX>0.4920635</LocationX>
-                    <LocationY>-0.7929251</LocationY>
+                    <LocationY>-0.7920423</LocationY>
                     <Layer>0</Layer>
                     <Angle>0</Angle>
                     <ColorR>1</ColorR>
@@ -598,7 +598,7 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_3/15_bars_.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/self_test/spencer/calibration_bars/session_5/13_bars_.bin</dsp:Path>
                 <dsp:Suffix>Timestamp</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>

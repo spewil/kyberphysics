@@ -56,8 +56,8 @@ Item2 as DynamicsFilename
           <gl:CursorVisible>true</gl:CursorVisible>
           <gl:Location xsi:nil="true" />
           <gl:WindowBorder>Resizable</gl:WindowBorder>
-          <gl:WindowState>Normal</gl:WindowState>
-          <gl:DisplayDevice>Second</gl:DisplayDevice>
+          <gl:WindowState>Fullscreen</gl:WindowState>
+          <gl:DisplayDevice>First</gl:DisplayDevice>
           <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
@@ -266,7 +266,7 @@ Position.Y as LocationY,
                               </Expression>
                               <Expression xsi:type="Multiply">
                                 <Operand xsi:type="FloatProperty">
-                                  <Value>3</Value>
+                                  <Value>5</Value>
                                 </Operand>
                               </Expression>
                               <Expression xsi:type="PropertyMapping">
@@ -278,7 +278,7 @@ Position.Y as LocationY,
                                 <LocationX>0</LocationX>
                                 <LocationY>0</LocationY>
                                 <Layer>0</Layer>
-                                <Diameter>0.15</Diameter>
+                                <Diameter>0.25</Diameter>
                                 <ColorR>1</ColorR>
                                 <ColorG>1</ColorG>
                                 <ColorB>1</ColorB>
@@ -340,7 +340,7 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:Timer">
-                                        <gl:DueTime>PT5S</gl:DueTime>
+                                        <gl:DueTime>PT3S</gl:DueTime>
                                       </Combinator>
                                     </Expression>
                                     <Expression xsi:type="WorkflowOutput" />
@@ -411,7 +411,7 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:Timer">
-                                        <gl:DueTime>PT0.5S</gl:DueTime>
+                                        <gl:DueTime>PT0.75S</gl:DueTime>
                                       </Combinator>
                                     </Expression>
                                     <Expression xsi:type="Combinator">
@@ -545,8 +545,8 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:CreateVector3">
-                                        <gl:X>-1</gl:X>
-                                        <gl:Y>-0</gl:Y>
+                                        <gl:X>-0.5</gl:X>
+                                        <gl:Y>0.87</gl:Y>
                                         <gl:Z>0</gl:Z>
                                       </Combinator>
                                     </Expression>
@@ -562,8 +562,8 @@ Position.Y as LocationY,
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="p2:SetTransform">
                                         <p2:Position>
-                                          <p2:X>-1</p2:X>
-                                          <p2:Y>-0</p2:Y>
+                                          <p2:X>-0.5</p2:X>
+                                          <p2:Y>0.87000000476837158</p2:Y>
                                           <p2:Z>0</p2:Z>
                                         </p2:Position>
                                         <p2:Orientation xsi:nil="true" />
@@ -612,8 +612,8 @@ Position.Y as LocationY,
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <LocationX>-1</LocationX>
-                                <LocationY>-0</LocationY>
+                                <LocationX>-0.5</LocationX>
+                                <LocationY>0.87</LocationY>
                                 <Layer>0</Layer>
                                 <Diameter>0.15</Diameter>
                                 <ColorR>1</ColorR>
@@ -698,7 +698,7 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:Timer">
-                                        <gl:DueTime>PT5S</gl:DueTime>
+                                        <gl:DueTime>PT3S</gl:DueTime>
                                       </Combinator>
                                     </Expression>
                                     <Expression xsi:type="WorkflowOutput" />
@@ -820,7 +820,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/3_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -855,7 +855,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/3_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -953,7 +953,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/3_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/11_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1144,8 +1144,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>-1</gl:X>
-                                  <gl:Y>-1</gl:Y>
+                                  <gl:X>1</gl:X>
+                                  <gl:Y>1</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1161,8 +1161,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:SetTransform">
                                   <p2:Position>
-                                    <p2:X>-1</p2:X>
-                                    <p2:Y>-1</p2:Y>
+                                    <p2:X>1</p2:X>
+                                    <p2:Y>1</p2:Y>
                                     <p2:Z>0</p2:Z>
                                   </p2:Position>
                                   <p2:Orientation xsi:nil="true" />
@@ -1198,8 +1198,8 @@ Position.Y as LocationY,
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>-1</LocationX>
-                          <LocationY>-1</LocationY>
+                          <LocationX>1</LocationX>
+                          <LocationY>1</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>

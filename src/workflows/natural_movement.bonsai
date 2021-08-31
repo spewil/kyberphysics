@@ -181,7 +181,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/self_test/spencer/natural_movement/session_1/wrist out_2021_08_31_13_58.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/self_test/simon/natural_movement/session_0/wrist out_2021_08_31_16_31.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -377,7 +377,7 @@ Item4 as Command)</scr:Expression>
               <Combinator xsi:type="rx:TakeUntil" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/spencer/natural_movement/session_1/wrist out_cue_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/simon/natural_movement/session_0/wrist out_cue_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
