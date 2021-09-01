@@ -2,8 +2,23 @@ import time
 import sys
 import numpy as np
 import utils
+import sys
+import io
 
-client, server = utils.setup_osc()
+def grab_input_from_buffer(osc_server):
+    old_stdout = sys.stdout # Memorize the default stdout stream
+    sys.stdout = buffer = io.StringIO()
+    osc_server.handle_request()
+    sys.stdout = old_stdout # Put the old stream back in place
+    return buffer.getvalue() # Return a str containing the entire contents of the buffer.
+
+def center_hold_handler(address, *args):
+    print(args[0])
+
+def strip_newlines(message):
+    return str(message).strip("\n")
+
+client, server = utils.setup_osc(center_hold_handler)
 
 # grab experiment name and subject name
 experiment = sys.argv[1]
@@ -73,16 +88,27 @@ print("bonsai initialized.")
 input("Enter to begin recording session.")
 
 for i, target_idx in enumerate(target_indices):
+    num_no_holds = 0
     task_params = [
         str(i),
-        # float(x[target_idx]),
-        # float(y[target_idx]), 
-        0.0,
-        0.0,
+        float(x[target_idx]),
+        float(y[target_idx]), 
         radius, timeout_time, holding_time, reach_time
     ]
-    print(float(x[target_idx]), float(y[target_idx]))
+    print(f"Trial {i} -- Task Params: {task_params}")
     client.send_message("/trial_params", task_params)
-    server.handle_request()
+    msg = strip_newlines(grab_input_from_buffer(server))
+    print(f"Outcome: {msg}")
     time.sleep(ITI)
+    while msg == "No Hold":
+        num_no_holds += 1
+        print(f"Rehold {num_no_holds}")
+        print(f"Trial {i} -- Task Params: {task_params}")
+        client.send_message("/trial_params", task_params)
+        msg = strip_newlines(grab_input_from_buffer(server))
+        print(f"Outcome: {msg}")
+        if num_no_holds > 2: # third attempt finished
+            msg = None
+            print("Number of hold attempts exceeded.")
+        time.sleep(ITI)
 client.send_message("/stop", 1)

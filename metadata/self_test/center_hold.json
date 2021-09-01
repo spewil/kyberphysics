@@ -1,7 +1,7 @@
 {
 	"num_targets" : 12,
 	"radius" : 0.05,
-	"timeout_time" : 3000,
+	"timeout_time" : 3500,
 	"holding_time" : 750,
 	"reach_time" : 5000,
 	"min_scale" : -50,

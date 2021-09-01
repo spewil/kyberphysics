@@ -51,15 +51,14 @@ def load_array_from_disk(path):
 
 
 def setup_osc(handler=None):
+    dispatcher = Dispatcher()
     if handler is None:
 
         def default_handler(address, *args):
             print(f"BONSAI {address}: {args}")
 
-        dispatcher = Dispatcher()
         dispatcher.set_default_handler(default_handler)
     else:
-        dispatcher = Dispatcher()
         dispatcher.set_default_handler(handler)
 
     client = udp_client.SimpleUDPClient("127.0.0.1", 5005)
@@ -180,3 +179,7 @@ def compute_center_hold_time(experiment):
 
 if __name__ == "__main__":
     print(compute_experiment_time("self_test"))
+
+
+
+    
