@@ -58,7 +58,7 @@ using Submatrix. </Description>
           <dsp:SampleRate>2000</dsp:SampleRate>
           <dsp:Cutoff1>5</dsp:Cutoff1>
           <dsp:Cutoff2>0</dsp:Cutoff2>
-          <dsp:KernelLength>250</dsp:KernelLength>
+          <dsp:KernelLength>500</dsp:KernelLength>
           <dsp:FilterType>LowPass</dsp:FilterType>
         </Combinator>
       </Expression>
