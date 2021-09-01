@@ -209,6 +209,9 @@ Item7 as ReachTime
       <Expression xsi:type="BehaviorSubject">
         <Name>TrialParams</Name>
       </Expression>
+      <Expression xsi:type="PublishSubject">
+        <Name>StartTrial</Name>
+      </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>RecordingParams</Name>
       </Expression>
@@ -216,6 +219,21 @@ Item7 as ReachTime
         <Name>Trials</Name>
         <Workflow>
           <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>RecordPath</Selector>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}/session_result_HT_RT_TX_TY.csv</Format>
+              <Selector>it</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="FileName" />
+              </PropertyMappings>
+            </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>TrialParams</Name>
             </Expression>
@@ -545,8 +563,8 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:CreateVector3">
-                                        <gl:X>-0.87</gl:X>
-                                        <gl:Y>-0.5</gl:Y>
+                                        <gl:X>0</gl:X>
+                                        <gl:Y>0</gl:Y>
                                         <gl:Z>0</gl:Z>
                                       </Combinator>
                                     </Expression>
@@ -562,8 +580,8 @@ Position.Y as LocationY,
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="p2:SetTransform">
                                         <p2:Position>
-                                          <p2:X>-0.87000000476837158</p2:X>
-                                          <p2:Y>-0.5</p2:Y>
+                                          <p2:X>0</p2:X>
+                                          <p2:Y>0</p2:Y>
                                           <p2:Z>0</p2:Z>
                                         </p2:Position>
                                         <p2:Orientation xsi:nil="true" />
@@ -612,8 +630,8 @@ Position.Y as LocationY,
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <LocationX>-0.87</LocationX>
-                                <LocationY>-0.5</LocationY>
+                                <LocationX>0</LocationX>
+                                <LocationY>0</LocationY>
                                 <Layer>0</Layer>
                                 <Diameter>0.15</Diameter>
                                 <ColorR>1</ColorR>
@@ -820,7 +838,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/peter/center_hold/session_11/11_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_18/7_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -855,7 +873,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/peter/center_hold/session_11/11_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_18/7_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -953,7 +971,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/self_test/peter/center_hold/session_11/11_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_18/7_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1080,8 +1098,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p3:UpdateDecoder">
                                   <p3:BufferSize>1</p3:BufferSize>
-                                  <p3:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/self_test/peter/decoder.bin</p3:DecoderFileName>
-                                  <p3:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/self_test/peter/dynamics.bin</p3:DynamicsFileName>
+                                  <p3:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/self_test/spencer/decoder.bin</p3:DecoderFileName>
+                                  <p3:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/self_test/spencer/dynamics.bin</p3:DynamicsFileName>
                                   <p3:StateDimension>6</p3:StateDimension>
                                 </Combinator>
                               </Expression>
@@ -1144,8 +1162,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>-0.8835779</gl:X>
-                                  <gl:Y>-0.5737934</gl:Y>
+                                  <gl:X>1</gl:X>
+                                  <gl:Y>0.02</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1161,8 +1179,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:SetTransform">
                                   <p2:Position>
-                                    <p2:X>-0.88357788324356079</p2:X>
-                                    <p2:Y>-0.57379341125488281</p2:Y>
+                                    <p2:X>1</p2:X>
+                                    <p2:Y>0.019999999552965164</p2:Y>
                                     <p2:Z>0</p2:Z>
                                   </p2:Position>
                                   <p2:Orientation xsi:nil="true" />
@@ -1198,8 +1216,8 @@ Position.Y as LocationY,
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>-0.8835779</LocationX>
-                          <LocationY>-0.5737934</LocationY>
+                          <LocationX>1</LocationX>
+                          <LocationY>0.02</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1273,23 +1291,8 @@ Position.Y as LocationY,
                 </Edges>
               </Workflow>
             </Expression>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
-            </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>RecordPath</Selector>
-            </Expression>
-            <Expression xsi:type="Format">
-              <Format>{0}/session_result_HT_RT_TX_TY.csv</Format>
-              <Selector>it</Selector>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="FileName" />
-              </PropertyMappings>
-            </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/peter/center_hold/session_11/session_result_HT_RT_TX_TY.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_18/session_result_HT_RT_TX_TY.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>None</io:Suffix>
@@ -1299,12 +1302,69 @@ Position.Y as LocationY,
           </Nodes>
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
-            <Edge From="1" To="6" Label="Source2" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="6" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source2" />
+            <Edge From="6" To="7" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>Outcome</Selector>
+      </Expression>
+      <Expression xsi:type="SelectMany">
+        <Name>DrawResult</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>Draw</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Take">
+                <rx:Count>75</rx:Count>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>it == "Hit" ? "Hit" : ""</scr:Expression>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="Text" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
+              <Text />
+              <Font>Microsoft Sans Serif, 150pt</Font>
+              <Alignment>Center</Alignment>
+              <LineAlignment>Center</LineAlignment>
+              <TextRenderingHint>AntiAliasGridFit</TextRenderingHint>
+              <Color>
+                <Val0>255</Val0>
+                <Val1>255</Val1>
+                <Val2>255</Val2>
+                <Val3>255</Val3>
+              </Color>
+              <ExtentX>1</ExtentX>
+              <ExtentY>1</ExtentY>
+              <LocationX>0</LocationX>
+              <LocationY>0</LocationY>
+              <Layer>0</Layer>
+              <Angle>0</Angle>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="5" Label="Source1" />
             <Edge From="2" To="3" Label="Source1" />
             <Edge From="3" To="4" Label="Source1" />
-            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="4" To="5" Label="Source2" />
             <Edge From="5" To="6" Label="Source1" />
-            <Edge From="6" To="7" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -1335,10 +1395,13 @@ Position.Y as LocationY,
       <Edge From="16" To="17" Label="Source1" />
       <Edge From="18" To="19" Label="Source1" />
       <Edge From="19" To="20" Label="Source1" />
-      <Edge From="21" To="22" Label="Source1" />
+      <Edge From="20" To="21" Label="Source1" />
+      <Edge From="22" To="23" Label="Source1" />
       <Edge From="23" To="24" Label="Source1" />
       <Edge From="24" To="25" Label="Source1" />
-      <Edge From="25" To="26" Label="Source1" />
+      <Edge From="26" To="27" Label="Source1" />
+      <Edge From="27" To="28" Label="Source1" />
+      <Edge From="28" To="29" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

@@ -75,8 +75,11 @@ input("Enter to begin recording session.")
 for i, target_idx in enumerate(target_indices):
     task_params = [
         str(i),
-        float(x[target_idx]),
-        float(y[target_idx]), radius, timeout_time, holding_time, reach_time
+        # float(x[target_idx]),
+        # float(y[target_idx]), 
+        0.0,
+        0.0,
+        radius, timeout_time, holding_time, reach_time
     ]
     print(float(x[target_idx]), float(y[target_idx]))
     client.send_message("/trial_params", task_params)
