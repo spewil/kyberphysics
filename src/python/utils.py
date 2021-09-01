@@ -108,7 +108,7 @@ def get_metadata(experiment, session, subject):
         experiment, session), get_subject_metadata(experiment, subject)
 
 
-def setup_record_path(experiment, session, subject):
+def setup_record_path(experiment, session, subject, add_session=True, convert_to_windows=True):
 
     if sys.platform == "linux":
         base_data_folder = pathlib.Path("/mnt/c/Users/spencer/data/")
@@ -123,9 +123,11 @@ def setup_record_path(experiment, session, subject):
     record_path = subject_data_folder / session
     assert record_path.exists(
     ), f"Path {subject_data_folder / session} not found"
-    record_path = add_session_folder(record_path)
 
-    if sys.platform == "linux":
+    if add_session:
+        record_path = add_session_folder(record_path)
+
+    if convert_to_windows:
         return convert_abspath_wsl_to_windows(record_path)
     else:
         return record_path
@@ -180,6 +182,6 @@ def compute_center_hold_time(experiment):
 if __name__ == "__main__":
     print(compute_experiment_time("self_test"))
 
-
+    Pa
 
     

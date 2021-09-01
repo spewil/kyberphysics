@@ -8,6 +8,6 @@
 	{
 		"natural_movement": 1,
 		"calibration_bars": 3, 
-		"center_hold" : 100
+		"center_hold" : 2
 	}
 }
