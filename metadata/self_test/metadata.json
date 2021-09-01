@@ -7,7 +7,7 @@
 	"num_sessions_per_task": 
 	{
 		"natural_movement": 1,
-		"calibration_bars": 2, 
+		"calibration_bars": 3, 
 		"center_hold" : 100
 	}
 }

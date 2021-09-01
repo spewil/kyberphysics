@@ -175,7 +175,7 @@ def compute_calibration_bars_time(experiment):
 def compute_center_hold_time(experiment):
     session_metadata = get_session_metadata(experiment, "center_hold")
     return session_metadata["num_targets"] * 0.5 * 0.001 * (
-        session_metadata["holding_time"] + session_metadata["reach_time"])
+        session_metadata["reach_time"])
 
 
 if __name__ == "__main__":
