@@ -1,9 +1,3 @@
-import matplotlib.pyplot as plt
-import matplotlib.lines as mlines
-plt.rcParams['figure.figsize'] = [9, 6]
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.decomposition import NMF
 import numpy as np
 import scipy.signal
 import scipy.ndimage

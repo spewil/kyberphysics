@@ -1,13 +1,22 @@
+import sys
 import numpy as np
 import utils
+import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
+import matplotlib
+plt.rcParams['figure.figsize'] = [9, 6]
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.decomposition import NMF
 
 # from numpy.core.numeric import identity
-# if sys.platform == "darwin":
-#     matplotlib.use("Qt4Agg")
-#     print("on mac")
-# else:
-#     print("on windows")
-# import matplotlib.pyplot as plt
+if sys.platform == "darwin":
+    matplotlib.use("Qt4Agg")
+    print("on mac")
+else:
+    print("on windows")
+    matplotlib.use("pdf")
+import matplotlib.pyplot as plt
 
 
 def generate_dynamics_and_mapping(num_channels=32,
@@ -101,29 +110,63 @@ def generate_decoder(experiment, subject):
 def generate_dynamics():
     pass
 
+def parse_filename_prefix(x):
+    name = x.name
+    prefix = name[:2]
+    if prefix[-1] == "_":
+        return int(prefix[0])
+    else:
+        return int(prefix)
+
+def compute_PCA_components(experiment, subject):
+    # get data -- concat?
+
+    data_path = utils.setup_record_path(experiment, "calibration_bars", subject, add_session=False, convert_to_windows=False)
+    emg_files = sorted([file for file in (data_path / "session_0").iterdir() if "emg" in file.name],key=parse_filename_prefix)
+    emg = utils.load_array_from_disk(emg_files[1]).reshape(-1,64)
+    print(emg.shape)
+    fig, ax = plt.subplots(1,1)
+    ax.plot(emg[0,:])
+    fig.savefig("test")
+
+    # get components -- channel-wise covariance
+    # model = PCA(n_components=20, init='random', random_state=0)
+    # W = model.fit_transform(X)
+    # H = model.components_
+    # X_new = np.array([[1, 0], [1, 6.1], [1, 0], [1, 4], [3.2, 1], [0, 4]])
+    # W_new = model.transform(X_new)
+
+    # screeplot
+    # choose components
+    # negate, normalize, and stack to form decoder
+    # transform existing data?
 
 if __name__ == '__main__':
 
     # MAKE DECODER
-    dynamics = generate_null_dynamics()
-    decoder = generate_identity_decoder(64)
+    # dynamics = generate_null_dynamics()
+    # decoder = generate_identity_decoder(64)
 
-    subject_folder = utils.get_subject_folder("self_test", "spencer")
+    # subject_folder = utils.get_subject_folder("self_test", "spencer")
 
-    print(dynamics.shape)
-    print(dynamics)
+    # print(dynamics.shape)
+    # print(dynamics)
 
-    print(decoder.shape)
-    print(decoder)
+    # print(decoder.shape)
+    # print(decoder)
 
-    # SAVE DECODER
-    utils.write_array_to_disk(dynamics, subject_folder / "dynamics.bin")
+    # # SAVE DECODER
+    # utils.write_array_to_disk(dynamics, subject_folder / "dynamics.bin")
 
-    _, decoder = generate_dynamics_and_mapping(num_channels=64,mapping_type="column", save=False)
+    # _, decoder = generate_dynamics_and_mapping(num_channels=64,mapping_type="column", save=False)
 
-    utils.write_array_to_disk(decoder, subject_folder / "decoder.bin")
+    # utils.write_array_to_disk(decoder, subject_folder / "decoder.bin")
 
-    #  how the electrodes are spatially arranged
+    # PCA
+
+    compute_PCA_components("self_test_9_2_21", "spencer")
+
+    # how the electrodes are spatially arranged
     # electrode_layout = np.arange(32).reshape(4, 8)
     # print(electrode_layout)
     # how to invert this

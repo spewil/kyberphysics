@@ -29,8 +29,8 @@
           <osc:RemotePort>0</osc:RemotePort>
         </Combinator>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\TriggeredAcquisition.bonsai" />
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\CursorFilteredEMG.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\TriggeredAcquisition.bonsai" />
       <Expression xsi:type="osc:ReceiveMessage">
         <osc:Address>/decoding_params</osc:Address>
         <osc:TypeTag>ss</osc:TypeTag>
@@ -178,13 +178,14 @@ Item2 as DynamicsFilename
       </Expression>
       <Expression xsi:type="osc:ReceiveMessage">
         <osc:Address>/session_params</osc:Address>
-        <osc:TypeTag>ii</osc:TypeTag>
+        <osc:TypeTag>iis</osc:TypeTag>
         <osc:Connection>CommandServer</osc:Connection>
       </Expression>
       <Expression xsi:type="scr:ExpressionTransform">
         <scr:Expression>new(
 Item1 as Min,
-Item2 as Max
+Item2 as Max,
+Item3 as RecordPath
 )</scr:Expression>
       </Expression>
       <Expression xsi:type="BehaviorSubject">
@@ -213,9 +214,9 @@ Item7 as ReachTime
         <Name>StartTrial</Name>
       </Expression>
       <Expression xsi:type="SubscribeSubject">
-        <Name>RecordingParams</Name>
+        <Name>SessionParams</Name>
       </Expression>
-      <Expression xsi:type="SelectMany">
+      <Expression xsi:type="CreateObservable">
         <Name>Trials</Name>
         <Workflow>
           <Nodes>
@@ -819,7 +820,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                           <Selector>TrialIndex</Selector>
                         </Expression>
                         <Expression xsi:type="SubscribeSubject">
-                          <Name>RecordingParams</Name>
+                          <Name>SessionParams</Name>
                         </Expression>
                         <Expression xsi:type="MemberSelector">
                           <Selector>RecordPath</Selector>
@@ -838,7 +839,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_15/3_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/1_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -854,7 +855,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                           <Selector>TrialIndex</Selector>
                         </Expression>
                         <Expression xsi:type="SubscribeSubject">
-                          <Name>RecordingParams</Name>
+                          <Name>SessionParams</Name>
                         </Expression>
                         <Expression xsi:type="MemberSelector">
                           <Selector>RecordPath</Selector>
@@ -873,7 +874,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_15/3_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/1_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -889,7 +890,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                           <Selector>TrialIndex</Selector>
                         </Expression>
                         <Expression xsi:type="SubscribeSubject">
-                          <Name>RecordingParams</Name>
+                          <Name>SessionParams</Name>
                         </Expression>
                         <Expression xsi:type="MemberSelector">
                           <Selector>RecordPath</Selector>
@@ -971,7 +972,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_15/3_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/1_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1162,8 +1163,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>0</gl:X>
-                                  <gl:Y>0.5</gl:Y>
+                                  <gl:X>-1</gl:X>
+                                  <gl:Y>1</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1179,8 +1180,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:SetTransform">
                                   <p2:Position>
-                                    <p2:X>0</p2:X>
-                                    <p2:Y>0.5</p2:Y>
+                                    <p2:X>-1</p2:X>
+                                    <p2:Y>1</p2:Y>
                                     <p2:Z>0</p2:Z>
                                   </p2:Position>
                                   <p2:Orientation xsi:nil="true" />
@@ -1216,8 +1217,8 @@ Position.Y as LocationY,
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>0</LocationX>
-                          <LocationY>0.5</LocationY>
+                          <LocationX>-1</LocationX>
+                          <LocationY>1</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1292,7 +1293,7 @@ Position.Y as LocationY,
               </Workflow>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_15/session_result_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/self_test/spencer/center_hold/session_0/session_result_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -1310,6 +1311,9 @@ Position.Y as LocationY,
             <Edge From="6" To="7" Label="Source1" />
           </Edges>
         </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Switch" />
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Outcome</Selector>
@@ -1399,9 +1403,10 @@ Position.Y as LocationY,
       <Edge From="22" To="23" Label="Source1" />
       <Edge From="23" To="24" Label="Source1" />
       <Edge From="24" To="25" Label="Source1" />
-      <Edge From="26" To="27" Label="Source1" />
+      <Edge From="25" To="26" Label="Source1" />
       <Edge From="27" To="28" Label="Source1" />
       <Edge From="28" To="29" Label="Source1" />
+      <Edge From="29" To="30" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

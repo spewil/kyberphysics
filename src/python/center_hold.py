@@ -1,22 +1,19 @@
 import time
 import sys
 import numpy as np
+from numpy.core.records import record
 import utils
-import sys
-import io
 
-def grab_input_from_buffer(osc_server):
-    old_stdout = sys.stdout # Memorize the default stdout stream
-    sys.stdout = buffer = io.StringIO()
-    osc_server.handle_request()
-    sys.stdout = old_stdout # Put the old stream back in place
-    return buffer.getvalue() # Return a str containing the entire contents of the buffer.
-
-def center_hold_handler(address, *args):
-    print(args[0])
+msg = ""
 
 def strip_newlines(message):
     return str(message).strip("\n")
+
+def center_hold_handler(address, *args):
+    global msg 
+    msg = strip_newlines(args[0])
+    print(msg)
+    print(f"{address}: {args}")
 
 client, server = utils.setup_osc(center_hold_handler)
 
@@ -34,7 +31,6 @@ num_channels = experiment_metadata["num_channels"]
 sampling_freq = experiment_metadata["sampling_freq"]
 buffer_size = experiment_metadata["buffer_size"]
 record_folder = utils.setup_record_path(experiment, session, subject, add_session=False, convert_to_windows=False)
-recording_params = [num_channels, buffer_size, sampling_freq, str(utils.convert_abspath_wsl_to_windows(record_folder))]
 
 # SESSION
 num_targets = session_metadata["num_targets"]
@@ -71,7 +67,7 @@ x = xy[0, :]
 y = xy[1, :]
 
 #### SESSION LOOP #####
-
+recording_params = [num_channels, buffer_size, sampling_freq, ""]
 print(f"sending recording params: {recording_params}")
 client.send_message("/recording_params", recording_params)
 print(f"sending decoding params: {decoding_params}")
@@ -90,7 +86,7 @@ for s in range(num_sessions):
     session_params = [min_scale, max_scale, record_path]
     print(f"sending session params: {session_params}")
     client.send_message("/session_params", session_params)
-    time.sleep(2)
+    time.sleep(1)
     target_indices = np.random.choice(range(num_targets),
                                     size=num_targets,
                                     replace=False)
@@ -105,19 +101,21 @@ for s in range(num_sessions):
         ]
         print(f"Trial {i} -- Task Params: {task_params}")
         client.send_message("/trial_params", task_params)
-        msg = strip_newlines(grab_input_from_buffer(server))
+        server.handle_request()
         print(f"Outcome: {msg}")
         time.sleep(ITI)
-        # while msg == "No Hold":
-        #     num_no_holds += 1
-        #     print(f"Rehold {num_no_holds}")
-        #     print(f"Trial {i} -- Task Params: {task_params}")
-        #     client.send_message("/trial_params", task_params)
-        #     msg = strip_newlines(grab_input_from_buffer(server))
-        #     print(f"Outcome: {msg}")
-        #     if num_no_holds > max_holds - 1: # third attempt finished
-        #         msg = None
-        #         print("Number of hold attempts exceeded.")
-        #     time.sleep(ITI)
-    time.sleep(2) # inter-block-interval
+        while msg == "No Hold":
+            num_no_holds += 1
+            print(f"Rehold {num_no_holds}")
+            print(f"Trial {i} -- Task Params: {task_params}")
+            client.send_message("/trial_params", task_params)
+            # msg = strip_newlines(grab_input_from_buffer(server))
+            server.handle_request()
+            print(f"Outcome: {msg}")
+            if num_no_holds > max_holds - 1: # third attempt finished
+                msg = None
+                print("Number of hold attempts exceeded.")
+            time.sleep(ITI)
+
+        # time.sleep(2) # inter-block-interval
 client.send_message("/stop", 1)
