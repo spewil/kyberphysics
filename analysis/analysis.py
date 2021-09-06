@@ -1,10 +1,8 @@
 import numpy as np
 import scipy.signal
 import scipy.ndimage
-import seaborn as sns
-import pandas as pd
-from pathlib import Path
-import seaborn as sns
+
+from utils import utils
 
 
 def load_bin_file(path):
@@ -100,3 +98,7 @@ def fill_time_array(dataset):
                                 len(dataset.time) / dataset.sampling_rate,
                                 1 / dataset.sampling_rate)
 
+
+if __name__ == "__main__":
+    print("analysis!")
+    print(dir(utils))
