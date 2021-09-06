@@ -1,5 +1,5 @@
 import time
-import utils
+from utils import utils
 import sys
 
 client, server = utils.setup_osc()

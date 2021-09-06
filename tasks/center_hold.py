@@ -1,7 +1,7 @@
 import time
 import sys
 import numpy as np
-import utils
+from utils import utils
 
 msg = ""
 

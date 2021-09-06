@@ -1,5 +1,5 @@
 {
-	"num_targets" : 2,
+	"num_targets" : 12,
 	"radius" : 0.05,
 	"timeout_time" : 3500,
 	"holding_time" : 750,
@@ -7,5 +7,5 @@
 	"min_scale" : -50,
 	"max_scale" : 50,
 	"ITI": 2,
-	"max_holds": 1
+	"max_holds": 3
 }

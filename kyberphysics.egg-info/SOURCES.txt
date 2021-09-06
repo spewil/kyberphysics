@@ -15,5 +15,9 @@ tasks/fake_bonsai.py
 tasks/natural_movement.py
 tasks/visualize_cursor.py
 utils/__init__.py
+utils/analysis.py
+utils/files.py
 utils/generate_mappings.py
+utils/otb.py
+utils/plot.py
 utils/utils.py

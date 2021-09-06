@@ -1,7 +1,7 @@
 import numpy as np
 import time
 import sys
-import utils
+from utils import utils
 
 def make_target_channels():
     channels = []
