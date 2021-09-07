@@ -1,12 +1,16 @@
+import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
+plt.rcParams['figure.figsize'] = [9, 6]
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.decomposition import NMF
 import numpy as np
 import scipy.signal
 import scipy.ndimage
-
-from utils import utils
-
-
-def load_bin_file(path):
-    return np.fromfile(path, dtype=np.int32)
+import seaborn as sns
+import pandas as pd
+from pathlib import Path
+import seaborn as sns
 
 
 def preprocess_emg(recording,
@@ -41,7 +45,7 @@ def highpass(sig, cutoff=50):
 
 def lowpass(sig, cutoff=500):
     b, a = scipy.signal.butter(2, cutoff, 'lowpass', analog=False, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig, axis=-1, padtype="constant")
+    return scipy.signal.filtfilt(b, a, sig, axis=-1)
 
 
 def notch(sig, freq=50):
@@ -97,8 +101,3 @@ def fill_time_array(dataset):
     dataset['time'] = np.arange(0,
                                 len(dataset.time) / dataset.sampling_rate,
                                 1 / dataset.sampling_rate)
-
-
-if __name__ == "__main__":
-    print("analysis!")
-    print(dir(utils))
