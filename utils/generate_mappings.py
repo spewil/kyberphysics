@@ -1,15 +1,6 @@
 import sys
 import numpy as np
-import files, utils
-import matplotlib
-
-# from numpy.core.numeric import identity
-if sys.platform == "darwin":
-    matplotlib.use("Qt4Agg")
-    print("on mac")
-else:
-    print("on windows")
-    matplotlib.use("pdf")
+from utils import files, utils
 
 
 def generate_dynamics_and_mapping(num_channels=32,
@@ -100,8 +91,15 @@ def generate_decoder(experiment, subject):
     pass
 
 
-def generate_dynamics():
-    pass
+def generate_dynamics(decay=0.9, tau=0.5):
+    dynamics = np.eye(6, dtype=np.float32) * decay
+    dynamics[0, 2] = tau
+    dynamics[1, 3] = tau
+    dynamics[2, -2] = tau
+    dynamics[3, -1] = tau
+    dynamics[-1, -1] = 0
+    dynamics[-2, -2] = 0
+    return dynamics
 
 
 if __name__ == '__main__':

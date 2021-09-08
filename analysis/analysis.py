@@ -30,34 +30,41 @@ def preprocess_emg(recording,
     return out[:, start - 1:end]
 
 
-def rectify(a):
-    return np.abs(a)
+def rectify(sig):
+    assert sig.shape[0] > sig.shape[1]
+    return np.abs(sig)
 
 
 def highpass(sig, cutoff=50):
+    assert sig.shape[0] > sig.shape[1]
     b, a = scipy.signal.butter(2, cutoff, 'highpass', analog=False, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig, axis=-1)
+    return scipy.signal.filtfilt(b, a, sig.T, axis=-1).T
 
 
 def lowpass(sig, cutoff=500):
+    assert sig.shape[0] > sig.shape[1]
     b, a = scipy.signal.butter(2, cutoff, 'lowpass', analog=False, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig, axis=-1, padtype="constant")
+    print(sig.shape)
+    return scipy.signal.filtfilt(b, a, sig.T, axis=-1).T
 
 
 def notch(sig, freq=50):
     """
         Not really sure how to tune this effectively... 
     """
+    assert sig.shape[0] > sig.shape[1]
     b, a = scipy.signal.iirnotch(freq, 30, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig, axis=-1)
+    return scipy.signal.filtfilt(b, a, sig.T, axis=-1).T
 
 
-def moving_average(a, window_length=100):
+def moving_average(sig, window_length=100):
     """
         boxcar window average
     """
+    assert sig.shape[0] > sig.shape[1]
     return scipy.ndimage.convolve1d(
-        a, np.ones((window_length)), axis=1, mode='nearest') / window_length
+        sig.T, np.ones(
+            (window_length)), axis=1, mode="mirror").T / window_length
 
 
 def blur(a, sigma=50):

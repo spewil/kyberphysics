@@ -43,8 +43,8 @@ def write_array_to_disk(a, path):
         file.write(a.tobytes())
 
 
-def load_array_from_disk(path):
-    return np.fromfile(path, dtype=np.float32)
+def load_array_from_disk(path, dtype=np.float32):
+    return np.fromfile(path, dtype=dtype)
 
 
 def setup_osc(handler=None):
@@ -95,7 +95,7 @@ def get_session_metadata(experiment, session):
 
 def get_subject_metadata(experiment, subject):
     subject_folder = get_subject_folder(experiment, subject)
-    with open(subject_folder / "metadata.json", 'r') as fp:
+    with open(subject_folder / "metadata.json", 'rb') as fp:
         subject_metadata = json.load(fp)
     return subject_metadata
 
