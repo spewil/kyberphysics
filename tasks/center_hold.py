@@ -46,18 +46,18 @@ radius = session_metadata["radius"]
 timeout_time = session_metadata["timeout_time"]
 holding_time = session_metadata["holding_time"]
 reach_time = session_metadata["reach_time"]
-min_scale = session_metadata["min_scale"]
-max_scale = session_metadata["max_scale"]
 max_holds = session_metadata["max_holds"]
 
 # SUBJECT
 subject_folder = utils.get_subject_folder(experiment, subject)
 decoder_filename = (subject_folder / "decoder.bin").resolve()
 dynamics_filename = (subject_folder / "dynamics.bin").resolve()
-
+variance_filename = (subject_folder / "variance.bin").resolve()
+    
 decoding_params = [
     str(utils.convert_abspath_wsl_to_windows(decoder_filename)),
-    str(utils.convert_abspath_wsl_to_windows(dynamics_filename))
+    str(utils.convert_abspath_wsl_to_windows(dynamics_filename)),
+    str(utils.convert_abspath_wsl_to_windows(variance_filename))
 ]
 
 # compute decoder for subject
@@ -93,7 +93,7 @@ for s in range(num_sessions):
     record_path = str(
         utils.convert_abspath_wsl_to_windows(
             utils.add_session_folder(record_folder)))
-    session_params = [min_scale, max_scale, record_path]
+    session_params = [scaling_path, record_path]
     print(f"sending session params: {session_params}")
     client.send_message("/session_params", session_params)
     time.sleep(1)

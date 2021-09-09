@@ -2,6 +2,7 @@
 <WorkflowBuilder Version="2.6.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:p1="clr-namespace:;assembly=Extensions"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Description>Using DSP buffer, sliding window of N samples is averaged.
 Cutoff 1 is the lowpass cutoff frequency in Hz. Then subsample
@@ -44,6 +45,9 @@ using Submatrix. </Description>
         </Combinator>
       </Expression>
       <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p1:DotProduct" />
+      </Expression>
+      <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:Abs" />
       </Expression>
       <Expression xsi:type="Combinator">
@@ -80,7 +84,7 @@ using Submatrix. </Description>
       <Edge From="1" To="8" Label="Source1" />
       <Edge From="2" To="3" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
-      <Edge From="4" To="11" Label="Source2" />
+      <Edge From="4" To="12" Label="Source2" />
       <Edge From="5" To="6" Label="Source1" />
       <Edge From="6" To="7" Label="Source1" />
       <Edge From="7" To="8" Label="Source2" />
@@ -90,6 +94,7 @@ using Submatrix. </Description>
       <Edge From="11" To="12" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
       <Edge From="13" To="14" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

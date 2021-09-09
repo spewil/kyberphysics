@@ -1,8 +1,10 @@
 import numpy as np
 import scipy.signal
 import scipy.ndimage
+import sys
 
 from utils import utils
+
 
 
 def load_bin_file(path):
@@ -29,23 +31,21 @@ def preprocess_emg(recording,
         out = data_subset - mean
     return out[:, start - 1:end]
 
-
 def rectify(sig):
     assert sig.shape[0] > sig.shape[1]
     return np.abs(sig)
 
-
 def highpass(sig, cutoff=50):
     assert sig.shape[0] > sig.shape[1]
     b, a = scipy.signal.butter(2, cutoff, 'highpass', analog=False, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig.T, axis=-1).T
+    return scipy.signal.filtfilt(b, a, sig, axis=0)
 
 
 def lowpass(sig, cutoff=500):
     assert sig.shape[0] > sig.shape[1]
     b, a = scipy.signal.butter(2, cutoff, 'lowpass', analog=False, fs=2000)
     print(sig.shape)
-    return scipy.signal.filtfilt(b, a, sig.T, axis=-1).T
+    return scipy.signal.filtfilt(b, a, sig, axis=0)
 
 
 def notch(sig, freq=50):
@@ -54,7 +54,7 @@ def notch(sig, freq=50):
     """
     assert sig.shape[0] > sig.shape[1]
     b, a = scipy.signal.iirnotch(freq, 30, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig.T, axis=-1).T
+    return scipy.signal.filtfilt(b, a, sig, axis=0)
 
 
 def moving_average(sig, window_length=100):
