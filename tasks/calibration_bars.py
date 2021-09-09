@@ -1,7 +1,9 @@
 import numpy as np
 import time
 import sys
+from pathlib import Path
 from utils import utils
+
 
 def make_target_channels():
     channels = []
@@ -13,11 +15,12 @@ def make_target_channels():
                 channels.append(j + (i * 8) + 1)
     return channels
 
+
 client, server = utils.setup_osc()
 
 # grab experiment name and subject name
 experiment = sys.argv[1]
-session = __file__.split(".")[0]  # script name is session name
+session = Path(__file__).name.split(".")[0]  # script name is session name
 subject = sys.argv[2]
 
 # compute record path
@@ -37,8 +40,7 @@ recording_params = [num_channels, buffer_size, sampling_freq, record_path]
 
 # SESSION
 target_channels = make_target_channels()
-print(np.array(target_channels).reshape(-1, 4))
-print(len(target_channels))
+# print(np.array(target_channels).reshape(-1, 4))
 seconds_per_trial = session_metadata["seconds_per_trial"]
 samples_per_trial = sampling_freq * seconds_per_trial
 ITI = session_metadata["ITI"]

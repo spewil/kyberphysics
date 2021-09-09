@@ -28,7 +28,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:ConvertScale">
           <dsp:Depth>F32</dsp:Depth>
-          <dsp:Scale>1</dsp:Scale>
+          <dsp:Scale>0</dsp:Scale>
           <dsp:Shift>0</dsp:Shift>
         </Combinator>
       </Expression>

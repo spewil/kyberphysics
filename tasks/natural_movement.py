@@ -1,12 +1,11 @@
 import time
 from utils import utils
+from pathlib import Path
 import sys
-
-client, server = utils.setup_osc()
 
 # grab experiment name and subject name
 experiment = sys.argv[1]
-session = __file__.split(".")[0]  # script name is session name
+session = Path(__file__).name.split(".")[0]  # script name is session name
 subject = sys.argv[2]
 
 # compute record path
@@ -30,6 +29,8 @@ samples_per_command = sampling_freq * session_metadata["seconds_per_command"]
 samples_per_cue = sampling_freq * session_metadata["seconds_per_cue"]
 num_repetitions = session_metadata["num_repetitions"]
 ITI = session_metadata["ITI"]
+
+client, server = utils.setup_osc()
 
 print("sending recording params.")
 client.send_message("/recording_params", recording_params)

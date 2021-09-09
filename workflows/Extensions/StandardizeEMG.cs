@@ -43,7 +43,7 @@ public class StandardizeEMG
          
         return Observable.Defer(() =>
         {
-            var variance = LoadMatrix(VarianceFileName, rows: NumChannels, cols: NumChannels+4);
+            var variance = LoadMatrix(VarianceFileName, rows: NumChannels, cols: NumChannels);
 
         return source.Select(input => 
         {
@@ -52,7 +52,6 @@ public class StandardizeEMG
             var result = new Mat(variance.Rows, input.Cols, variance.Depth, variance.Channels);
             DotProduct(variance,input,result);
             return result.Clone();
-
         });
         });
     }

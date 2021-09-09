@@ -1,6 +1,7 @@
 import time
 import sys
 import numpy as np
+from pathlib import Path
 from utils import utils
 
 msg = None
@@ -21,7 +22,8 @@ client, server = utils.setup_osc(center_hold_handler)
 
 # grab experiment name and subject name
 experiment = sys.argv[1]
-session = __file__.split(".")[0]  # script name is session name
+session = Path(__file__).name.split(".")[0]  # script name is session name
+print("hello", session)
 subject = sys.argv[2]
 
 # grab the metadata
@@ -53,11 +55,13 @@ subject_folder = utils.get_subject_folder(experiment, subject)
 decoder_filename = (subject_folder / "decoder.bin").resolve()
 dynamics_filename = (subject_folder / "dynamics.bin").resolve()
 variance_filename = (subject_folder / "variance.bin").resolve()
-    
+offset_filename = (subject_folder / "offsets.bin").resolve()
+
 decoding_params = [
     str(utils.convert_abspath_wsl_to_windows(decoder_filename)),
     str(utils.convert_abspath_wsl_to_windows(dynamics_filename)),
-    str(utils.convert_abspath_wsl_to_windows(variance_filename))
+    str(utils.convert_abspath_wsl_to_windows(variance_filename)),
+    str(utils.convert_abspath_wsl_to_windows(offset_filename))
 ]
 
 # compute decoder for subject
@@ -93,7 +97,7 @@ for s in range(num_sessions):
     record_path = str(
         utils.convert_abspath_wsl_to_windows(
             utils.add_session_folder(record_folder)))
-    session_params = [scaling_path, record_path]
+    session_params = [record_path]
     print(f"sending session params: {session_params}")
     client.send_message("/session_params", session_params)
     time.sleep(1)
@@ -101,7 +105,7 @@ for s in range(num_sessions):
                                       size=num_targets,
                                       replace=False)
     print("NEW SESSION INTERVAL \n \n \n ")
-    time.sleep(ISI) # inter-block-interval
+    time.sleep(ISI)  # inter-block-interval
     for i, target_idx in enumerate(target_indices):
         num_no_holds = 0
         # task_params = [
@@ -111,10 +115,7 @@ for s in range(num_sessions):
         #     reach_time
         # ]
         task_params = [
-            str(i),
-            0.,
-            1., radius, timeout_time, holding_time,
-            reach_time
+            str(i), 0., 1., radius, timeout_time, holding_time, reach_time
         ]
         print(f"Trial {i} -- Task Params: {task_params}")
         client.send_message("/trial_params", task_params)
