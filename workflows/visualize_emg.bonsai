@@ -24,112 +24,162 @@
           <dsp:Shift>0</dsp:Shift>
         </Combinator>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>RecordingParams</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="SubscribeSubject">
+          <Name>RecordingParams</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>VarianceFilename</Selector>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>VarianceFilename</Selector>
+        </Builder>
       </Expression>
-      <Expression xsi:type="PropertyMapping">
-        <PropertyMappings>
-          <Property Name="VarianceFileName" />
-        </PropertyMappings>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="PropertyMapping">
+          <PropertyMappings>
+            <Property Name="VarianceFileName" />
+          </PropertyMappings>
+        </Builder>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>RecordingParams</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="SubscribeSubject">
+          <Name>RecordingParams</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>OffsetFilename</Selector>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>OffsetFilename</Selector>
+        </Builder>
       </Expression>
-      <Expression xsi:type="PropertyMapping">
-        <PropertyMappings>
-          <Property Name="Path" />
-        </PropertyMappings>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="PropertyMapping">
+          <PropertyMappings>
+            <Property Name="Path" />
+          </PropertyMappings>
+        </Builder>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>RecordingParams</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="SubscribeSubject">
+          <Name>RecordingParams</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>NumChannels</Selector>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>NumChannels</Selector>
+        </Builder>
       </Expression>
-      <Expression xsi:type="PropertyMapping">
-        <PropertyMappings>
-          <Property Name="NumChannels" />
-        </PropertyMappings>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="PropertyMapping">
+          <PropertyMappings>
+            <Property Name="NumChannels" />
+          </PropertyMappings>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p1:StandardizeEMG">
-          <p1:VarianceFileName>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\variance.bin</p1:VarianceFileName>
-          <p1:NumChannels>64</p1:NumChannels>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="p1:StandardizeEMG">
+            <p1:VarianceFileName>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\variance.bin</p1:VarianceFileName>
+            <p1:NumChannels>64</p1:NumChannels>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>RecordingParams</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="SubscribeSubject">
+          <Name>RecordingParams</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="MemberSelector">
-        <Selector>NumChannels</Selector>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="MemberSelector">
+          <Selector>NumChannels</Selector>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Add">
-        <Operand xsi:type="IntProperty">
-          <Value>4</Value>
-        </Operand>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Add">
+          <Operand xsi:type="IntProperty">
+            <Value>4</Value>
+          </Operand>
+        </Builder>
       </Expression>
-      <Expression xsi:type="PropertyMapping">
-        <PropertyMappings>
-          <Property Name="ChannelCount" />
-        </PropertyMappings>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="PropertyMapping">
+          <PropertyMappings>
+            <Property Name="ChannelCount" />
+          </PropertyMappings>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="dsp:MatrixReader">
-          <dsp:Path>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\offsets.bin</dsp:Path>
-          <dsp:FileName>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\offsets.bin</dsp:FileName>
-          <dsp:Offset>0</dsp:Offset>
-          <dsp:SampleRate>0</dsp:SampleRate>
-          <dsp:ChannelCount>68</dsp:ChannelCount>
-          <dsp:BufferLength>1</dsp:BufferLength>
-          <dsp:Depth>F32</dsp:Depth>
-          <dsp:Layout>RowMajor</dsp:Layout>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="dsp:MatrixReader">
+            <dsp:Path>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\offsets.bin</dsp:Path>
+            <dsp:FileName>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\offsets.bin</dsp:FileName>
+            <dsp:Offset>0</dsp:Offset>
+            <dsp:SampleRate>0</dsp:SampleRate>
+            <dsp:ChannelCount>68</dsp:ChannelCount>
+            <dsp:BufferLength>1</dsp:BufferLength>
+            <dsp:Depth>F32</dsp:Depth>
+            <dsp:Layout>RowMajor</dsp:Layout>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="rx:WithLatestFrom" />
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="rx:WithLatestFrom" />
+        </Builder>
       </Expression>
-      <Expression xsi:type="Subtract" />
-      <Expression xsi:type="SubscribeSubject">
-        <Name>RecordingParams</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Subtract" />
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="IntProperty">
-          <Value>2000</Value>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="SubscribeSubject">
+          <Name>RecordingParams</Name>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="StringProperty">
-          <Value>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\variance.bin</Value>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="IntProperty">
+            <Value>2000</Value>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="StringProperty">
-          <Value>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\offsets.bin</Value>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="StringProperty">
+            <Value>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\variance.bin</Value>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="IntProperty">
-          <Value>64</Value>
-        </Combinator>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="StringProperty">
+            <Value>C:\Users\spencer\Documents\kyberphysics\metadata\self_test\spencer\offsets.bin</Value>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="rx:Zip" />
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="IntProperty">
+            <Value>64</Value>
+          </Combinator>
+        </Builder>
       </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Expression>new(Item1 as SamplingFreq,
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="rx:Zip" />
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="scr:ExpressionTransform">
+          <scr:Expression>new(Item1 as SamplingFreq,
 Item2 as VarianceFilename,
 Item3 as OffsetFilename,
 Item4 as NumChannels
 )</scr:Expression>
+        </Builder>
       </Expression>
-      <Expression xsi:type="BehaviorSubject">
-        <Name>RecordingParams</Name>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="BehaviorSubject">
+          <Name>RecordingParams</Name>
+        </Builder>
       </Expression>
     </Nodes>
     <Edges>

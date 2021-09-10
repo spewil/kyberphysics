@@ -91,14 +91,19 @@ def generate_decoder(experiment, subject):
     pass
 
 
-def generate_dynamics(decay=0.9, tau=0.5):
+def generate_dynamics(decay=0.9, tau=0.5, stiffness=0):
     dynamics = np.eye(6, dtype=np.float32) * decay
+    # integrate velocity
     dynamics[0, 2] = tau
     dynamics[1, 3] = tau
+    # integrate force
     dynamics[2, -2] = tau
     dynamics[3, -1] = tau
     dynamics[-1, -1] = 0
     dynamics[-2, -2] = 0
+    # spring force
+    dynamics[-1, 0] = stiffness
+    dynamics[-2, 0] = stiffness
     return dynamics
 
 

@@ -108,15 +108,15 @@ for s in range(num_sessions):
     time.sleep(ISI)  # inter-block-interval
     for i, target_idx in enumerate(target_indices):
         num_no_holds = 0
-        # task_params = [
-        #     str(i),
-        #     float(x[target_idx]),
-        #     float(y[target_idx]), radius, timeout_time, holding_time,
-        #     reach_time
-        # ]
         task_params = [
-            str(i), 0., 1., radius, timeout_time, holding_time, reach_time
+            str(i),
+            float(x[target_idx]),
+            float(y[target_idx]), radius, timeout_time, holding_time,
+            reach_time
         ]
+        # task_params = [
+        #     str(i), 0., 1., radius, timeout_time, holding_time, reach_time
+        # ]
         print(f"Trial {i} -- Task Params: {task_params}")
         client.send_message("/trial_params", task_params)
         server.handle_request()
