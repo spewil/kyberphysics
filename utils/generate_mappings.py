@@ -102,7 +102,7 @@ def generate_dynamics(decay=0.9, tau=0.5, stiffness=0):
     dynamics[-1, -1] = 0
     dynamics[-2, -2] = 0
     # spring force
-    dynamics[-1, 0] = stiffness
+    dynamics[-1, 1] = stiffness
     dynamics[-2, 0] = stiffness
     return dynamics
 
