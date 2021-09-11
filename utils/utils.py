@@ -65,8 +65,10 @@ def setup_osc(handler=None):
 
 
 def get_experiment_folder(experiment):
-    base_metadata_folder = pathlib.Path.cwd()  # module path
-    experiment_folder = base_metadata_folder / "metadata" / experiment
+    base_folder = pathlib.Path.cwd()  # module path
+    if "notebooks" in str(base_folder):
+        base_folder = base_folder.parent
+    experiment_folder = base_folder / "metadata" / experiment
     assert experiment_folder.exists(), f"Path {experiment_folder} not found"
     return experiment_folder
 
@@ -103,7 +105,7 @@ def get_subject_metadata(experiment, subject):
 def get_metadata(experiment, session, subject):
     return get_experiment_metadata(experiment), get_session_metadata(
         experiment, session), get_subject_metadata(experiment, subject)
-        
+
 
 def setup_record_path(experiment,
                       session,
@@ -273,4 +275,5 @@ def random_matrices():
 
 
 if __name__ == "__main__":
-    print(compute_experiment_time("self_test"))
+    print(get_experiment_folder("test"))
+    print(compute_experiment_time("test"))
