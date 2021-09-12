@@ -1,4 +1,34 @@
 import numpy as np
+from utils import utils
+
+
+def build_experiment_path_dict(experiment):
+    data_folder = utils.get_experiment_data_folder(experiment)
+    subjects = [x.name for x in data_folder.iterdir() if x.name[0] != "."]
+    path_dictionary = {"subjects": {}}
+    for subject in subjects:
+        subject_folder = data_folder / subject
+        path_dictionary["subjects"].update({subject: {}})
+        path_dictionary["subjects"][subject].update({"path": subject_folder})
+        tasks = [x.name for x in subject_folder.iterdir() if x.name[0] != "."]
+        path_dictionary["subjects"][subject].update({"tasks": {}})
+        for task in tasks:
+            path_dictionary["subjects"][subject]["tasks"].update(
+                {task: {
+                    "path": subject_folder / task
+                }})
+            session_paths = sorted([
+                x
+                for x in (subject_folder / task).iterdir() if x.name[0] != "."
+            ],
+                                   key=lambda x: x.name[-1])
+            session_names = [x.name for x in session_paths]
+            path_dictionary["subjects"][subject]["tasks"][task].update(
+                {"sessions": {}})
+            for path, session in zip(session_paths, session_names):
+                path_dictionary["subjects"][subject]["tasks"][task][
+                    "sessions"].update({session: path})
+    return path_dictionary
 
 
 def parse_filename_prefix(x):

@@ -1,16 +1,7 @@
-import matplotlib.pyplot as plt
-import matplotlib.lines as mlines
-plt.rcParams['figure.figsize'] = [9, 6]
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from sklearn.decomposition import NMF
+import sys
 import numpy as np
 import scipy.signal
 import scipy.ndimage
-import seaborn as sns
-import pandas as pd
-from pathlib import Path
-import seaborn as sns
 
 
 def preprocess_emg(recording,
@@ -38,14 +29,25 @@ def rectify(a):
     return np.abs(a)
 
 
+def get_axis():
+    # i don't know why this is neccessary
+    if sys.platform == "darwin":
+        axis = 0
+    elif sys.platform == "linux":
+        axis = -1
+    else:
+        raise OSError("platform not recognized...")
+    return axis
+
+
 def highpass(sig, cutoff=50):
     b, a = scipy.signal.butter(2, cutoff, 'highpass', analog=False, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig, axis=-1)
+    return scipy.signal.filtfilt(b, a, sig, axis=get_axis())
 
 
 def lowpass(sig, cutoff=500):
     b, a = scipy.signal.butter(2, cutoff, 'lowpass', analog=False, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig, axis=-1)
+    return scipy.signal.filtfilt(b, a, sig, axis=get_axis())
 
 
 def notch(sig, freq=50):
@@ -53,7 +55,7 @@ def notch(sig, freq=50):
         Not really sure how to tune this effectively... 
     """
     b, a = scipy.signal.iirnotch(freq, 30, fs=2000)
-    return scipy.signal.filtfilt(b, a, sig, axis=-1)
+    return scipy.signal.filtfilt(b, a, sig, axis=get_axis())
 
 
 def moving_average(a, window_length=100):

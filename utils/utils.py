@@ -5,6 +5,7 @@ from pythonosc.dispatcher import Dispatcher
 import json
 import pathlib
 import sys
+from utils import files, analysis
 
 
 def test_dynamics():
@@ -64,6 +65,138 @@ def setup_osc(handler=None):
     return client, server
 
 
+def get_session_path(d, subject, task, session):
+    return d["subjects"][subject]["tasks"][task]["sessions"][session]
+
+
+def load_movement_emg(session_path, movement=None):
+    data = {}
+    # emg
+    emg_paths = sorted(
+        [x for x in session_path.iterdir() if x.suffix == ".bin"], key=str)
+    for p in emg_paths:
+        name = p.name.rstrip(".bin")[:-17]
+        data.update({name: {}})
+        data[name].update(
+            {"emg": np.fromfile(p, dtype=np.int32).reshape(-1, 68)})
+    # cue
+    cue_paths = sorted([x for x in session_path.iterdir() if "cue" in x.name],
+                       key=str)
+    for p in cue_paths:
+        name = p.name.rstrip(".bin")[:-28]
+        cue = np.genfromtxt(str(p), delimiter=',')[:, 2].reshape(-1, 1)
+        data[name].update({"cue_raw": cue})
+        data[name].update({
+            "cue":
+            np.round(
+                np.interp(
+                    np.linspace(0,
+                                cue.shape[0],
+                                data[name]["emg"].shape[0],
+                                endpoint=True), np.arange(cue.shape[0]),
+                    cue[:, 0]))
+        })
+    if movement is None:
+        return data
+    else:
+        return data[movement]
+
+
+def load_calibration_emg(session_path, channel=None):
+    data = {}
+    paths = sorted([
+        x for x in session_path.iterdir()
+        if x.suffix == ".bin" and "emg" in x.name
+    ])
+    for p in paths:
+        prefix = files.parse_filename_prefix(p)
+        data[str(prefix)] = np.fromfile(p, dtype=np.int32).reshape(-1, 68)
+    if channel is None:
+        return data
+    else:
+        return data[channel]
+
+
+def load_calibration_filtered(session_path, channel=None):
+    data = {}
+    paths = sorted([
+        x for x in session_path.iterdir()
+        if x.suffix == ".bin" and "filtered" in x.name
+    ])
+    for p in paths:
+        prefix = files.parse_filename_prefix(p)
+        data[str(prefix)] = np.fromfile(p, dtype=np.float32).reshape(-1, 68)
+    if channel is None:
+        return data
+    else:
+        return data[channel]
+
+
+def load_center_hold_emg(session_path, channel=None):
+    data = {}
+    paths = sorted([
+        x for x in session_path.iterdir()
+        if "emg" in x.name and "filtered" not in x.name and x.suffix == ".bin"
+    ],
+                   key=files.parse_filename_prefix)
+    for p in paths:
+        prefix = files.parse_filename_prefix(p)
+        data[str(prefix)] = np.fromfile(p, dtype=np.int32).reshape(-1, 68)
+    if channel is None:
+        return data
+    else:
+        return data[channel]
+
+
+def concat_movement_emg_trials(session_dict):
+    emg = []
+    for movement in session_dict.keys():
+        emg.append(session_dict[movement]["emg"])
+    return np.vstack(emg)
+
+
+def concat_emg_trials(session_dict):
+    return np.vstack(list(session_dict.values()))
+
+
+def get_cue_on_indices(cue):
+    # get indices where cue turns on
+    step_indices = np.where(cue[:-1] != cue[1:])[0] + 1
+    return step_indices[[0, 2, 4]]
+
+
+def extract_quiescent(md, samples_before_cue=1500):
+    quiescents = []
+    movements = list(md.keys())
+    for movement in movements:
+        movement_emg = analysis.highpass(md[movement]["emg"], cutoff=3)[:, :64]
+        cue = md[movement]["cue"]
+        cue_on_indices = get_cue_on_indices(cue)
+        # concat intra-movement signals before cues
+        for idx in cue_on_indices:
+            quiescents.append(movement_emg[idx - samples_before_cue:idx])
+
+    return np.vstack(quiescents)
+
+
+def standardize(a, s):
+    assert a.shape[1] == s.shape[0]
+    standardized = np.divide(a, s)
+    print(standardized.shape)
+    return standardized
+
+
+def filter_emg(a, cutoff=5):
+    filtered = analysis.lowpass(analysis.rectify(a), cutoff=cutoff)
+    print(np.min(filtered), np.max(filtered))
+    min_channel = np.argmin(np.min(filtered, axis=0))
+    print("min channel: ", min_channel)
+    filtered = analysis.rectify(filtered)
+    print(np.min(filtered), np.max(filtered))
+    print(filtered.shape)
+    return filtered
+
+
 def get_experiment_folder(experiment):
     base_folder = pathlib.Path.cwd()  # module path
     if "notebooks" in str(base_folder):
@@ -71,6 +204,19 @@ def get_experiment_folder(experiment):
     experiment_folder = base_folder / "metadata" / experiment
     assert experiment_folder.exists(), f"Path {experiment_folder} not found"
     return experiment_folder
+
+
+def get_experiment_data_folder(experiment):
+    if sys.platform == "linux":
+        base_data_folder = pathlib.Path("/mnt/c/Users/spencer/data/")
+    else:
+        base_data_folder = pathlib.Path(
+            "/Users/spencerw/Dropbox (UCL)/Murray Lab/Spencer/")
+    experiment_data_folder = base_data_folder / experiment
+    assert experiment_data_folder.exists(
+    ), f"Path {experiment_data_folder} not found"
+    print("data folder: ", experiment_data_folder)
+    return experiment_data_folder
 
 
 def get_subject_folder(experiment, subject):

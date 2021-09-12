@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 from utils import files, utils
 
@@ -58,7 +57,7 @@ def generate_dynamics_and_mapping(num_channels=32,
         dynamics[-1, -1] = 0
         dynamics[-2, -2] = 0
 
-    if kwargs["save"] == True:
+    if kwargs["save"] is True:
         files.write_array_to_disk(dynamics, kwargs["dynamics_filename"])
         files.write_array_to_disk(decoder, kwargs["decoder_filename"])
 
@@ -97,13 +96,13 @@ def generate_dynamics(decay=0.9, tau=0.5, stiffness=0):
     dynamics[0, 2] = tau
     dynamics[1, 3] = tau
     # integrate force
-    dynamics[2, -2] = tau
-    dynamics[3, -1] = tau
+    dynamics[2, -2] = tau  # velx
+    dynamics[3, -1] = tau  # vely
     dynamics[-1, -1] = 0
     dynamics[-2, -2] = 0
-    # spring force
-    dynamics[-1, 1] = stiffness
-    dynamics[-2, 0] = stiffness
+    # spring force x,y
+    dynamics[-2, 0] = -stiffness
+    dynamics[-1, 1] = -stiffness
     return dynamics
 
 
@@ -112,20 +111,11 @@ if __name__ == '__main__':
     # MAKE DECODER
     dynamics = generate_null_dynamics()
     decoder = generate_identity_decoder(64)
+    print(dynamics.shape)
+    print(decoder.shape)
 
     subject_folder = utils.get_subject_folder("self_test", "spencer")
-
-    # print(dynamics.shape)
-    # print(dynamics)
-
-    print(decoder.shape)
-    # print(decoder)
-
-    # # SAVE DECODER
     utils.write_array_to_disk(dynamics, subject_folder / "dynamics.bin")
-
-    # _, decoder = generate_dynamics_and_mapping(num_channels=64,mapping_type="column", save=False)
-
     utils.write_array_to_disk(decoder, subject_folder / "decoder.bin")
 
     # PCA
@@ -155,7 +145,8 @@ if __name__ == '__main__':
     # do the same inversion
     # print(np.hstack(circle_order))
 
-    # fig, ax = plt.subplots()  # note we must use plt.subplots, not plt.subplot
+    # fig, ax = plt.subplots()
+    # # note we must use plt.subplots, not plt.subplot
     # plt.axis("off")
     # ax.set_ylim([-1, 1])
     # ax.set_xlim([-1, 1])
@@ -171,7 +162,8 @@ if __name__ == '__main__':
     # y = np.linspace(0, 1, 4)[::-1]
     # x = np.linspace(0, 1, 8)
 
-    # fig, ax = plt.subplots()  # note we must use plt.subplots, not plt.subplot
+    # fig, ax = plt.subplots()
+    # note we must use plt.subplots, not plt.subplot
     # plt.axis("off")
     # ax.set_ylim([-0.1, 1.1])
     # ax.set_xlim([-0.1, 1.1])
