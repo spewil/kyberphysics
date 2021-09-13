@@ -40,16 +40,12 @@ recording_params = [num_channels, buffer_size, sampling_freq, record_path]
 
 # SESSION
 target_channels = make_target_channels()
-# print(np.array(target_channels).reshape(-1, 4))
 seconds_per_trial = session_metadata["seconds_per_trial"]
 samples_per_trial = sampling_freq * seconds_per_trial
 ITI = session_metadata["ITI"]
-scale = session_metadata["emg_to_bar_scale"]
 
 print("sending recording params.")
 client.send_message("/recording_params", recording_params)
-# print("sending session params.")
-# client.send_message("/session_params", scale)
 print("waiting for initialization...")
 server.handle_request()
 print("bonsai initialized.")

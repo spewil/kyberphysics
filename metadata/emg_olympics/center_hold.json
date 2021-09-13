@@ -1,10 +1,12 @@
 {
 	"num_targets" : 12,
 	"radius" : 0.05,
-	"timeout_time" : 5000,
-	"holding_time" : 500,
+	"timeout_time" : 3500,
+	"holding_time" : 750,
 	"reach_time" : 5000,
-	"min_scale" : -1000,
-	"max_scale" : 1000,
-	"ITI": 2
+	"min_scale" : -50,
+	"max_scale" : 50,
+	"ITI": 2,
+	"ISI": 2,
+	"max_holds": 3
 }

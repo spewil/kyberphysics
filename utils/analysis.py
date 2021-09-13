@@ -30,14 +30,7 @@ def rectify(a):
 
 
 def get_axis():
-    # i don't know why this is neccessary
-    if sys.platform == "darwin":
-        axis = 0
-    elif sys.platform == "linux":
-        axis = -1
-    else:
-        raise OSError("platform not recognized...")
-    return axis
+    return 0
 
 
 def highpass(sig, cutoff=50):
