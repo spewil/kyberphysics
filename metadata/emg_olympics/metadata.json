@@ -10,7 +10,7 @@
 		"calibration_bars": 3, 
 		"center_hold" : 15
 	},
-	"decay": 0.1,
-	"tau": 0.5,
-	"stiffness": 0.05
+	"decay": 0.0,
+	"tau": 1.0,
+	"stiffness": 0.0
 }

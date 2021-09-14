@@ -91,7 +91,7 @@ task_params = [
     float(y[target_indices[0]]), radius, timeout_time, holding_time,
     reach_time
 ]
-print(f"Trial {i} -- Task Params: {task_params}")
+print(f"Trial {0} -- Task Params: {task_params}")
 client.send_message("/trial_params", task_params)
 server.handle_request()
 
