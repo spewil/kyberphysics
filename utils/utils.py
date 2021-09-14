@@ -39,10 +39,16 @@ def advance_dynamics(A, state, B, control):
     return np.dot(A, state) + np.dot(B, control)
 
 
-def write_array_to_disk(a, path):
-    with open(path, "wb") as file:
-        file.write(a.tobytes())
-
+def write_array_to_disk(a, path, overwrite=False):
+    if overwrite:
+        with open(path, "wb") as file:
+            file.write(a.tobytes())
+    else:
+        if path.exists():
+            raise FileExistsError
+        else:
+            with open(path, "wb") as file:
+                file.write(a.tobytes())
 
 def load_array_from_disk(path, dtype=np.float32):
     return np.fromfile(path, dtype=dtype)
