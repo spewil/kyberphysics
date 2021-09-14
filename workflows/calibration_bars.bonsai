@@ -202,7 +202,7 @@ it as BarScale
               <Combinator xsi:type="num:Permutation" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/matthias/calibration_bars/session_0/bar_order_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/calibration_bars/session_3/bar_order_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>

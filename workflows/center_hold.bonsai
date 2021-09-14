@@ -242,7 +242,6 @@ Item7 as ReachTime
             <Expression xsi:type="SubscribeSubject">
               <Name>EmgData</Name>
             </Expression>
-            <Expression xsi:type="IncludeWorkflow" Path="Extensions\Channel56Average.bonsai" />
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:ConvertScale">
                 <dsp:Depth>F32</dsp:Depth>
@@ -296,9 +295,10 @@ Item7 as ReachTime
                 <dsp:FilterType>LowPass</dsp:FilterType>
               </Combinator>
             </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="Extensions\Channel56Zero.bonsai" />
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:Reduce">
-                <dsp:Axis>0</dsp:Axis>
+                <dsp:Axis>1</dsp:Axis>
                 <dsp:Operation>Avg</dsp:Operation>
               </Combinator>
             </Expression>
@@ -506,18 +506,18 @@ Item7 as ReachTime
           <Edges>
             <Edge From="0" To="1" Label="Source1" />
             <Edge From="1" To="2" Label="Source1" />
-            <Edge From="2" To="10" Label="Source2" />
+            <Edge From="2" To="9" Label="Source2" />
             <Edge From="3" To="4" Label="Source1" />
             <Edge From="4" To="5" Label="Source1" />
-            <Edge From="5" To="14" Label="Source2" />
+            <Edge From="5" To="13" Label="Source2" />
             <Edge From="6" To="7" Label="Source1" />
             <Edge From="7" To="8" Label="Source1" />
             <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source1" />
-            <Edge From="10" To="14" Label="Source0" />
+            <Edge From="9" To="13" Label="Source0" />
+            <Edge From="10" To="11" Label="Source1" />
             <Edge From="11" To="12" Label="Source1" />
-            <Edge From="12" To="13" Label="Source1" />
-            <Edge From="13" To="14" Label="Source3" />
+            <Edge From="12" To="13" Label="Source3" />
+            <Edge From="13" To="14" Label="Source1" />
             <Edge From="14" To="15" Label="Source1" />
             <Edge From="15" To="16" Label="Source1" />
             <Edge From="16" To="17" Label="Source1" />
@@ -1187,7 +1187,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_6/3_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_37/1_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -1222,7 +1222,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_6/3_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_37/1_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -1320,7 +1320,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_6/3_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_37/1_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1407,8 +1407,8 @@ Item1 as Value)</scr:Expression>
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>-0.202270508</LocationX>
-                          <LocationY>0.1434021</LocationY>
+                          <LocationX>-133.161057</LocationX>
+                          <LocationY>-273.85434</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1505,7 +1505,7 @@ Item1 as Value)</scr:Expression>
                         </Expression>
                         <Expression xsi:type="Subtract">
                           <Operand xsi:type="FloatProperty">
-                            <Value>-131.5</Value>
+                            <Value>0</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="MemberSelector">
@@ -1521,7 +1521,7 @@ Item1 as Value)</scr:Expression>
                         </Expression>
                         <Expression xsi:type="Subtract">
                           <Operand xsi:type="FloatProperty">
-                            <Value>-272.1</Value>
+                            <Value>0</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -1551,8 +1551,8 @@ Item2 as Y
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>-0.202270508</gl:X>
-                                  <gl:Y>0.1434021</gl:Y>
+                                  <gl:X>-133.161057</gl:X>
+                                  <gl:Y>-273.85434</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1568,8 +1568,8 @@ Item2 as Y
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p3:SetTransform">
                                   <p3:Position>
-                                    <p3:X>-0.2022705078125</p3:X>
-                                    <p3:Y>0.143402099609375</p3:Y>
+                                    <p3:X>-133.16105651855469</p3:X>
+                                    <p3:Y>-273.85433959960938</p3:Y>
                                     <p3:Z>0</p3:Z>
                                   </p3:Position>
                                   <p3:Orientation xsi:nil="true" />
@@ -1678,7 +1678,7 @@ Position.Y as LocationY,
               </Workflow>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_6/session_result_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/emg_olympics/spencer/center_hold/session_37/session_result_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -1773,7 +1773,7 @@ Position.Y as LocationY,
       <Expression xsi:type="WorkflowOutput" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="FloatProperty">
-          <Value>-131.5</Value>
+          <Value>0</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="BehaviorSubject">
@@ -1781,7 +1781,7 @@ Position.Y as LocationY,
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="FloatProperty">
-          <Value>-272.1</Value>
+          <Value>0</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="BehaviorSubject">
