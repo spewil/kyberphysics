@@ -217,16 +217,204 @@ Item7 as ReachTime
         <Name>FilterStandardizeOffset</Name>
         <Workflow>
           <Nodes>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>RecordingParams</Name>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="SubscribeSubject">
+                <Name>RecordingParams</Name>
+              </Builder>
             </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>SamplingFreq</Selector>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="MemberSelector">
+                <Selector>SamplingFreq</Selector>
+              </Builder>
             </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="SampleRate" />
-              </PropertyMappings>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="PropertyMapping">
+                <PropertyMappings>
+                  <Property Name="SampleRate" />
+                </PropertyMappings>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="SubscribeSubject">
+                <Name>RecordingParams</Name>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="MemberSelector">
+                <Selector>SamplingFreq</Selector>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="PropertyMapping">
+                <PropertyMappings>
+                  <Property Name="SampleRate" />
+                </PropertyMappings>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="SubscribeSubject">
+                <Name>RecordingParams</Name>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="MemberSelector">
+                <Selector>NumChannels</Selector>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="PropertyMapping">
+                <PropertyMappings>
+                  <Property Name="NumChannels" />
+                </PropertyMappings>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="SubscribeSubject">
+                <Name>EmgData</Name>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="IncludeWorkflow" Path="Extensions\Channel56Average.bonsai" />
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="dsp:ConvertScale">
+                  <dsp:Depth>F32</dsp:Depth>
+                  <dsp:Scale>1</dsp:Scale>
+                  <dsp:Shift>0</dsp:Shift>
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="dsp:Submatrix">
+                  <dsp:StartRow>0</dsp:StartRow>
+                  <dsp:EndRow>64</dsp:EndRow>
+                  <dsp:StartCol>0</dsp:StartCol>
+                  <dsp:EndCol xsi:nil="true" />
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="dsp:FrequencyFilter">
+                  <dsp:SampleRate>2000</dsp:SampleRate>
+                  <dsp:Cutoff1>0.1</dsp:Cutoff1>
+                  <dsp:Cutoff2>0</dsp:Cutoff2>
+                  <dsp:KernelLength>250</dsp:KernelLength>
+                  <dsp:FilterType>HighPass</dsp:FilterType>
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="SubscribeSubject">
+                <Name>DecodingParams</Name>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="MemberSelector">
+                <Selector>VariancePath</Selector>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="PropertyMapping">
+                <PropertyMappings>
+                  <Property Name="VarianceFileName" />
+                </PropertyMappings>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="p2:StandardizeEMG">
+                  <p2:VarianceFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/variance.bin</p2:VarianceFileName>
+                  <p2:NumChannels>64</p2:NumChannels>
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="dsp:Abs" />
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="dsp:FrequencyFilter">
+                  <dsp:SampleRate>2000</dsp:SampleRate>
+                  <dsp:Cutoff1>5</dsp:Cutoff1>
+                  <dsp:Cutoff2>0</dsp:Cutoff2>
+                  <dsp:KernelLength>500</dsp:KernelLength>
+                  <dsp:FilterType>LowPass</dsp:FilterType>
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="SubscribeSubject">
+                <Name>RecordingParams</Name>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="MemberSelector">
+                <Selector>NumChannels</Selector>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="PropertyMapping">
+                <PropertyMappings>
+                  <Property Name="ChannelCount" />
+                </PropertyMappings>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="SubscribeSubject">
+                <Name>DecodingParams</Name>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="MemberSelector">
+                <Selector>OffsetPath</Selector>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="PropertyMapping">
+                <PropertyMappings>
+                  <Property Name="Path" />
+                </PropertyMappings>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="dsp:MatrixReader">
+                  <dsp:Path>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/offsets.bin</dsp:Path>
+                  <dsp:FileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/offsets.bin</dsp:FileName>
+                  <dsp:Offset>0</dsp:Offset>
+                  <dsp:SampleRate>0</dsp:SampleRate>
+                  <dsp:ChannelCount>64</dsp:ChannelCount>
+                  <dsp:BufferLength>1</dsp:BufferLength>
+                  <dsp:Depth>F32</dsp:Depth>
+                  <dsp:Layout>RowMajor</dsp:Layout>
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="rx:WithLatestFrom" />
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Add" />
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="Combinator">
+                <Combinator xsi:type="dsp:Submatrix">
+                  <dsp:StartRow>0</dsp:StartRow>
+                  <dsp:EndRow xsi:nil="true" />
+                  <dsp:StartCol>0</dsp:StartCol>
+                  <dsp:EndCol>1</dsp:EndCol>
+                </Combinator>
+              </Builder>
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="WorkflowOutput" />
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>RecordingParams</Name>
@@ -291,7 +479,7 @@ Item7 as ReachTime
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p2:StandardizeEMG">
-                <p2:VarianceFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/peter/variance.bin</p2:VarianceFileName>
+                <p2:VarianceFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/variance.bin</p2:VarianceFileName>
                 <p2:NumChannels>64</p2:NumChannels>
               </Combinator>
             </Expression>
@@ -307,44 +495,6 @@ Item7 as ReachTime
                 <dsp:FilterType>LowPass</dsp:FilterType>
               </Combinator>
             </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>RecordingParams</Name>
-            </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>NumChannels</Selector>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="ChannelCount" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="SubscribeSubject">
-              <Name>DecodingParams</Name>
-            </Expression>
-            <Expression xsi:type="MemberSelector">
-              <Selector>OffsetPath</Selector>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="Path" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:MatrixReader">
-                <dsp:Path>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/peter/offsets.bin</dsp:Path>
-                <dsp:FileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/peter/offsets.bin</dsp:FileName>
-                <dsp:Offset>0</dsp:Offset>
-                <dsp:SampleRate>0</dsp:SampleRate>
-                <dsp:ChannelCount>64</dsp:ChannelCount>
-                <dsp:BufferLength>1</dsp:BufferLength>
-                <dsp:Depth>F32</dsp:Depth>
-                <dsp:Layout>RowMajor</dsp:Layout>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:WithLatestFrom" />
-            </Expression>
-            <Expression xsi:type="Subtract" />
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:Submatrix">
                 <dsp:StartRow>0</dsp:StartRow>
@@ -386,6 +536,24 @@ Item7 as ReachTime
             <Edge From="27" To="28" Label="Source1" />
             <Edge From="28" To="29" Label="Source1" />
             <Edge From="29" To="30" Label="Source1" />
+            <Edge From="31" To="32" Label="Source1" />
+            <Edge From="32" To="33" Label="Source1" />
+            <Edge From="33" To="41" Label="Source2" />
+            <Edge From="34" To="35" Label="Source1" />
+            <Edge From="35" To="36" Label="Source1" />
+            <Edge From="36" To="45" Label="Source2" />
+            <Edge From="37" To="38" Label="Source1" />
+            <Edge From="38" To="39" Label="Source1" />
+            <Edge From="39" To="40" Label="Source1" />
+            <Edge From="40" To="41" Label="Source1" />
+            <Edge From="41" To="45" Label="Source0" />
+            <Edge From="42" To="43" Label="Source1" />
+            <Edge From="43" To="44" Label="Source1" />
+            <Edge From="44" To="45" Label="Source3" />
+            <Edge From="45" To="46" Label="Source1" />
+            <Edge From="46" To="47" Label="Source1" />
+            <Edge From="47" To="48" Label="Source1" />
+            <Edge From="48" To="49" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -746,8 +914,8 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:CreateVector3">
-                                        <gl:X>-0.5</gl:X>
-                                        <gl:Y>0.87</gl:Y>
+                                        <gl:X>-0.87</gl:X>
+                                        <gl:Y>-0.5</gl:Y>
                                         <gl:Z>0</gl:Z>
                                       </Combinator>
                                     </Expression>
@@ -763,8 +931,8 @@ Position.Y as LocationY,
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="p3:SetTransform">
                                         <p3:Position>
-                                          <p3:X>-0.5</p3:X>
-                                          <p3:Y>0.87000000476837158</p3:Y>
+                                          <p3:X>-0.87000000476837158</p3:X>
+                                          <p3:Y>-0.5</p3:Y>
                                           <p3:Z>0</p3:Z>
                                         </p3:Position>
                                         <p3:Orientation xsi:nil="true" />
@@ -813,8 +981,8 @@ Position.Y as LocationY,
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <LocationX>-0.5</LocationX>
-                                <LocationY>0.87</LocationY>
+                                <LocationX>-0.87</LocationX>
+                                <LocationY>-0.5</LocationY>
                                 <Layer>0</Layer>
                                 <Diameter>0.15</Diameter>
                                 <ColorR>1</ColorR>
@@ -1021,7 +1189,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/peter/center_hold/session_13/5_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/emg_olympics/miranda/center_hold/session_45/1_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -1056,7 +1224,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/peter/center_hold/session_13/5_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/emg_olympics/miranda/center_hold/session_45/1_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -1154,7 +1322,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/emg_olympics/peter/center_hold/session_13/5_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/emg_olympics/miranda/center_hold/session_45/1_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1260,8 +1428,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:UpdateDecoder">
                                   <p2:BufferSize>1</p2:BufferSize>
-                                  <p2:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/peter/decoder.bin</p2:DecoderFileName>
-                                  <p2:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/peter/dynamics.bin</p2:DynamicsFileName>
+                                  <p2:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/decoder.bin</p2:DecoderFileName>
+                                  <p2:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/dynamics.bin</p2:DynamicsFileName>
                                   <p2:StateDimension>6</p2:StateDimension>
                                 </Combinator>
                               </Expression>
@@ -1312,8 +1480,8 @@ Item1 as Value)</scr:Expression>
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>-0.0674300939</gl:X>
-                                  <gl:Y>0.13121292</gl:Y>
+                                  <gl:X>-0.178160891</gl:X>
+                                  <gl:Y>-0.0971778259</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1329,8 +1497,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p3:SetTransform">
                                   <p3:Position>
-                                    <p3:X>-0.067430093884468079</p3:X>
-                                    <p3:Y>0.13121291995048523</p3:Y>
+                                    <p3:X>-0.1781608909368515</p3:X>
+                                    <p3:Y>-0.09717782586812973</p3:Y>
                                     <p3:Z>0</p3:Z>
                                   </p3:Position>
                                   <p3:Orientation xsi:nil="true" />
@@ -1366,8 +1534,8 @@ Position.Y as LocationY,
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>-0.0674300939</LocationX>
-                          <LocationY>0.13121292</LocationY>
+                          <LocationX>-0.178160891</LocationX>
+                          <LocationY>-0.0971778259</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1440,7 +1608,7 @@ Position.Y as LocationY,
               </Workflow>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/peter/center_hold/session_13/session_result_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/emg_olympics/miranda/center_hold/session_45/session_result_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -1489,7 +1657,7 @@ Position.Y as LocationY,
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
-              <Text>Hit</Text>
+              <Text />
               <Font>Microsoft Sans Serif, 150pt</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Center</LineAlignment>

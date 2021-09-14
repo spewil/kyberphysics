@@ -165,7 +165,7 @@ def get_cue_on_indices(cue):
     return step_indices[[0, 2, 4]]
 
 
-def extract_quiescent(md, samples_before_cue=1500):
+def extract_quiescent(md, num_samples=500, samples_before_cue=1000):
     quiescents = []
     movements = list(md.keys())
     for movement in movements:
@@ -174,9 +174,9 @@ def extract_quiescent(md, samples_before_cue=1500):
         cue_on_indices = get_cue_on_indices(cue)
         # concat intra-movement signals before cues
         for idx in cue_on_indices:
-            quiescents.append(movement_emg[idx - samples_before_cue:idx])
-
+            quiescents.append(movement_emg[idx - num_samples - samples_before_cue:idx - samples_before_cue])
     return np.vstack(quiescents)
+
 
 
 def standardize(a, s):

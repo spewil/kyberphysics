@@ -12,5 +12,5 @@
 	},
 	"decay": 0.1,
 	"tau": 0.5,
-	"stiffness": 0.1
+	"stiffness": 0.05
 }

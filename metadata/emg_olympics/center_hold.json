@@ -7,6 +7,6 @@
 	"min_scale" : -50,
 	"max_scale" : 50,
 	"ITI": 2,
-	"ISI": 2,
+	"ISI": 1,
 	"max_holds": 3
 }

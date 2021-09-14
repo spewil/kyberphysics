@@ -1,125 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.6.0"
+<WorkflowBuilder Version="2.6.2"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:p1="clr-namespace:;assembly=Extensions"
                  xmlns:osc="clr-namespace:Bonsai.Osc;assembly=Bonsai.Osc"
-                 xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
                  xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
-                 xmlns:p2="clr-namespace:Bonsai.Physics.Collision;assembly=Bonsai.Physics"
+                 xmlns:p1="clr-namespace:Bonsai.Physics.Collision;assembly=Bonsai.Physics"
+                 xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:p2="clr-namespace:;assembly=Extensions"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:p3="clr-namespace:Bonsai.Physics;assembly=Bonsai.Physics"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>EMG</Name>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="IntProperty">
-                <Value>64</Value>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="NumChannels" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="IntProperty">
-                <Value>10</Value>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="PropertyMapping">
-              <PropertyMappings>
-                <Property Name="BufferSize" />
-              </PropertyMappings>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p1:EmgAcquisition">
-                <p1:BufferSize>10</p1:BufferSize>
-                <p1:NumChannels>64</p1:NumChannels>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="1" Label="Source1" />
-            <Edge From="1" To="4" Label="Source1" />
-            <Edge From="2" To="3" Label="Source1" />
-            <Edge From="3" To="4" Label="Source2" />
-            <Edge From="4" To="5" Label="Source1" />
-          </Edges>
-        </Workflow>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="osc:CreateUdpClient">
+          <osc:Name>CommandServer</osc:Name>
+          <osc:Port>5005</osc:Port>
+          <osc:RemoteHostName>localhost</osc:RemoteHostName>
+          <osc:RemotePort>0</osc:RemotePort>
+        </Combinator>
       </Expression>
-      <Expression xsi:type="PublishSubject">
-        <Name>EmgData</Name>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="osc:CreateUdpClient">
+          <osc:Name>ResponseServer</osc:Name>
+          <osc:Port>1006</osc:Port>
+          <osc:RemoteHostName>127.0.0.1</osc:RemoteHostName>
+          <osc:RemotePort>5006</osc:RemotePort>
+        </Combinator>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="Extensions\CursorFilteredEMG.bonsai" />
-      <Expression xsi:type="osc:ReceiveMessage">
-        <osc:Address>/trial_params</osc:Address>
-        <osc:TypeTag>sfffiii</osc:TypeTag>
-        <osc:Connection>CommandServer</osc:Connection>
-      </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Expression>new(
-Item1 as TrialIndex,
-Item2 as TargetX,
-Item3 as TargetY,
-Item4 as Radius,
-Item5 as TimeoutTime,
-Item6 as HoldingTime,
-Item7 as ReachTime
-)</scr:Expression>
-      </Expression>
-      <Expression xsi:type="BehaviorSubject">
-        <Name>TrialParams</Name>
-      </Expression>
-      <Expression xsi:type="osc:ReceiveMessage">
-        <osc:Address>/decoding_params</osc:Address>
-        <osc:TypeTag>ss</osc:TypeTag>
-        <osc:Connection>CommandServer</osc:Connection>
-      </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Expression>new(
-Item1 as DecoderFilename,
-Item2 as DynamicsFilename
-)</scr:Expression>
-      </Expression>
-      <Expression xsi:type="BehaviorSubject">
-        <Name>DecodingParams</Name>
-      </Expression>
-      <Expression xsi:type="osc:ReceiveMessage">
-        <osc:Address>/session_params</osc:Address>
-        <osc:TypeTag>ii</osc:TypeTag>
-        <osc:Connection>CommandServer</osc:Connection>
-      </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Expression>new(
-Item1 as Min,
-Item2 as Max
-)</scr:Expression>
-      </Expression>
-      <Expression xsi:type="BehaviorSubject">
-        <Name>SessionParams</Name>
-      </Expression>
-      <Expression xsi:type="osc:ReceiveMessage">
-        <osc:Address>/recording_params</osc:Address>
-        <osc:TypeTag>iiis</osc:TypeTag>
-        <osc:Connection>CommandServer</osc:Connection>
-      </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Expression>new(
-Item1 as NumChannels,
-Item2 as BufferSize,
-Item3 as SamplingFreq,
-Item4 as RecordPath)</scr:Expression>
-      </Expression>
-      <Expression xsi:type="BehaviorSubject">
-        <Name>RecordingParams</Name>
-      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\TriggeredAcquisition.bonsai" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:CreateWindow">
           <gl:Width>640</gl:Width>
@@ -132,7 +42,7 @@ Item4 as RecordPath)</scr:Expression>
           <gl:Location xsi:nil="true" />
           <gl:WindowBorder>Resizable</gl:WindowBorder>
           <gl:WindowState>Fullscreen</gl:WindowState>
-          <gl:DisplayDevice>Second</gl:DisplayDevice>
+          <gl:DisplayDevice>First</gl:DisplayDevice>
           <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
@@ -179,9 +89,9 @@ Item4 as RecordPath)</scr:Expression>
         <Name>Draw</Name>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p2:CreateHashSpace">
-          <p2:MinLevel xsi:nil="true" />
-          <p2:MaxLevel xsi:nil="true" />
+        <Combinator xsi:type="p1:CreateHashSpace">
+          <p1:MinLevel xsi:nil="true" />
+          <p1:MaxLevel xsi:nil="true" />
         </Combinator>
       </Expression>
       <Expression xsi:type="ResourceSubject">
@@ -191,29 +101,142 @@ Item4 as RecordPath)</scr:Expression>
         <Name>Space</Name>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p2:CreateSphere">
-          <p2:Enabled>true</p2:Enabled>
-          <p2:CategoryBits>1</p2:CategoryBits>
-          <p2:CollideBits xsi:nil="true" />
-          <p2:Position xsi:nil="true" />
-          <p2:Orientation xsi:nil="true" />
-          <p2:Radius>0.05</p2:Radius>
+        <Combinator xsi:type="p1:CreateSphere">
+          <p1:Enabled>true</p1:Enabled>
+          <p1:CategoryBits>1</p1:CategoryBits>
+          <p1:CollideBits xsi:nil="true" />
+          <p1:Position xsi:nil="true" />
+          <p1:Orientation xsi:nil="true" />
+          <p1:Radius>0.05</p1:Radius>
         </Combinator>
       </Expression>
       <Expression xsi:type="ResourceSubject">
         <Name>Cursor</Name>
       </Expression>
-      <Expression xsi:type="SubscribeSubject">
-        <Name>Draw</Name>
+      <Expression xsi:type="osc:ReceiveMessage">
+        <osc:Address>/decoding_params</osc:Address>
+        <osc:TypeTag>ssss</osc:TypeTag>
+        <osc:Connection>CommandServer</osc:Connection>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>new(
+Item1 as DecoderFilename,
+Item2 as DynamicsFilename,
+Item3 as VariancePath,
+Item4 as OffsetPath
+)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="BehaviorSubject">
+        <Name>DecodingParams</Name>
+      </Expression>
+      <Expression xsi:type="osc:ReceiveMessage">
+        <osc:Address>/trial_params</osc:Address>
+        <osc:TypeTag>sfffiii</osc:TypeTag>
+        <osc:Connection>CommandServer</osc:Connection>
+      </Expression>
+      <Expression xsi:type="scr:ExpressionTransform">
+        <scr:Expression>new(
+Item1 as TrialIndex,
+Item2 as TargetX,
+Item3 as TargetY,
+Item4 as Radius,
+Item5 as TimeoutTime,
+Item6 as HoldingTime,
+Item7 as ReachTime
+)</scr:Expression>
+      </Expression>
+      <Expression xsi:type="BehaviorSubject">
+        <Name>TrialParams</Name>
       </Expression>
       <Expression xsi:type="SubscribeSubject">
-        <Name>SessionParams</Name>
+        <Name>RecordingParams</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>SamplingFreq</Selector>
       </Expression>
       <Expression xsi:type="PropertyMapping">
         <PropertyMappings>
-          <Property Name="Min" Selector="Min" />
-          <Property Name="Max" Selector="Max" />
+          <Property Name="SampleRate" />
         </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>RecordingParams</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>NumChannels</Selector>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="NumChannels" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>EmgData</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Channel56Average.bonsai" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:ConvertScale">
+          <dsp:Depth>F32</dsp:Depth>
+          <dsp:Scale>1</dsp:Scale>
+          <dsp:Shift>0</dsp:Shift>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow>64</dsp:EndRow>
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol xsi:nil="true" />
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:FrequencyFilter">
+          <dsp:SampleRate>2000</dsp:SampleRate>
+          <dsp:Cutoff1>0.1</dsp:Cutoff1>
+          <dsp:Cutoff2>0</dsp:Cutoff2>
+          <dsp:KernelLength>250</dsp:KernelLength>
+          <dsp:FilterType>HighPass</dsp:FilterType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DecodingParams</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>VariancePath</Selector>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="VarianceFileName" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="p2:StandardizeEMG">
+          <p2:VarianceFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/variance.bin</p2:VarianceFileName>
+          <p2:NumChannels>64</p2:NumChannels>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Abs" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:FrequencyFilter">
+          <dsp:SampleRate>2000</dsp:SampleRate>
+          <dsp:Cutoff1>5</dsp:Cutoff1>
+          <dsp:Cutoff2>0</dsp:Cutoff2>
+          <dsp:KernelLength>500</dsp:KernelLength>
+          <dsp:FilterType>LowPass</dsp:FilterType>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="dsp:Submatrix">
+          <dsp:StartRow>0</dsp:StartRow>
+          <dsp:EndRow xsi:nil="true" />
+          <dsp:StartCol>0</dsp:StartCol>
+          <dsp:EndCol>1</dsp:EndCol>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="BehaviorSubject">
+        <Name>FilteredEMG</Name>
       </Expression>
       <Expression xsi:type="GroupWorkflow">
         <Name>DecodeEMG</Name>
@@ -221,14 +244,6 @@ Item4 as RecordPath)</scr:Expression>
           <Nodes>
             <Expression xsi:type="SubscribeSubject">
               <Name>FilteredEMG</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:Submatrix">
-                <dsp:StartRow>0</dsp:StartRow>
-                <dsp:EndRow>64</dsp:EndRow>
-                <dsp:StartCol>0</dsp:StartCol>
-                <dsp:EndCol xsi:nil="true" />
-              </Combinator>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>DecodingParams</Name>
@@ -252,10 +267,6 @@ Item4 as RecordPath)</scr:Expression>
                 <Property Name="DynamicsFileName" />
               </PropertyMappings>
             </Expression>
-            <Expression xsi:type="ExternalizedMapping">
-              <Property Name="Min" />
-              <Property Name="Max" />
-            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="IntProperty">
                 <Value>6</Value>
@@ -267,11 +278,11 @@ Item4 as RecordPath)</scr:Expression>
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p1:UpdateDecoder">
-                <p1:BufferSize>1</p1:BufferSize>
-                <p1:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/spencer/decoder.bin</p1:DecoderFileName>
-                <p1:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/spencer/dynamics.bin</p1:DynamicsFileName>
-                <p1:StateDimension>6</p1:StateDimension>
+              <Combinator xsi:type="p2:UpdateDecoder">
+                <p2:BufferSize>1</p2:BufferSize>
+                <p2:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/decoder.bin</p2:DecoderFileName>
+                <p2:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/miranda/dynamics.bin</p2:DynamicsFileName>
+                <p2:StateDimension>6</p2:StateDimension>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -283,35 +294,23 @@ Item4 as RecordPath)</scr:Expression>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:Rescale">
-                <dsp:Min>-50</dsp:Min>
-                <dsp:Max>50</dsp:Max>
-                <dsp:RangeMin>-1</dsp:RangeMin>
-                <dsp:RangeMax>1</dsp:RangeMax>
-                <dsp:RescaleType>Clamp</dsp:RescaleType>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="p1:ConvertToVector2" />
+              <Combinator xsi:type="p2:ConvertToVector2" />
             </Expression>
             <Expression xsi:type="WorkflowOutput" />
           </Nodes>
           <Edges>
-            <Edge From="0" To="1" Label="Source1" />
-            <Edge From="1" To="11" Label="Source1" />
+            <Edge From="0" To="9" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
             <Edge From="2" To="3" Label="Source1" />
-            <Edge From="3" To="4" Label="Source1" />
-            <Edge From="4" To="11" Label="Source2" />
+            <Edge From="3" To="9" Label="Source2" />
+            <Edge From="4" To="5" Label="Source1" />
             <Edge From="5" To="6" Label="Source1" />
-            <Edge From="6" To="7" Label="Source1" />
-            <Edge From="7" To="11" Label="Source3" />
-            <Edge From="8" To="13" Label="Source2" />
+            <Edge From="6" To="9" Label="Source3" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source4" />
             <Edge From="9" To="10" Label="Source1" />
-            <Edge From="10" To="11" Label="Source4" />
+            <Edge From="10" To="11" Label="Source1" />
             <Edge From="11" To="12" Label="Source1" />
-            <Edge From="12" To="13" Label="Source1" />
-            <Edge From="13" To="14" Label="Source1" />
-            <Edge From="14" To="15" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -333,8 +332,8 @@ Item4 as RecordPath)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="gl:CreateVector3">
-                <gl:X>0.3103552</gl:X>
-                <gl:Y>0.212917611</gl:Y>
+                <gl:X>0.117627472</gl:X>
+                <gl:Y>0.0180417076</gl:Y>
                 <gl:Z>0</gl:Z>
               </Combinator>
             </Expression>
@@ -350,8 +349,8 @@ Item4 as RecordPath)</scr:Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p3:SetTransform">
                 <p3:Position>
-                  <p3:X>0.31035518646240234</p3:X>
-                  <p3:Y>0.21291761100292206</p3:Y>
+                  <p3:X>0.11762747168540955</p3:X>
+                  <p3:Y>0.018041707575321198</p3:Y>
                   <p3:Z>0</p3:Z>
                 </p3:Position>
                 <p3:Orientation xsi:nil="true" />
@@ -380,31 +379,75 @@ Position.Y as LocationY,
       <Expression xsi:type="PublishSubject">
         <Name>CursorTrajectory</Name>
       </Expression>
-      <Expression xsi:type="PropertyMapping">
-        <PropertyMappings>
-          <Property Name="LocationX" Selector="LocationX" />
-          <Property Name="LocationY" Selector="LocationY" />
-        </PropertyMappings>
-      </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>TrialParams</Name>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Radius</Selector>
       </Expression>
-      <Expression xsi:type="Multiply">
-        <Operand xsi:type="FloatProperty">
-          <Value>2</Value>
-        </Operand>
-      </Expression>
       <Expression xsi:type="PropertyMapping">
         <PropertyMappings>
           <Property Name="Diameter" />
         </PropertyMappings>
       </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Draw</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>CursorTrajectory</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>LocationX</Selector>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>CursorTrajectory</Name>
+      </Expression>
+      <Expression xsi:type="MemberSelector">
+        <Selector>LocationX</Selector>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="FloatProperty">
+          <Value>0</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Value" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Subtract">
+        <Operand xsi:type="FloatProperty">
+          <Value>0</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="LocationY" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="FloatProperty">
+          <Value>0</Value>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="Value" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="Subtract">
+        <Operand xsi:type="DoubleProperty">
+          <Value>0</Value>
+        </Operand>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="LocationX" />
+        </PropertyMappings>
+      </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-        <LocationX>0.3103552</LocationX>
-        <LocationY>0.212917611</LocationY>
+        <LocationX>0.117627472</LocationX>
+        <LocationY>0.0180417076</LocationY>
         <Layer>10</Layer>
         <Diameter>0.1</Diameter>
         <ColorR>0</ColorR>
@@ -414,34 +457,54 @@ Position.Y as LocationY,
       </Expression>
     </Nodes>
     <Edges>
-      <Edge From="0" To="1" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
       <Edge From="4" To="5" Label="Source1" />
-      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
-      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="8" To="9" Label="Source1" />
       <Edge From="10" To="11" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
       <Edge From="13" To="14" Label="Source1" />
       <Edge From="15" To="16" Label="Source1" />
       <Edge From="16" To="17" Label="Source1" />
-      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="18" To="19" Label="Source1" />
       <Edge From="19" To="20" Label="Source1" />
-      <Edge From="20" To="21" Label="Source1" />
+      <Edge From="21" To="22" Label="Source1" />
       <Edge From="22" To="23" Label="Source1" />
+      <Edge From="23" To="31" Label="Source2" />
       <Edge From="24" To="25" Label="Source1" />
       <Edge From="25" To="26" Label="Source1" />
-      <Edge From="27" To="38" Label="Source1" />
+      <Edge From="26" To="35" Label="Source2" />
+      <Edge From="27" To="28" Label="Source1" />
       <Edge From="28" To="29" Label="Source1" />
       <Edge From="29" To="30" Label="Source1" />
       <Edge From="30" To="31" Label="Source1" />
-      <Edge From="31" To="32" Label="Source1" />
+      <Edge From="31" To="35" Label="Source0" />
       <Edge From="32" To="33" Label="Source1" />
-      <Edge From="33" To="38" Label="Source2" />
-      <Edge From="34" To="35" Label="Source1" />
+      <Edge From="33" To="34" Label="Source1" />
+      <Edge From="34" To="35" Label="Source3" />
       <Edge From="35" To="36" Label="Source1" />
       <Edge From="36" To="37" Label="Source1" />
-      <Edge From="37" To="38" Label="Source3" />
+      <Edge From="37" To="38" Label="Source1" />
+      <Edge From="38" To="39" Label="Source1" />
+      <Edge From="40" To="41" Label="Source1" />
+      <Edge From="41" To="42" Label="Source1" />
+      <Edge From="43" To="44" Label="Source1" />
+      <Edge From="44" To="45" Label="Source1" />
+      <Edge From="45" To="59" Label="Source2" />
+      <Edge From="46" To="59" Label="Source1" />
+      <Edge From="47" To="48" Label="Source1" />
+      <Edge From="48" To="57" Label="Source1" />
+      <Edge From="49" To="50" Label="Source1" />
+      <Edge From="50" To="53" Label="Source1" />
+      <Edge From="51" To="52" Label="Source1" />
+      <Edge From="52" To="53" Label="Source2" />
+      <Edge From="53" To="54" Label="Source1" />
+      <Edge From="54" To="59" Label="Source4" />
+      <Edge From="55" To="56" Label="Source1" />
+      <Edge From="56" To="57" Label="Source2" />
+      <Edge From="57" To="58" Label="Source1" />
+      <Edge From="58" To="59" Label="Source3" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>

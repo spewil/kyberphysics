@@ -19,7 +19,7 @@ def build_experiment_path_dict(experiment):
                 }})
             session_paths = sorted([
                 x
-                for x in (subject_folder / task).iterdir() if x.name[0] != "."
+                for x in (subject_folder / task).iterdir() if x.name[0] != "." and "session" in x.name
             ],
                                    key=lambda x: x.name[-1])
             session_names = [x.name for x in session_paths]
