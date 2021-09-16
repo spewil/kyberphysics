@@ -173,67 +173,7 @@ Item7 as ReachTime
       <Expression xsi:type="SubscribeSubject">
         <Name>EmgData</Name>
       </Expression>
-      <Expression xsi:type="GroupWorkflow">
-        <Name>Channel56Zero</Name>
-        <Workflow>
-          <Nodes>
-            <Expression xsi:type="WorkflowInput">
-              <Name>Source1</Name>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:Submatrix">
-                <dsp:StartRow>0</dsp:StartRow>
-                <dsp:EndRow>56</dsp:EndRow>
-                <dsp:StartCol>0</dsp:StartCol>
-                <dsp:EndCol xsi:nil="true" />
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:Submatrix">
-                <dsp:StartRow>56</dsp:StartRow>
-                <dsp:EndRow>57</dsp:EndRow>
-                <dsp:StartCol>0</dsp:StartCol>
-                <dsp:EndCol xsi:nil="true" />
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:ConvertScale">
-                <dsp:Depth>S32</dsp:Depth>
-                <dsp:Scale>0</dsp:Scale>
-                <dsp:Shift>0</dsp:Shift>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:Submatrix">
-                <dsp:StartRow>57</dsp:StartRow>
-                <dsp:EndRow xsi:nil="true" />
-                <dsp:StartCol>0</dsp:StartCol>
-                <dsp:EndCol xsi:nil="true" />
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="rx:Zip" />
-            </Expression>
-            <Expression xsi:type="Combinator">
-              <Combinator xsi:type="dsp:Concat">
-                <dsp:Axis>0</dsp:Axis>
-              </Combinator>
-            </Expression>
-            <Expression xsi:type="WorkflowOutput" />
-          </Nodes>
-          <Edges>
-            <Edge From="0" To="1" Label="Source1" />
-            <Edge From="0" To="2" Label="Source1" />
-            <Edge From="0" To="4" Label="Source1" />
-            <Edge From="1" To="5" Label="Source1" />
-            <Edge From="2" To="3" Label="Source1" />
-            <Edge From="3" To="5" Label="Source2" />
-            <Edge From="4" To="5" Label="Source3" />
-            <Edge From="5" To="6" Label="Source1" />
-            <Edge From="6" To="7" Label="Source1" />
-          </Edges>
-        </Workflow>
-      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="Extensions\Channel56Zero.bonsai" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="dsp:ConvertScale">
           <dsp:Depth>F32</dsp:Depth>
