@@ -29,12 +29,12 @@
   <DialogSettings xsi:type="WorkflowEditorSettings">
     <Visible>true</Visible>
     <Location>
-      <X>205</X>
-      <Y>361</Y>
+      <X>672</X>
+      <Y>191</Y>
     </Location>
     <Size>
-      <Width>1169</Width>
-      <Height>754</Height>
+      <Width>1186</Width>
+      <Height>727</Height>
     </Size>
     <WindowState>Normal</WindowState>
     <VisualizerTypeName>Bonsai.Dsp.Design.MatVisualizer</VisualizerTypeName>
@@ -549,7 +549,7 @@
     </Size>
     <WindowState>Normal</WindowState>
   </DialogSettings>
-  <DialogSettings>
+  <DialogSettings xsi:type="WorkflowEditorSettings">
     <Visible>false</Visible>
     <Location>
       <X>0</X>
@@ -560,6 +560,18 @@
       <Height>0</Height>
     </Size>
     <WindowState>Normal</WindowState>
+    <EditorDialogSettings>
+      <Visible>false</Visible>
+      <Location>
+        <X>26</X>
+        <Y>26</Y>
+      </Location>
+      <Size>
+        <Width>803</Width>
+        <Height>613</Height>
+      </Size>
+      <WindowState>Normal</WindowState>
+    </EditorDialogSettings>
   </DialogSettings>
   <DialogSettings>
     <Visible>false</Visible>
