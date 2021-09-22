@@ -43,3 +43,11 @@ offset x = 0.15
 offset y = -0.12
 something crashed at session 31 such that there are only 8 trials in this session
 probably just take the three outstanding trials from the next session?
+
+holly
+offset x = -0.1
+offset y = -0.05
+fatigue (recent wrist injury)
+
+alba
+offset x = 0.03

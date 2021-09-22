@@ -221,7 +221,6 @@ def get_experiment_data_folder(experiment):
     experiment_data_folder = base_data_folder / experiment
     assert experiment_data_folder.exists(
     ), f"Path {experiment_data_folder} not found"
-    print("data folder: ", experiment_data_folder)
     return experiment_data_folder
 
 

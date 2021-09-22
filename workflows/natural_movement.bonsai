@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.6.0"
+<WorkflowBuilder Version="2.6.2"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:osc="clr-namespace:Bonsai.Osc;assembly=Bonsai.Osc"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
@@ -181,7 +181,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/self_test/simon/natural_movement/session_0/wrist out_2021_08_31_16_31.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/emg_olympics/marta/natural_movement/session_1/wrist out_2021_09_22_10_23.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -377,7 +377,7 @@ Item4 as Command)</scr:Expression>
               <Combinator xsi:type="rx:TakeUntil" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/self_test/simon/natural_movement/session_0/wrist out_cue_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/emg_olympics/marta/natural_movement/session_1/wrist out_cue_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>

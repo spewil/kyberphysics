@@ -2,10 +2,10 @@
 <WorkflowBuilder Version="2.6.2"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:osc="clr-namespace:Bonsai.Osc;assembly=Bonsai.Osc"
-                 xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
-                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
                  xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
+                 xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:num="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:io="clr-namespace:Bonsai.IO;assembly=Bonsai.System"
@@ -26,6 +26,47 @@
           <osc:RemoteHostName>127.0.0.1</osc:RemoteHostName>
           <osc:RemotePort>5006</osc:RemotePort>
         </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:CreateWindow">
+          <gl:Width>640</gl:Width>
+          <gl:Height>480</gl:Height>
+          <gl:VSync>On</gl:VSync>
+          <gl:SwapSync>false</gl:SwapSync>
+          <gl:ClearColor>Black</gl:ClearColor>
+          <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
+          <gl:CursorVisible>true</gl:CursorVisible>
+          <gl:Location xsi:nil="true" />
+          <gl:WindowBorder>Resizable</gl:WindowBorder>
+          <gl:WindowState>Fullscreen</gl:WindowState>
+          <gl:DisplayDevice>First</gl:DisplayDevice>
+          <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
+          <gl:TargetUpdateFrequency xsi:nil="true" />
+          <gl:RenderState />
+          <gl:GraphicsMode>
+            <gl:ColorFormat>
+              <gl:Red>8</gl:Red>
+              <gl:Green>8</gl:Green>
+              <gl:Blue>8</gl:Blue>
+              <gl:Alpha>8</gl:Alpha>
+            </gl:ColorFormat>
+            <gl:Depth>16</gl:Depth>
+            <gl:Stencil>0</gl:Stencil>
+            <gl:Samples>0</gl:Samples>
+            <gl:AccumulatorFormat>
+              <gl:Red>0</gl:Red>
+              <gl:Green>0</gl:Green>
+              <gl:Blue>0</gl:Blue>
+              <gl:Alpha>0</gl:Alpha>
+            </gl:AccumulatorFormat>
+            <gl:Buffers>2</gl:Buffers>
+            <gl:Stereo>false</gl:Stereo>
+          </gl:GraphicsMode>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.BonVisionResources.bonsai" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="res:LoadResources" />
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\TriggeredAcquisition.bonsai" />
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\BarFilteredEMG.bonsai" />
@@ -86,47 +127,6 @@ it as BarScale
             <Edge From="4" To="5" Label="Source1" />
           </Edges>
         </Workflow>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="gl:CreateWindow">
-          <gl:Width>640</gl:Width>
-          <gl:Height>480</gl:Height>
-          <gl:VSync>On</gl:VSync>
-          <gl:SwapSync>false</gl:SwapSync>
-          <gl:ClearColor>Black</gl:ClearColor>
-          <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
-          <gl:CursorVisible>true</gl:CursorVisible>
-          <gl:Location xsi:nil="true" />
-          <gl:WindowBorder>Resizable</gl:WindowBorder>
-          <gl:WindowState>Fullscreen</gl:WindowState>
-          <gl:DisplayDevice>First</gl:DisplayDevice>
-          <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
-          <gl:TargetUpdateFrequency xsi:nil="true" />
-          <gl:RenderState />
-          <gl:GraphicsMode>
-            <gl:ColorFormat>
-              <gl:Red>8</gl:Red>
-              <gl:Green>8</gl:Green>
-              <gl:Blue>8</gl:Blue>
-              <gl:Alpha>8</gl:Alpha>
-            </gl:ColorFormat>
-            <gl:Depth>16</gl:Depth>
-            <gl:Stencil>0</gl:Stencil>
-            <gl:Samples>0</gl:Samples>
-            <gl:AccumulatorFormat>
-              <gl:Red>0</gl:Red>
-              <gl:Green>0</gl:Green>
-              <gl:Blue>0</gl:Blue>
-              <gl:Alpha>0</gl:Alpha>
-            </gl:AccumulatorFormat>
-            <gl:Buffers>2</gl:Buffers>
-            <gl:Stereo>false</gl:Stereo>
-          </gl:GraphicsMode>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.BonVisionResources.bonsai" />
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="res:LoadResources" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:RenderFrame" />
@@ -202,7 +202,7 @@ it as BarScale
               <Combinator xsi:type="num:Permutation" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/hyewon/calibration_bars/session_0/bar_order_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/test/spencer/calibration_bars/session_3/bar_order_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -372,7 +372,7 @@ Timestamp as Timestamp
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path>C:/Users/spencer/data/emg_olympics/hyewon/calibration_bars/session_0/63_emg_.bin</dsp:Path>
+                      <dsp:Path>C:/Users/spencer/data/emg_olympics/marta/calibration_bars/session_0/2_emg_.bin</dsp:Path>
                       <dsp:Suffix>Timestamp</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -535,14 +535,14 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
                     <ExtentX>0.01</ExtentX>
-                    <ExtentY>0.220635727</ExtentY>
+                    <ExtentY>0.0308648981</ExtentY>
                     <LocationX>0.4920635</LocationX>
-                    <LocationY>-0.6896821</LocationY>
+                    <LocationY>-0.784567535</LocationY>
                     <Layer>0</Layer>
                     <Angle>0</Angle>
                     <ColorR>1</ColorR>
-                    <ColorG>0</ColorG>
-                    <ColorB>0</ColorB>
+                    <ColorG>1</ColorG>
+                    <ColorB>1</ColorB>
                     <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="MemberSelector">
@@ -598,7 +598,7 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/emg_olympics/hyewon/calibration_bars/session_0/63_bars_.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/emg_olympics/marta/calibration_bars/session_0/2_bars_.bin</dsp:Path>
                 <dsp:Suffix>Timestamp</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -660,11 +660,11 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
       <Expression xsi:type="WorkflowOutput" />
     </Nodes>
     <Edges>
-      <Edge From="4" To="5" Label="Source1" />
-      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
       <Edge From="8" To="9" Label="Source1" />
-      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
       <Edge From="11" To="12" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
       <Edge From="14" To="15" Label="Source1" />
