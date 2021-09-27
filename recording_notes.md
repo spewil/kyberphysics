@@ -51,3 +51,15 @@ fatigue (recent wrist injury)
 
 alba
 offset x = 0.03
+
+svenja
+offset x = 0.1
+offset y = -0.25
+
+philip
+offset x = 0.2
+offset y = -0.12
+
+tom
+offset x = 0.22
+offset y = 0

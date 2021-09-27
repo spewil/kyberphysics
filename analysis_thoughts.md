@@ -1,3 +1,8 @@
+data organization
+- how to ignore no-holds...?
+- query the data without holding it in memory? (API for the data, effectively)
+- 
+
 analysis ideas
 
 first movement as a plan/feedforward?
@@ -15,3 +20,7 @@ feedback
 time of day of recording correlates?
 
 movements and their opposites (agonist/antagonist pairs) are a strong prior!
+
+are similar movements made after they are rewarded?
+
+are some decoders more aligned to the targets?

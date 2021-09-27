@@ -43,7 +43,7 @@
                 <gl:Location xsi:nil="true" />
                 <gl:WindowBorder>Resizable</gl:WindowBorder>
                 <gl:WindowState>Fullscreen</gl:WindowState>
-                <gl:DisplayDevice>First</gl:DisplayDevice>
+                <gl:DisplayDevice>Second</gl:DisplayDevice>
                 <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
                 <gl:TargetUpdateFrequency xsi:nil="true" />
                 <gl:RenderState />
@@ -181,7 +181,7 @@ Item4 as Command)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/emg_olympics/marta/natural_movement/session_1/wrist out_2021_09_22_10_23.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/test/spencer/natural_movement/session_5/index finger up_2021_09_26_21_39.bin</dsp:Path>
                 <dsp:Suffix>None</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -377,7 +377,7 @@ Item4 as Command)</scr:Expression>
               <Combinator xsi:type="rx:TakeUntil" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/marta/natural_movement/session_1/wrist out_cue_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/test/spencer/natural_movement/session_5/index finger up_cue_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -400,7 +400,7 @@ Item4 as Command)</scr:Expression>
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
-              <Text>wrist out</Text>
+              <Text>index finger up</Text>
               <Font>Rockwell, 100pt, style=Bold</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Near</LineAlignment>

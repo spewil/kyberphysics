@@ -39,7 +39,7 @@
           <gl:Location xsi:nil="true" />
           <gl:WindowBorder>Resizable</gl:WindowBorder>
           <gl:WindowState>Fullscreen</gl:WindowState>
-          <gl:DisplayDevice>First</gl:DisplayDevice>
+          <gl:DisplayDevice>Second</gl:DisplayDevice>
           <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
@@ -67,6 +67,20 @@
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.BonVisionResources.bonsai" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="res:LoadResources" />
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:RenderFrame" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Logging.FrameEventLogger.bonsai">
+        <Name>Events</Name>
+        <Append>false</Append>
+        <Overwrite>true</Overwrite>
+        <Suffix>None</Suffix>
+        <FileName>C:/Users/spencer/data/logging/log.csv</FileName>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.NormalizedView.bonsai" />
+      <Expression xsi:type="PublishSubject">
+        <Name>Draw</Name>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\TriggeredAcquisition.bonsai" />
       <Expression xsi:type="IncludeWorkflow" Path="Extensions\BarFilteredEMG.bonsai" />
@@ -128,20 +142,6 @@ it as BarScale
           </Edges>
         </Workflow>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="gl:RenderFrame" />
-      </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Logging.FrameEventLogger.bonsai">
-        <Name>Events</Name>
-        <Append>false</Append>
-        <Overwrite>true</Overwrite>
-        <Suffix>None</Suffix>
-        <FileName>C:/Users/spencer/data/logging/log.csv</FileName>
-      </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.NormalizedView.bonsai" />
-      <Expression xsi:type="PublishSubject">
-        <Name>Draw</Name>
-      </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>RecordingParams</Name>
       </Expression>
@@ -202,7 +202,7 @@ it as BarScale
               <Combinator xsi:type="num:Permutation" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/test/spencer/calibration_bars/session_3/bar_order_.csv</io:FileName>
+              <io:FileName>/bar_order_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -372,7 +372,7 @@ Timestamp as Timestamp
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path>C:/Users/spencer/data/emg_olympics/marta/calibration_bars/session_0/2_emg_.bin</dsp:Path>
+                      <dsp:Path>C:/Users/spencer/data/emg_olympics/philip/calibration_bars/session_1/63_emg_.bin</dsp:Path>
                       <dsp:Suffix>Timestamp</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -535,14 +535,14 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
                     <ExtentX>0.01</ExtentX>
-                    <ExtentY>0.0308648981</ExtentY>
+                    <ExtentY>0.312471479</ExtentY>
                     <LocationX>0.4920635</LocationX>
-                    <LocationY>-0.784567535</LocationY>
+                    <LocationY>-0.643764257</LocationY>
                     <Layer>0</Layer>
                     <Angle>0</Angle>
                     <ColorR>1</ColorR>
-                    <ColorG>1</ColorG>
-                    <ColorB>1</ColorB>
+                    <ColorG>0</ColorG>
+                    <ColorB>0</ColorB>
                     <ColorA>1</ColorA>
                   </Expression>
                   <Expression xsi:type="MemberSelector">
@@ -598,7 +598,7 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:MatrixWriter">
-                <dsp:Path>C:/Users/spencer/data/emg_olympics/marta/calibration_bars/session_0/2_bars_.bin</dsp:Path>
+                <dsp:Path>C:/Users/spencer/data/emg_olympics/philip/calibration_bars/session_1/63_bars_.bin</dsp:Path>
                 <dsp:Suffix>Timestamp</dsp:Suffix>
                 <dsp:Overwrite>false</dsp:Overwrite>
                 <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -662,9 +662,9 @@ Item2.index == Item3?0:1 as IsColor)</scr:Expression>
     <Edges>
       <Edge From="2" To="3" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
       <Edge From="7" To="8" Label="Source1" />
-      <Edge From="8" To="9" Label="Source1" />
-      <Edge From="10" To="11" Label="Source1" />
       <Edge From="11" To="12" Label="Source1" />
       <Edge From="12" To="13" Label="Source1" />
       <Edge From="14" To="15" Label="Source1" />
