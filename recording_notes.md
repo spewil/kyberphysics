@@ -63,3 +63,9 @@ offset y = -0.12
 tom
 offset x = 0.22
 offset y = 0
+
+lucas
+offset x = 0.22
+offset y = 0
+* changed hand placement (added foam) after block 14 (end of first session)
+* changed the offsets as well

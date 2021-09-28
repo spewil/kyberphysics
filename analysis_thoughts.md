@@ -24,3 +24,11 @@ movements and their opposites (agonist/antagonist pairs) are a strong prior!
 are similar movements made after they are rewarded?
 
 are some decoders more aligned to the targets?
+
+by friday
+- behavior statistics
+	- hits
+	- misses
+	- time to hit
+	- length of trajectory?
+- trajectory statistics
