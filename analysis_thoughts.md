@@ -25,6 +25,7 @@ are similar movements made after they are rewarded?
 
 are some decoders more aligned to the targets?
 
+<<<<<<< Updated upstream
 by friday
 - behavior statistics
 	- hits
@@ -32,3 +33,9 @@ by friday
 	- time to hit
 	- length of trajectory?
 - trajectory statistics
+=======
+bottleneck
+- between trajectory (or some feature thereof) and target?
+  - how well can we predict target from trajectory? or vice versa?
+  - this means how well can subjects infer motor activations given target (the policy)
+>>>>>>> Stashed changes
