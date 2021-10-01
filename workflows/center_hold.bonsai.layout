@@ -463,12 +463,12 @@
     <EditorDialogSettings>
       <Visible>true</Visible>
       <Location>
-        <X>44</X>
-        <Y>469</Y>
+        <X>205</X>
+        <Y>472</Y>
       </Location>
       <Size>
         <Width>1003</Width>
-        <Height>538</Height>
+        <Height>343</Height>
       </Size>
       <WindowState>Normal</WindowState>
     </EditorDialogSettings>
@@ -1148,8 +1148,8 @@
       <DialogSettings>
         <Visible>true</Visible>
         <Location>
-          <X>365</X>
-          <Y>101</Y>
+          <X>402</X>
+          <Y>307</Y>
         </Location>
         <Size>
           <Width>666</Width>
@@ -1160,7 +1160,7 @@
         <VisualizerSettings>
           <MatVisualizer>
             <XMin>0</XMin>
-            <XMax>1</XMax>
+            <XMax>10000</XMax>
             <YMin>0</YMin>
             <YMax>65356</YMax>
             <AutoScaleX>true</AutoScaleX>
@@ -1611,8 +1611,8 @@
             <EditorDialogSettings>
               <Visible>true</Visible>
               <Location>
-                <X>179</X>
-                <Y>295</Y>
+                <X>152</X>
+                <Y>444</Y>
               </Location>
               <Size>
                 <Width>739</Width>
@@ -2590,8 +2590,8 @@
               <DialogSettings>
                 <Visible>true</Visible>
                 <Location>
-                  <X>157</X>
-                  <Y>158</Y>
+                  <X>28</X>
+                  <Y>180</Y>
                 </Location>
                 <Size>
                   <Width>537</Width>
