@@ -69,3 +69,13 @@ offset x = 0.22
 offset y = 0
 * changed hand placement (added foam) after block 14 (end of first session)
 * changed the offsets as well
+
+fede
+
+andrei
+offset x 0.16
+offset y 0.0
+* stopped after session 11 to rest because of discomfort!!
+* continued for 3 sessions
+* short rest, continue for 15
+free play starting session 45!!!
