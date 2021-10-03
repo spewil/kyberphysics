@@ -25,7 +25,6 @@ are similar movements made after they are rewarded?
 
 are some decoders more aligned to the targets?
 
-<<<<<<< Updated upstream
 by friday
 - behavior statistics
 	- hits
@@ -33,9 +32,28 @@ by friday
 	- time to hit
 	- length of trajectory?
 - trajectory statistics
-=======
+
+some directions are more difficult -- can still measure ability even without the hit (e.g. andrei whose force level kept him from moving left easily...:(
+
+andrei -- level of required force? need to control for this as well
+
+plot arm size vs X
+plot overall force / variance vs X
+action distribution statistics vs X
+
+coffee drinkers and non
+hours from lunch
+sleep hours
+
 bottleneck
 - between trajectory (or some feature thereof) and target?
   - how well can we predict target from trajectory? or vice versa?
   - this means how well can subjects infer motor activations given target (the policy)
->>>>>>> Stashed changes
+  
+# experiment 2 
+
+- is exploration strategy different from interleaved?
+- is learning faster?
+- do we have enough participants to compare these two groups?
+	- variance within each group higher than variance between?
+- 

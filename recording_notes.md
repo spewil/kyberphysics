@@ -79,3 +79,20 @@ offset y 0.0
 * continued for 3 sessions
 * short rest, continue for 15
 free play starting session 45!!!
+
+andy
+offset x 0.45
+offset y 0
+
+peterg
+band wouldn't fully close around the arm, used bandage to secure it (no electrodes on ventral arm)
+offset x 
+offset y
+
+emmett
+offset x = 0.16 (maybe -)
+
+aeron
+band wouldn't fully close around the arm, used bandage to secure it (no electrodes on ventral arm)
+offset x = -0.1
+offset y = 0.12
