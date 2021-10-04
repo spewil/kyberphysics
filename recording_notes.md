@@ -96,3 +96,9 @@ aeron
 band wouldn't fully close around the arm, used bandage to secure it (no electrodes on ventral arm)
 offset x = -0.1
 offset y = 0.12
+a lot of postural adjustments to hit targets to the left
+are these necessary or do they help you remember?
+holding is great for people to relax (for fatigue, composure, etc)
+fatigue could be a big part of things (how to infer?)
+hierarchy within trajectory-- get close, then wiggle?
+variability of behavior parallel to and orthogonal to the target direction?
