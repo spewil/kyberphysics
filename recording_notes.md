@@ -96,9 +96,24 @@ aeron
 band wouldn't fully close around the arm, used bandage to secure it (no electrodes on ventral arm)
 offset x = -0.1
 offset y = 0.12
-a lot of postural adjustments to hit targets to the left
+a lot of postural adjustments to hit targets to the left, box sliding around everywhere
 are these necessary or do they help you remember?
 holding is great for people to relax (for fatigue, composure, etc)
 fatigue could be a big part of things (how to infer?)
 hierarchy within trajectory-- get close, then wiggle?
 variability of behavior parallel to and orthogonal to the target direction?
+
+jai
+offset x 0.1
+offset y -0.07
+left side is difficult (for everyone?)
+
+chiyu
+switched wrist up/down in/out
+
+egzona
+loose band? having trouble with blood flow
+small forces in the movements
+small forces in first calibration
+offset x = 0.115
+offset y = -0.13

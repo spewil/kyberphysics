@@ -49,11 +49,12 @@ bottleneck
 - between trajectory (or some feature thereof) and target?
   - how well can we predict target from trajectory? or vice versa?
   - this means how well can subjects infer motor activations given target (the policy)
-  
+ 
+people tend to make other movements over learning, of the head and body, of the other hand. this may aid in memory of particular movements?
+
 # experiment 2 
 
 - is exploration strategy different from interleaved?
 - is learning faster?
 - do we have enough participants to compare these two groups?
 	- variance within each group higher than variance between?
-- 
