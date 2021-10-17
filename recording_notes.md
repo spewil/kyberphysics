@@ -117,3 +117,15 @@ small forces in the movements
 small forces in first calibration
 offset x = 0.115
 offset y = -0.13
+
+arthur
+offset x = 0.29
+offset y = -0.023
+thinks that remembering movements is the difficult part, not executing them. 
+isolated mapping to two fingers, mostly
+some fatigue after first center hold
+arthur is generally fidgety!
+
+will
+offset x = 0.29
+offset y = -0.023
