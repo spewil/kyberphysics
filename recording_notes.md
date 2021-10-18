@@ -127,5 +127,14 @@ some fatigue after first center hold
 arthur is generally fidgety!
 
 will
-offset x = 0.29
-offset y = -0.023
+offset x = 0.05
+offset y = -0.08
+
+zane 2
+offset x = 0.075
+offset y = 0.14
+
+clem
+offset x = 0.125
+offset y = -0.07
+hand fatigue by the 3rd center hold session
