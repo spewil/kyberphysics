@@ -131,10 +131,28 @@ offset x = 0.05
 offset y = -0.08
 
 zane 2
+new electrodes
 offset x = 0.075
 offset y = 0.14
 
 clem
+new electrodes
 offset x = 0.125
 offset y = -0.07
 hand fatigue by the 3rd center hold session
+
+holly2
+new electrodes
+offset x = -0.121
+offset y = 0.025
+0123 -- 2310
+old order 0312 --> 2031
+after block 28, we moved the wrist strap to the elbow
+signal seemed very clean after a test visualization
+this was due to holly's wrist issue causing numbness in her hand
+told her only to continue if she was not in any pain
+
+daniel
+new electrodes (small band)
+offset x = 0.49
+offset y = 0.06
