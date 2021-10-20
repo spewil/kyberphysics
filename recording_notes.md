@@ -174,6 +174,20 @@ this fixed the no-holding problem.
 rest after session 32 (33 start)
 
 miranda2
+old decoder order = 0123
+new decoder order = 1302
 no issues!
 offsetx = 0.15
 offsety = -0.06
+
+elena
+offsetx = ?
+offsety = ?
+
+hyewon
+offsetx = -0.22
+offsety = 0.11
+brought up a good point:
+is it important that I hit the red dot?
+assuming she was thinking of a high-level strategy of exploring first
+what are people actually optimizing for?

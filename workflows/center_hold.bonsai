@@ -57,8 +57,8 @@ Item4 as OffsetPath
           <gl:CursorVisible>true</gl:CursorVisible>
           <gl:Location xsi:nil="true" />
           <gl:WindowBorder>Resizable</gl:WindowBorder>
-          <gl:WindowState>Fullscreen</gl:WindowState>
-          <gl:DisplayDevice>Second</gl:DisplayDevice>
+          <gl:WindowState>Normal</gl:WindowState>
+          <gl:DisplayDevice>First</gl:DisplayDevice>
           <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
@@ -601,7 +601,7 @@ Item7 as ReachTime
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p2:StandardizeEMG">
-                <p2:VarianceFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/daniel/variance.bin</p2:VarianceFileName>
+                <p2:VarianceFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/elena/variance.bin</p2:VarianceFileName>
                 <p2:NumChannels>64</p2:NumChannels>
               </Combinator>
             </Expression>
@@ -1054,8 +1054,8 @@ Position.Y as LocationY,
                                     </Expression>
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="gl:CreateVector3">
-                                        <gl:X>0.5</gl:X>
-                                        <gl:Y>-0.87</gl:Y>
+                                        <gl:X>-0.87</gl:X>
+                                        <gl:Y>-0.5</gl:Y>
                                         <gl:Z>0</gl:Z>
                                       </Combinator>
                                     </Expression>
@@ -1071,8 +1071,8 @@ Position.Y as LocationY,
                                     <Expression xsi:type="Combinator">
                                       <Combinator xsi:type="p3:SetTransform">
                                         <p3:Position>
-                                          <p3:X>0.5</p3:X>
-                                          <p3:Y>-0.87000000476837158</p3:Y>
+                                          <p3:X>-0.87000000476837158</p3:X>
+                                          <p3:Y>-0.5</p3:Y>
                                           <p3:Z>0</p3:Z>
                                         </p3:Position>
                                         <p3:Orientation xsi:nil="true" />
@@ -1121,8 +1121,8 @@ Position.Y as LocationY,
                                 </PropertyMappings>
                               </Expression>
                               <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                                <LocationX>0.5</LocationX>
-                                <LocationY>-0.87</LocationY>
+                                <LocationX>-0.87</LocationX>
+                                <LocationY>-0.5</LocationY>
                                 <Layer>0</Layer>
                                 <Diameter>0.15</Diameter>
                                 <ColorR>1</ColorR>
@@ -1329,7 +1329,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/daniel/center_hold/session_0/6_emg_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/emg_olympics/elena/center_hold/session_0/5_emg_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -1364,7 +1364,7 @@ new(Item2.Item1 &lt; 0? "Miss" : "Hit" as Outcome, single(Item1.Item2) as HoldTi
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:/Users/spencer/data/emg_olympics/daniel/center_hold/session_0/6_emg_filtered_.bin</dsp:Path>
+                            <dsp:Path>C:/Users/spencer/data/emg_olympics/elena/center_hold/session_0/5_emg_filtered_.bin</dsp:Path>
                             <dsp:Suffix>Timestamp</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -1462,7 +1462,7 @@ Item2.Value as Timestamp,
 Item1 as Value)</scr:Expression>
                                     </Expression>
                                     <Expression xsi:type="io:CsvWriter">
-                                      <io:FileName>C:/Users/spencer/data/emg_olympics/daniel/center_hold/session_0/6_behavior_.csv</io:FileName>
+                                      <io:FileName>C:/Users/spencer/data/emg_olympics/elena/center_hold/session_0/5_behavior_.csv</io:FileName>
                                       <io:Delimiter>,</io:Delimiter>
                                       <io:Append>false</io:Append>
                                       <io:Overwrite>false</io:Overwrite>
@@ -1549,8 +1549,8 @@ Item1 as Value)</scr:Expression>
                           </PropertyMappings>
                         </Expression>
                         <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
-                          <LocationX>0.0141814351</LocationX>
-                          <LocationY>0.0309930779</LocationY>
+                          <LocationX>0.00582435727</LocationX>
+                          <LocationY>0.0134364516</LocationY>
                           <Layer>10</Layer>
                           <Diameter>0.1</Diameter>
                           <ColorR>0</ColorR>
@@ -1600,8 +1600,8 @@ Item1 as Value)</scr:Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p2:UpdateDecoder">
                                   <p2:BufferSize>1</p2:BufferSize>
-                                  <p2:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/daniel/decoder.bin</p2:DecoderFileName>
-                                  <p2:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/daniel/dynamics.bin</p2:DynamicsFileName>
+                                  <p2:DecoderFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/elena/decoder.bin</p2:DecoderFileName>
+                                  <p2:DynamicsFileName>C:/Users/spencer/Documents/kyberphysics/metadata/emg_olympics/elena/dynamics.bin</p2:DynamicsFileName>
                                   <p2:StateDimension>6</p2:StateDimension>
                                 </Combinator>
                               </Expression>
@@ -1647,7 +1647,7 @@ Item1 as Value)</scr:Expression>
                         </Expression>
                         <Expression xsi:type="Subtract">
                           <Operand xsi:type="FloatProperty">
-                            <Value>0.49</Value>
+                            <Value>0.375</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="MemberSelector">
@@ -1663,7 +1663,7 @@ Item1 as Value)</scr:Expression>
                         </Expression>
                         <Expression xsi:type="Subtract">
                           <Operand xsi:type="FloatProperty">
-                            <Value>0.06</Value>
+                            <Value>0.15</Value>
                           </Operand>
                         </Expression>
                         <Expression xsi:type="Combinator">
@@ -1693,8 +1693,8 @@ Item2 as Y
                               </Expression>
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="gl:CreateVector3">
-                                  <gl:X>0.0141814351</gl:X>
-                                  <gl:Y>0.0309930779</gl:Y>
+                                  <gl:X>0.00582435727</gl:X>
+                                  <gl:Y>0.0134364516</gl:Y>
                                   <gl:Z>0</gl:Z>
                                 </Combinator>
                               </Expression>
@@ -1710,8 +1710,8 @@ Item2 as Y
                               <Expression xsi:type="Combinator">
                                 <Combinator xsi:type="p3:SetTransform">
                                   <p3:Position>
-                                    <p3:X>0.014181435108184814</p3:X>
-                                    <p3:Y>0.030993077903985977</p3:Y>
+                                    <p3:X>0.005824357271194458</p3:X>
+                                    <p3:Y>0.013436451554298401</p3:Y>
                                     <p3:Z>0</p3:Z>
                                   </p3:Position>
                                   <p3:Orientation xsi:nil="true" />
@@ -1820,7 +1820,7 @@ Position.Y as LocationY,
               </Workflow>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:/Users/spencer/data/emg_olympics/daniel/center_hold/session_0/session_result_.csv</io:FileName>
+              <io:FileName>C:/Users/spencer/data/emg_olympics/elena/center_hold/session_0/session_result_.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>Timestamp</io:Suffix>
@@ -1915,7 +1915,7 @@ Position.Y as LocationY,
       <Expression xsi:type="WorkflowOutput" />
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="FloatProperty">
-          <Value>0.49</Value>
+          <Value>0.375</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="BehaviorSubject">
@@ -1923,7 +1923,7 @@ Position.Y as LocationY,
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="FloatProperty">
-          <Value>0.06</Value>
+          <Value>0.15</Value>
         </Combinator>
       </Expression>
       <Expression xsi:type="BehaviorSubject">
