@@ -157,3 +157,18 @@ daniel
 new electrodes (small band)
 offset x = 0.49
 offset y = 0.06
+
+zeynib
+new electrodes
+moved a lot during the first movement session
+second session i think was better
+calibration task high force?
+used the first calibration dataset -- something weird in the second?
+having some trouble holding... posture?
+major sample drops towards the end of session 1... not sure why?
+had to change the offsets because of holding in session 3
+adjusted handed after session 1, and offsets
+after session 18, we stopped quickly to move the hand constraint as the electrodes were being pressed!
+restart at session 19
+this fixed the no-holding problem.
+rest after session 32 (33 start)
