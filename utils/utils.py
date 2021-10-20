@@ -82,12 +82,14 @@ def load_movement_emg(session_path, movement=None):
         [x for x in session_path.iterdir() if x.suffix == ".bin"], key=str)
     for p in emg_paths:
         name = p.name.rstrip(".bin")[:-17]
+        print(name)
         data.update({name: {}})
         data[name].update(
             {"emg": np.fromfile(p, dtype=np.int32).reshape(-1, 68)})
     # cue
     cue_paths = sorted([x for x in session_path.iterdir() if "cue" in x.name],
                        key=str)
+    print(cue_paths)
     for p in cue_paths:
         name = p.name.rstrip(".bin")[:-28]
         cue = np.genfromtxt(str(p), delimiter=',')[:, 2].reshape(-1, 1)
