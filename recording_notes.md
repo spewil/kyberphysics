@@ -134,6 +134,7 @@ zane 2
 new electrodes
 offset x = 0.075
 offset y = 0.14
+messed up the order of the modes... they don't match the first round :( 
 
 clem
 new electrodes
