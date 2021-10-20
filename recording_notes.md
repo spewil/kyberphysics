@@ -172,3 +172,8 @@ after session 18, we stopped quickly to move the hand constraint as the electrod
 restart at session 19
 this fixed the no-holding problem.
 rest after session 32 (33 start)
+
+miranda2
+no issues!
+offsetx = 0.15
+offsety = -0.06
