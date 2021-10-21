@@ -159,6 +159,7 @@ offset x = 0.49
 offset y = 0.06
 
 zeynib
+didnt note offsets
 new electrodes
 moved a lot during the first movement session
 second session i think was better
