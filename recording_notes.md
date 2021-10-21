@@ -191,3 +191,17 @@ brought up a good point:
 is it important that I hit the red dot?
 assuming she was thinking of a high-level strategy of exploring first
 what are people actually optimizing for?
+
+sarah
+offsetx = -0.22
+offsety = 0.11
+
+nicole m
+didnt note the offsets
+offsetx = 0.375?
+offsety = 0.05?
+
+rodrigo
+offsetx = -0.03
+offsety = 0.09
+break after session 1 to adjust
