@@ -172,3 +172,36 @@ after session 18, we stopped quickly to move the hand constraint as the electrod
 restart at session 19
 this fixed the no-holding problem.
 rest after session 32 (33 start)
+
+miranda2
+old decoder order = 0123
+new decoder order = 1302
+no issues!
+offsetx = 0.15
+offsety = -0.06
+
+elena
+offsetx = ?
+offsety = ?
+
+hyewon
+offsetx = -0.22
+offsety = 0.11
+brought up a good point:
+is it important that I hit the red dot?
+assuming she was thinking of a high-level strategy of exploring first
+what are people actually optimizing for?
+
+sarah
+offsetx = -0.22
+offsety = 0.11
+
+nicole m
+didnt note the offsets
+offsetx = 0.375?
+offsety = 0.05?
+
+rodrigo
+offsetx = -0.03
+offsety = 0.09
+break after session 1 to adjust
