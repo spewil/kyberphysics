@@ -207,8 +207,6 @@ offsetx = -0.03
 offsety = 0.09
 break after session 1 to adjust
 
--- 
-
 lara
 offsetx = 
 offsety = 
@@ -218,8 +216,8 @@ offsetx =
 offsety = 
 
 alba2
-original order -- 
-matched modes order -- 
-new order -- 
-offsetx = 
-offsety = 
+original order -- 0123
+matched modes order -- 2130
+new order -- 2130
+offsetx = -0.12
+offsety = -0.1
