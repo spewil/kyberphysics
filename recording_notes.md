@@ -206,3 +206,20 @@ rodrigo
 offsetx = -0.03
 offsety = 0.09
 break after session 1 to adjust
+
+-- 
+
+lara
+offsetx = 
+offsety = 
+
+viktor
+offsetx = 
+offsety = 
+
+alba2
+original order -- 
+matched modes order -- 
+new order -- 
+offsetx = 
+offsety = 

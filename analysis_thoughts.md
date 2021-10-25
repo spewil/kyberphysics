@@ -1,9 +1,21 @@
+# analysis ideas
+
+is the calibration the same each time?
+(the target bar order will be different, but the layout is the same?)
+
 data organization
 - how to ignore no-holds...?
 - query the data without holding it in memory? (API for the data, effectively)
-- 
 
-analysis ideas
+structure of variability
+learning curves along dimensions
+modularity -- which dimensions are controlled?
+
+freezing DoFs? 
+
+quantify sample efficiency?
+
+are cross-trial learning modes similar across subjects? 
 
 first movement as a plan/feedforward?
 hits per target (polar plot)
@@ -53,3 +65,6 @@ bottleneck
 people tend to make other movements over learning, of the head and body, of the other hand. this may aid in memory of particular movements?
 
 does "no hold" correlate with success?
+
+you could get lucky where the principle directions are directly to targets... in this case, do you keep doing what you're doing? or do you hone in the movement?
+
