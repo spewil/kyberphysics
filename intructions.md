@@ -23,14 +23,20 @@ to run each task, run the bonsai workflow first, then run `python3 -m tasks.<tas
 
 ## center hold
 
+compute and save the modes: 
+
 run the notebook `mappings.ipynb` making sure to change the `subject` and `experiment` variables appropriately
 visually inspect the modes and the test plot, if the test plot looks one-sided, change the order of the modes
+
+changing the offset parameters: 
 
 in bonsai click "Create Window" node
 change "DisplayDevice" to "First" and "WindowState" to "Normal"
 start the task in the usual way
 instruct the subject to move randomly, then relax
 while they are relaxing, visualize the "UpdateCursor" node (Trials > CreateTrial) and change the OffsetX and OffsetY values to zero these values (it will fluctuate, I try to aim for as close to 0.00xx as possible)
+
+
 
 # intructions for participants 
 
