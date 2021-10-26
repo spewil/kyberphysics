@@ -3,6 +3,10 @@
 is the calibration the same each time?
 (the target bar order will be different, but the layout is the same?)
 
+do people actually achieve the bar task? better than random?
+what is the metric of success?
+what is the null?
+
 data organization
 - how to ignore no-holds...?
 - query the data without holding it in memory? (API for the data, effectively)

@@ -221,3 +221,28 @@ matched modes order -- 2130
 new order -- 2130
 offsetx = -0.12
 offsety = -0.1
+
+hernando
+offset x = -0.11
+offset y = -0.11
+bad interface noise at start?
+paused after session 21 to fix noise issue
+session 21 is all no-holds!
+
+marta
+offset x = -0.07
+offset y = 0.07
+not sure about the offsets
+pause after calibration
+pause after second session
+
+mattias
+band doesnt fit around the arm
+stretch and use the bandage
+missing the ventral stripe (flexors?)
+offset x = 0.162
+offset y = -0.51
+stop after 37 because of battery issues!!!!
+previous few trials had major lag...
+started ~10 trials into the third session, lasted 20 trials
+changed the offset for the last session to 0.2
