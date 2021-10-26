@@ -1,4 +1,38 @@
-intructions for participants 
+# instructions for experimenter
+
+## general 
+
+always watch the 65th channel for dropped data-- in the case of dropped samples it helps to close all other applications and to make sure the bonsai window is active
+
+to create a new subject, run `python3 -m metadata.new_subject <experiment_name> <subject_name>` and follow the prompt
+
+to run each task, run the bonsai workflow first, then run `python3 -m tasks.<task_name> <experiment_name> <subject_name>` 
+
+
+## natural movements
+
+- start the bonsai
+- start the python
+- check the counter (channel 68 of EMG) is counting without drops
+
+## calibration bars
+
+- start the bonsai
+- start the python
+- check the counter (channel 68 of EMG) is counting without drops
+
+## center hold
+
+run the notebook `mappings.ipynb` making sure to change the `subject` and `experiment` variables appropriately
+visually inspect the modes and the test plot, if the test plot looks one-sided, change the order of the modes
+
+in bonsai click "Create Window" node
+change "DisplayDevice" to "First" and "WindowState" to "Normal"
+start the task in the usual way
+instruct the subject to move randomly, then relax
+while they are relaxing, visualize the "UpdateCursor" node (Trials > CreateTrial) and change the OffsetX and OffsetY values to zero these values (it will fluctuate, I try to aim for as close to 0.00xx as possible)
+
+# intructions for participants 
 
 ## natural movements
 
@@ -33,29 +67,3 @@ make sure you are in a totally comfortable rest position now for the parameter s
 make sure to relax your hand, arm, and shoulder fully
 if you have trouble holding, try a postural adjustment first
 if you feel that you cannot return the blue circle to the center, let me know and i will jump in and fix it
-
-# instructions for experimenter
-
-## general 
-
-always watch the 65th channel for dropped data-- in the case of dropped samples it helps to close all other applications and to make sure the bonsai window is active
-
-to create a new subject, run `python3 -m metadata.new_subject <experiment_name> <subject_name>` and follow the prompt
-
-to run each task, run the bonsai workflow first, then run `python3 -m tasks.<task_name> <experiment_name> <subject_name>` 
-
-
-## natural movements
-
-## calibration bars
-
-## center hold
-
-run the notebook `mappings.ipynb` making sure to change the `subject` and `experiment` variables appropriately
-visually inspect the modes and the test plot, if the test plot looks one-sided, change the order of the modes
-
-in bonsai click "Create Window" node
-change "DisplayDevice" to "First" and "WindowState" to "Normal"
-start the task in the usual way
-instruct the subject to move randomly, then relax
-while they are relaxing, visualize the "UpdateCursor" node (Trials > CreateTrial) and change the OffsetX and OffsetY values to zero these values (it will fluctuate, I try to aim for as close to 0.00xx as possible)
