@@ -1,5 +1,7 @@
 # analysis ideas
 
+directions of modes relative to targets correlate with performance?
+
 is the calibration the same each time?
 (the target bar order will be different, but the layout is the same?)
 

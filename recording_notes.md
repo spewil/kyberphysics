@@ -240,9 +240,34 @@ mattias
 band doesnt fit around the arm
 stretch and use the bandage
 missing the ventral stripe (flexors?)
-offset x = 0.162
+offset x = 0.162s
 offset y = -0.51
 stop after 37 because of battery issues!!!!
 previous few trials had major lag...
-started ~10 trials into the third session, lasted 20 trials
+started ~ 10 trials into the third session, lasted 20 trials
 changed the offset for the last session to 0.2
+
+billy
+brief noise after calibration 0, seemingly fixed?
+offset x = 0.15
+offset y = 0
+
+ivana 
+offset x = 0.18
+offset y = -0.1
+
+peter
+offset x = ?
+offset y = ?
+
+lars 2
+first movement session, loose electrodes?
+offset x = 0.05
+offset y = -0.22
+
+mario
+offset x = -0.39
+offset y = 0.02
+stopped after session 17 to adjust!!
+arm has pins and needles from an injury
+
