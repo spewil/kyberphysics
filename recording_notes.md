@@ -271,3 +271,22 @@ offset y = 0.02
 stopped after session 17 to adjust!!
 arm has pins and needles from an injury
 
+tiago
+wrist sprain 2 wks ago
+offset x = 
+offset y = 
+noise before starting
+some early drops
+**session 7 ended early -- no holds**
+
+jai 2
+big break after calibration, adjusting electrodes
+offset x = 0.12
+offset y = -0.1
+**session 2 got noisy, ended early, adjusted, restarted**
+extra session to account for this
+pause after session 17!!!
+
+georgia 2
+offset x = 0.08
+offset y = -0.06

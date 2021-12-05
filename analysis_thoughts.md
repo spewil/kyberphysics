@@ -1,6 +1,26 @@
 # analysis ideas
 
+what OFC model would fit the data at each point?
+reconstruct / fit the best controller?
+
+to disambiguate model-based and model-free, look at "adjustments"-- online corrections
+find examples where noise or something deviates, and an adjustment is made
+have a rule for adjustments, and scrutinize the movements after the adjustment
+can we do this on multiple timescales? 
+find a space where adjustments stand out (velocity?)
+
+sensory prediction
+reward prediction (we know the reward structure)
+
+calibration 
+- strategies low-to-high or high-to-low?
+- any features across trials? (same strategy?)
+- "null" and "non-null" space?
+
 directions of modes relative to targets correlate with performance?
+alignment of dominant modes with target directions
+- dominant modes-- projections of random emg? eigendirections?
+- alignment = cosine distance
 
 is the calibration the same each time?
 (the target bar order will be different, but the layout is the same?)
@@ -71,6 +91,8 @@ bottleneck
 people tend to make other movements over learning, of the head and body, of the other hand. this may aid in memory of particular movements?
 
 does "no hold" correlate with success?
+total number
+next trial
 
 you could get lucky where the principle directions are directly to targets... in this case, do you keep doing what you're doing? or do you hone in the movement?
 

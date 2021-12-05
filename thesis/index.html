@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+        <meta name="author" content="Spencer R. Wilson" />
+                <title>Heterarchical Control in Sensorimotor Processing</title>
+    <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+    </style>
+        <link rel="stylesheet" href="pandoc.css" />
+            <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+        <script src="https://hypothes.is/embed.js" async></script>
+      </head>
+  <body>
+      
+            <header id="title-block-header">
+        <h1 class="title">Heterarchical Control<br>in Sensorimotor Processing</h1>
+                        <p class="author">Spencer R. Wilson</p>
+                        <!-- <p class="date">1/1/2021</p> -->
+        <p class="date">Last updated: <script> document.write(new Date().toLocaleDateString());</script></p>
+
+              </header>
+      
+            <div class="toc-col">
+        <div class="toc">
+          <nav id="TOC" role="doc-toc">
+                        <h2 id="toc-title">Contents</h2>
+                        <ul>
+                        <li><a href="#sec:intro"><span class="toc-section-number">1</span> Introduction &amp; Aims</a></li>
+                        <li><a href="#sec:physiology"><span class="toc-section-number">2</span> Reverse Engineering the Movement Machine</a>
+                        <ul>
+                        <li><a href="#motor-units-to-muscles"><span class="toc-section-number">2.1</span> Motor Units to Muscles</a></li>
+                        <li><a href="#coordinative-structures"><span class="toc-section-number">2.2</span> Coordinative Structures</a></li>
+                        <li><a href="#fractionating-structures"><span class="toc-section-number">2.3</span> Fractionating Structures</a></li>
+                        <li><a href="#supraspinal-motor-maps"><span class="toc-section-number">2.4</span> Supraspinal Motor Maps</a></li>
+                        </ul></li>
+                        <li><a href="#sec:experiment"><span class="toc-section-number">3</span> Preliminary Experiments</a>
+                        <ul>
+                        <li><a href="#goals"><span class="toc-section-number">3.1</span> Goals</a></li>
+                        <li><a href="#recording-setup"><span class="toc-section-number">3.2</span> Recording Setup</a></li>
+                        <li><a href="#open-loop-finger-recordings"><span class="toc-section-number">3.3</span> Open-loop Finger Recordings</a></li>
+                        <li><a href="#center-hold-reach-out-task"><span class="toc-section-number">3.4</span> Center-hold Reach-out Task</a></li>
+                        </ul></li>
+                        <li><a href="#sec:theory"><span class="toc-section-number">4</span> Preliminary Theory</a>
+                        <ul>
+                        <li><a href="#optimal-feedback-control"><span class="toc-section-number">4.1</span> Optimal Feedback Control</a></li>
+                        <li><a href="#internal-model-adaptation-for-linear-quadratic-control"><span class="toc-section-number">4.2</span> Internal Model Adaptation for Linear Quadratic Control</a></li>
+                        </ul></li>
+                        <li><a href="#sec:next_steps"><span class="toc-section-number">5</span> Next Steps</a>
+                        <ul>
+                        <li><a href="#emg-hardware"><span class="toc-section-number">5.1</span> EMG Hardware</a>
+                        <ul>
+                        <li><a href="#eye-tracking"><span class="toc-section-number">5.1.1</span> Eye Tracking</a></li>
+                        </ul></li>
+                        <li><a href="#emg-analyses"><span class="toc-section-number">5.2</span> EMG Analyses</a>
+                        <ul>
+                        <li><a href="#preprocessing"><span class="toc-section-number">5.2.1</span> Preprocessing</a></li>
+                        <li><a href="#calibration"><span class="toc-section-number">5.2.2</span> Calibration</a></li>
+                        </ul></li>
+                        <li><a href="#task-design-and-data-collection"><span class="toc-section-number">5.3</span> Task Design and Data Collection</a></li>
+                        <li><a href="#modeling-control"><span class="toc-section-number">5.4</span> Modeling Control</a></li>
+                        <li><a href="#modeling-learning"><span class="toc-section-number">5.5</span> Modeling Learning</a></li>
+                        <li><a href="#open-questions"><span class="toc-section-number">5.6</span> Open Questions</a></li>
+                        </ul></li>
+                        <li><a href="#bibliography">Bibliography</a></li>
+                        </ul>
+          </nav>
+        </div>
+      </div>
+      
+      <div class="main-col">
+          <div class="main">
+            <h2>
+            Where are you?
+            </h2>
+            <p>This is an experiment in creating an open kind of thesis. To start adding comments to this page, just highlight some text, click <code>annotate</code> and start typing. Note that you will have to a <a href="https://web.hypothes.is/" target="_blank">Hypothes.is</a> account, but it only takes a moment (and it’s a nonprofit organization). Add as many comments as you like!</p>
+            <!-- you MUST have new lines between transcludes! -->
+            <h1 data-number="1" id="sec:intro"><span class="header-section-number">1</span> Introduction &amp; Aims</h1>
+            <blockquote>
+            <p><em>Movement is nothing but the quality of our being.</em></p>
+            <p>— Sunryu Suzuki, <em>Zen Mind, Beginner’s Mind</em></p>
+            </blockquote>
+            <!-- Why can't robots move like humans? What is special about human movement? -->
+            <!-- movement is a really hard problem, we want to understand why -->
+            <p>The purpose of this thesis is to construct a high-dimensional electromyography recording setup as a platform on which a suite of motor control and learning experiments can be explored. With this novel setup, we hope to advance our understanding of trial-to-trial motor learning through the combination of experiment and theory.</p>
+            <!-- Hans Moravec's eponymous paradox states that it is easier to generate artificially intelligent performance on tasks we think of as intellectually challenging, such as chess, than to provide a machine with faculties we take for granted, such as movement. Moravec's Paradox, for example, encourages us not to look past the complex computations generated by the human motor system. Following Moravec, this work focuses on what is arguably the most advanced control apparatus in the known universe: the human movement machine. -->
+            <p>A recent review provides a clear call to action for work this direction:</p>
+            <blockquote>
+            <p>The processes by which biological control solutions spanning large and continuous state spaces are constructed remain relatively unexplored. Future investigations may need to embed rich dynamical interactions between object dynamics and task goals in novel and complex movements.<span class="citation" data-cites="McNamee2019"><sup><a href="#ref-McNamee2019" role="doc-biblioref">1</a></sup></span></p>
+            </blockquote>
+            <p>Over the last few decades, there has been considerable amount of work done to untangle the abilities of the motor system to flexibly control the body including through optimal control theory<span class="citation" data-cites="Todorov2004"><sup><a href="#ref-Todorov2004" role="doc-biblioref">2</a></sup></span>, reinforcement learning in continuous action space<span class="citation" data-cites="koberReinforcementLearningRobotics2013"><sup><a href="#ref-koberReinforcementLearningRobotics2013" role="doc-biblioref">3</a></sup></span>, and detailed physiological studies<span class="citation" data-cites="sauerbreiCorticalPatternGeneration2019"><sup><a href="#ref-sauerbreiCorticalPatternGeneration2019" role="doc-biblioref">4</a></sup></span>. However, as the quote above suggests, a holistic understanding of the computations underlying the construction of skilled movement remains an exciting direction for research. Our aim is to progress understanding of skilled movement by studying the solutions produced by human subjects to motor tasks in dynamically rich, yet controlled, virtual environments. Our goal is to reverse-engineer the ability to acquire and perform novel motor skills.</p>
+            <!-- humans have extraordinary motoric ability, we want to understand why -->
+            <!-- Robustness, Flexibility, Generalization, Composition -->
+            <!-- Why is this the most interesting problem?  -->
+            <!-- The interesting problem here is coordination of a redundant system to produce dexterous solutions-- we want to solve the redundancy problem and produce solutions that are robust to external perturbations and sensitive to new information -->
+            <p>Humans produce a great variety of movements every day, often without conscious thought. For example, movements like bringing a cup of coffee to our lips for a sip are generally out of reach for state-of-the-art robotic systems. We claim that this “motor gap” between biological and artificial motor systems is due to a lack of <em>dexterity</em>. Soviet neuroscientist Nikolai Bernstein defined dexterity as the ability to “find a motor solution in any situation and in any condition.”<span class="citation" data-cites="Bernstein1967"><sup><a href="#ref-Bernstein1967" role="doc-biblioref">5</a></sup></span> The crux of this definition is the flexibility of such solutions. This flexibility, or robustness<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><span class="citation" data-cites="kitanoBiologicalRobustness2004"><sup><a href="#ref-kitanoBiologicalRobustness2004" role="doc-biblioref">6</a></sup></span>, is the ability to optimize internal parameters in response to external perturbations and adapt to new information to achieve the goals of an ongoing plan.</p>
+            <!-- While a robot may be able to move a cup of coffee to a precise location in space, its solution is often found to be brittle in a new context, or unable to generalize to the movement of new objects. We define a skill as a behavior that involves dexterity in Bernstein's sense. The use of a tool such as a screwdriver is an example of a motor skill. We define a task as the production of skilled movement in a particular context. Driving a screw in a particular posture using a particular screwdriver is an example of a task. These concepts will be further formalized in later chapters.  -->
+            <!-- Physiology is special for human hands so we chose them as a testbed -->
+            <!-- Human movement is ultimately the result of the activation and contraction of muscle fibers, and movements lie on a spectrum between reflexive and volitional. The supramuscular circuitry which determines the degree of volition we ascribe to movement, where volitional movement relies on supraspinal (though not necessarily conscious) processes. The human hand is a unique evolutionary invention that underlies our ability to perform various skills in a range of tasks-- movements that are decidedly volitional^[It could be argued that the hand is in fact a crucial aspect of humanness. It is thought that the human cerebellar and neocortices evolved reciprocally to expand and support the computational burden of increasingly complex motor tasks such as tool-making and language production[REF?]. The hand is the pinnacle of dexterity and, as such, it is a fruitful testbed for studying the computations and circuitry that drive dexterous movement. A detailed physiological review of the hand and it's relation to skilled movement is described in {+@sec:physiology}. -->
+            <!-- Setting up a specific experiment will help us to track muscle-level changes -->
+            <p>To explore dexterous movement, we will leverage recordings of muscles controlling the hand as a readout of flexible motor behavior. This is a step beyond recording hand kinematics as electromyography provides a physiological output of the nervous system. Surface electromyography recordings taken from the forearms controlling subjects’ dominant hands allows us to track the sequential selection of muscle activations during both skill acquisition and subsequent performance of that skill to achieve desired goal. As we are interested in subjects’ abilities to acquire new skills, we design tasks that require subjects to use available, but uncommon, motor activations. We then track the selection and execution of these activation during virtual tasks. Preliminary work in this direction is described in Section <a href="#sec:experiment">3</a>.</p>
+            <!-- we think theorizing with control and learning models will help us -->
+            <!-- what exactly from the theory world will help us? why is control/RL relevant? -->
+            <!-- what are we missing in the neuro / behavior lit that we need to borrow? -->
+            <!-- BE MORE SPECIFIC HERE -->
+            <!-- Admit that we need to collect and analyze data in an exploratory manner to then inspire hypotheses that can be modeled. We want these hypotheses to be inspired by theoretical work in control and learning theory -->
+            <!-- how are value computations connected to action and policy selection
+            how are feedback controllers adapted to motor errors, new environments, how are they learned as well as combined? -->
+            <p>Using data from our experimental setup, we wish to understand both how the structure of muscle activation variability evolves during skill acquisition and how the motor system constructs skilled movement through the composition of component muscle activations. To begin, we review a sampling of current motor physiology research relevant to dexterous motor computations in Section <a href="#sec:physiology">2</a>. In Section <a href="#sec:experiment">3</a>, we cover our prototype hardware and experiments. With inspiration from physiology and our experiments, we hope to make progress in modeling sensorimotor control and learning in our experimental setup. We cover preliminary work in this direction in Section <a href="#sec:theory">4</a>, and discuss possible future directions in Section <a href="#sec:next_steps">5</a>.</p>
+            <!-- To do so, we with the conceptual language of the experimental sensorimotor learning community together with the language of the control theory and reinforcement learning community, as each of these communities shares a common goal of understanding the computation underlying the production of skilled movement. -->
+            <h1 data-number="2" id="sec:physiology"><span class="header-section-number">2</span> Reverse Engineering the Movement Machine</h1>
+            <blockquote>
+            <p><em>Even a simple movement is a global body event.</em></p>
+            <p>— Bizzi &amp; Ajemian, <em>2020</em></p>
+            </blockquote>
+            <!-- TODO: streamline this heading towards heterarchy -- every sentence should connect to this pay-off at the end. -->
+            <!-- Every piece of this should be heading towards what we're actually measuring and looking for. -->
+            <!-- In this section, we support the claim that the motor system's organizing principle is redundancy at all levels, and that this redundancy supplies us with flexibility. This flexibility is illustrated in the CNS's demonstrated hierarchy in both planning and execution of action. -->
+            <!-- - what can physiology tell us about the movement problem?
+              - can it inform theory to describe motor solutions?
+              - this will inform the shape our models
+              - the constraints of our tasks, questions
+              
+            - what do we know about brain and motor?
+              - hands, thumbs, forearms anatomy
+              - synergies, cm connections
+                - bizzi
+                - porter & lemon
+                - from muscles to cortex
+                - 
+            - loops and controllers
+              - graziano
+              - cerebellum
+              - cortex, hantman
+              - mouse, primate
+              - basal ganglia -->
+            <!-- As we hope to make progress engineering naturalistic artificial movement, it will be beneficial to review what is known about the biological movement system. Beginning with the architecture of the motor system and it's relation to dexterity will provide a scaffold on which we can hang our experimental and theoretical investigations detailed in {+@sec:experiment} and {+@sec:theory}. Specifically, we can use results from prior physiological investigations to ground our perspective on the computations relevant to skilled hand movements. We find that the dexterous solutions produced by the human motor system rely on a incredibly complex architecture, but one in which a spectrum of modularity and redundancy appear to be organizing principles. -->
+            <h2 data-number="2.1" id="motor-units-to-muscles"><span class="header-section-number">2.1</span> Motor Units to Muscles</h2>
+            <!-- motor units to muscles, a spectrum of redundancy -->
+            <!-- "fine for thesis, very detailed for upgrade..." -->
+            <!-- Muscles are composed of fibers which contract due to chemical gradients produced at the neuromuscular junction by action potentials emanating from alpha-motoneurons (AMN) in the ventral horn of the spinal cord. The quantum of motor output is the motor unit (MU), defined as a single motoneuron axon and the set of junctions its axon branches form with one or more muscle fibers. The innervation ratio of a particular muscle unit is the number of junctions it innervates. In muscles of the arm, the number of MUs and their innervation ratios each range from tens to hundreds per muscle and per motor unit, respectively, decreasing as muscles become more distal. -->
+            <p>The quantum of motor output is the motor unit (MU), defined as a single motoneuron axon and the set of junctions the terminals of its axon branches form with one or more muscle fibers. The MU provides the motor system with spatial redundancy at the muscle level: multiple muscle fibers contract due to a single alpha motoneuron (AMN) spike in the spinal cord’s ventral horn, and multiple AMNs may overlap in their innervations. The forces produced by motor units span several orders of magnitude, though most units produce very small forces. Here we find temporal redundancy: in order to produce movements, MUs combine to generate a range of forces<span class="citation" data-cites="fuglevandMechanicalPropertiesNeural2011"><sup><a href="#ref-fuglevandMechanicalPropertiesNeural2011" role="doc-biblioref">7</a></sup></span>. Since the innervation ratios of muscles in the forearm and hand are relatively small compared to more proximal muscles (which contain thousands of MUs), the logarithmic recruitment and redundancy of motor units enables the hand to produce movements with very fine spatiotemporal resolution.</p>
+            <!-- Paradoxically, however, the well-known signal-dependent noise in models of motor output has been found to be higher for hand muscles than for more proximal muscles, likely due to small numbers of motor units compare to larger muscles[@harrisSignaldependentNoiseDetermines1998;@fuglevandMechanicalPropertiesNeural2011]. -->
+            <p>Muscle fibers are contained within muscle compartments, and each muscle may have one or more compartments. The fingers of the hand are extended by the extensor digitorum (ED) which contains four compartments, one for each of the tendons the muscle produces. Each tendon connects to the three metaphalangeal joints of each digit. The fingers are flexed by two muscles, the flexor digitorum superficialis (FDS) and the flexor digitorum profundus (FDP). Like the ED, these muscles produce four tendons, one to each finger from each of their four compartments. As such, one must coactivate these agonist and antagonist muscles in order to extend or flex a single finger in isolation<span class="citation" data-cites="fuglevandMechanicalPropertiesNeural2011"><sup><a href="#ref-fuglevandMechanicalPropertiesNeural2011" role="doc-biblioref">7</a></sup></span>. Adduction and abduction of the fingers is produced by the 19 intrinsic muscles of the hand, each of which has their origin and insertion points within the hand itself<span class="citation" data-cites="vanduinenConstraintsControlHuman2011"><sup><a href="#ref-vanduinenConstraintsControlHuman2011" role="doc-biblioref">8</a></sup></span>. The intrinsic muscle tendons form a kind of network around each of the digits. The human hand, thumb, and forearm system contains more than 30 muscles and at least 20 degrees of freedom are theoretically available for actuation. However, due to biomechanical coupling, the effective degrees of freedom is presumably less than 20.</p>
+            <!-- One study found that tendons of the fingers are arranged in such a way as to perform a kind of anatomical computation which expands the mechanical capabilities of the appendage by sharing force across its tendon network[@Valero-Cuevas2007]. Such computations embedded in the musculoskeletal structure are additional complexity when theorizing about neural control of the hand. -->
+            <!-- structure in low-variance PC components (of joints) -->
+            <p>This structure exists in order to facilitate the acquisition of new skills and the generalization of existing skills to new contexts. While the anatomy of the hand and forearm presents constraints on movement, the system remains capable of producing an incredible variety of movement patterns<span class="citation" data-cites="yanUnexpectedComplexityEveryday2020 Basmajian1963"><sup><a href="#ref-yanUnexpectedComplexityEveryday2020" role="doc-biblioref">9</a>,<a href="#ref-Basmajian1963" role="doc-biblioref">10</a></sup></span><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. The structure of the neuromuscular system that underlies this variety offers many clues as to the relevant computations required for dexterous movement. In Fig. <a href="#fig:low_variance_PCs">1</a>, Yan et al. show how even low-variance principle components of joint kinematics during object grasping and ASL signing display correlational structure and not merely noise. That is, the production of hand movement is highly task-specific, where individual tasks are linked to bespoke muscle activations patterns.</p>
+            <div id="fig:low_variance_PCs" class="fignos">
+            <figure>
+            <img src="images/physiology/background/low_variance_PCs.png" style="width:100.0%" alt="Figure 1: Taken from Yan et al. 2020. Plots show mean correlations between hand joint kinematic trajectories during grasp trials with the same (blue) and different (red) objects (a) and ASL signs (b) projected onto the same principle components. Correlations are averaged across 8 subjects. Within-object and within-sign correlations are systematically higher than their shuffled counterparts. Error bars denote SEM. This data supports the idea that low-variance components of kinematics data contain task-specific structure rather than merely reflecting noise. This is encouraging for our experiments, which hope to extend this idea into careful analyses of task specific features of EMG data across learning and in response to perturbations." /><figcaption aria-hidden="true"><span>Figure 1:</span> Taken from Yan et al. 2020. Plots show mean correlations between hand joint kinematic trajectories during grasp trials with the same (blue) and different (red) objects (a) and ASL signs (b) projected onto the same principle components. Correlations are averaged across 8 subjects. Within-object and within-sign correlations are systematically higher than their shuffled counterparts. Error bars denote SEM. This data supports the idea that low-variance components of kinematics data contain task-specific structure rather than merely reflecting noise. This is encouraging for our experiments, which hope to extend this idea into careful analyses of task specific features of EMG data across learning and in response to perturbations.</figcaption>
+            </figure>
+            </div>
+            <!-- 
+
+            These redundancies at the neurophysiological level play a role in "spillover", where contractions of one muscle or muscle compartment seem to spill over into neighboring muscles and muscle compartments. This is evident in the difficulty of moving single fingers individually. As mentioned previously, this may be a hardwired constraint or a byproduct of plasticity induced by behavioral requirements. 
+
+            > Spillover has been shown in experiments studying the ‘recruitment thresholds’ (defined below) of motor units ac ting on other digits during single digit contractions (Kilbreath & Gandevia, 1994; Butler et al. 2005; van Duinen et al. 2009). In these experiments, motor units were recorded from one (test) compartment of the respective muscles, while subjects were asked to contract the compartment of the other digits up to 50% of their maximal force. When the subjects contracted these other digits (one by one), motor units of the test compartment were often recruited. The amount of force produced by the other digits at the time of recruitment of the motor unit of the test compartment is termed the recruitment threshold. The general finding for all three muscles was that, the closer the contracting compartment to the test finger, the more motor units were recruited. [...] One has to ask whether this spillover is functional. Is the frequent recruitment of motor units ac ting on the little finger when we extend the thumb part of a fixed pattern of muscle activation, perhaps to balance forces around the wrist? (Duinen & Gandevia 2011) 
+
+            -->
+            <h2 data-number="2.2" id="coordinative-structures"><span class="header-section-number">2.2</span> Coordinative Structures</h2>
+            <!-- 
+            http://www.scholarpedia.org/article/Motor_coordination
+
+            Coordination between two or more effectors (muscles, joints, limbs, or even different people) occurs when the motor commands to one effector depend (in a causal or statistical sense) on the state of the other effector(s). Coordination is goal-directed; the interdependency of movements promotes the achievement of a behavioral task. 
+
+            The term “synergy” is often introduced to explain coordination across different muscles. As a descriptive term, a synergy simply refers to the strong regularities in the spatiotemporal pattern of muscle commands, and the observation that large portions of the variance of recorded muscle activity can be described by a small number of linear components (d'Avella et al. 2006). As an explanatory term, a synergy refers to a neural controller that produces the correlated pattern of muscle activity. 
+
+            In the framework of Optimal Feedback Control, coordination in both feed-forward and feedback control is achieved by making the control policy of one effector dependent on an internal estimate of the state of another effector (Todorov et al. 2002, Diedrichsen et al. 2010). The difference between feed-forward or feedback control within this framework is gradual, and simply reflects the fact that the state estimate is informed by an internal prediction in the former, and actual sensory information in the latter case. 
+
+            -->
+            <!-- Nikolai Bernstein coined the phrase "the degrees-of-freedom problem" to describe the challenge the motor system faces in coordinating its many dimension to achieve a goal. Solving this problem requires dexterity [@Bernstein1967]. As we have seen, redundancy is present from joints and muscles to motor units and their upstream synaptic partners. However, rather than asking how the motor control system deals with this "problem" overwhelming complexity, we might instead question why this complexity evolved at all. What does the availability of this redundancy afford the motor system? How does this redundancy enable dexterous movement? -->
+            <!-- The term motor synergy can be used descriptively to describe the spatiotemporal coactivation of muscles necessary for an ongoing task. -->
+            <!-- A considerable amount of discussion has focused on the existence of synergies as a simplifying structure which allows the motor system to "solve" the redundancy "problem". Synergetic control implies control in the space of a low-dimensional set of synergy weights rather than independent control over the actuator dimensions themselves. The control dimensions are functionally coupled as a result of synergetic action, which both simplifies the control task and constrains behavior to the low-dimensional subspace defined by the synergy weights[@merelHierarchicalMotorControl2019]. This is what Bizzi and colleagues refer to as "the puppet's strings". The term can also be used as a normative model of motor coordination which implies a constraint in the dimensionality of the descending supraspinal control signal, the simplifying movements of the puppeteer. -->
+            <p>Many studies have contributed to the concept of synergies as a hard-wired organizing feature of the motor system<span class="citation" data-cites="mussa-ivaldiMotorLearningCombination2000"><sup><a href="#ref-DAvella2003" role="doc-biblioref">11</a></sup></span>. However, these works tend to extrapolate from non-primate preparations, particularly in the frog, and use tasks which are inherently low-dimensional to explain covariance structure in primate and human kinematic and electromyography data<span class="citation" data-cites="giszterMotorPrimitivesNew2015 gao2017"><sup><a href="#ref-giszterMotorPrimitivesNew2015" role="doc-biblioref">12</a>,<a href="#ref-gao2017" role="doc-biblioref">13</a></sup></span>. That said, it would be foolish to deny the existence of synergistic muscle coactivation even at the structural level. Careful studies of force control by the fingertips present a complex story of dimensionality of control in this regime<span class="citation" data-cites="raczSpatiotemporalAnalysisReveals2013"><sup><a href="#ref-raczSpatiotemporalAnalysisReveals2013" role="doc-biblioref">14</a></sup></span>. Constraints exist in the architecture of the hand as well as its control system, though we maintain that concept of synergies, especially in the context of dexterous movement, is often presented as an oversimplification rather than a mere simplification. We believe the story of the hand is more complex.</p>
+            <p>Studies have attempted to quantify the number of effective degrees of freedom of the hand with various methods. This has primarily been taken to be the number of linear features which contain a desired level of the original signal variance, where the signal is the joint angles of the hand engaged in various behaviors<span class="citation" data-cites="Ingram2009 TodorovDimensionality2005"><sup><a href="#ref-Ingram2009" role="doc-biblioref">15</a>,<a href="#ref-TodorovDimensionality2005" role="doc-biblioref">16</a></sup></span>. These methods have resulted in roughly 8 linear features of hand kinematics to solve a variety of tasks, with subtleties found in inter-task and inter-subject variations. Note that the motor repertoire is hardly high-dimensional when compared to the dimensionality of the visual feature extraction system<span class="citation" data-cites="yanUnexpectedComplexityEveryday2020"><sup><a href="#ref-yanUnexpectedComplexityEveryday2020" role="doc-biblioref">9</a></sup></span>. A recent study found that low-variance linear, kinematic components displayed significantly higher correlation within condition (e.g. grasp of a specific object) than across condition. This suggests that these components carry task-dependent information rather than condition-independent, task-irrelevant noise<span class="citation" data-cites="yanUnexpectedComplexityEveryday2020"><sup><a href="#ref-yanUnexpectedComplexityEveryday2020" role="doc-biblioref">9</a></sup></span>. This suggests that the control of the hand is more nuanced than a set of fixed synergies.</p>
+            <p>What Bizzi and colleagues call “the problem of supraspinal pattern formation”–how synergies are activated through time– we argue, in the context of hand control, is not simplified by the existence of hard-wired or soft-wired synergies<span class="citation" data-cites="bizziMotorPlanningExecution2020"><sup><a href="#ref-bizziMotorPlanningExecution2020" role="doc-biblioref">17</a></sup></span>. Rather, the CNS produces control signals in a range of contexts and in response to continually changing task demands. Rather than the CNS “simplifying movement” through synergetic action, it is more likely that hand synergies fall out of a optimization strategy which trades off effort and accuracy where effort may, in part, correspond to independent control of individual control dimensions. In this view, synergies, hard-wired or not, reflect the statistics of the environment in which movement is constructed<span class="citation" data-cites="brutonSynergiesCoordinationComprehensive2018"><sup><a href="#ref-brutonSynergiesCoordinationComprehensive2018" role="doc-biblioref">18</a></sup></span>. If we limit ourselves to synergetic control, then we have simply passed the problem to a lower-dimensional one of the same fundamental nature. Neural control of the hand likely contains a spectrum of modularity in order to maintain its role as a flexible instrument. Synergetic action is one end of this spectrum resulting from the computations inherent to, along with the structures of the human movement machine.</p>
+            <h2 data-number="2.3" id="fractionating-structures"><span class="header-section-number">2.3</span> Fractionating Structures</h2>
+            <!-- with CM connections, how synergies might they not be as rigid as we think when we're talking about the hand -->
+            <!-- At the other end of the spectrum, years of research has contributed to a more complex picture of hand function which embraces non-synergistic movement[@lemon1993;@lemon1997;@lemon2008]. The key insight of the work is that while "the organization of the spinal cord is based on relatively rigid muscular modes, a mechanism to fractionate this is of particular importance for the muscles of the hands and digits which may need to be employed in a variety of flexible associations during voluntary movements." Careful anatomical work has shown how monosynaptic corticospinal, or corticomotoneuronal (CM), connections provide such fractionation in primates which use tools requiring dexterity[@lemonStartingStoppingMovement2019]. M connections are specific to the primate corticospinal tract and specific to distal muscles of the hands and arm. It appears that the rodent CST contains CM connections until they recede around P10 at which point they recede[@kawasawa2017;@murabe2018]. -->
+            <p>Just as many muscle fibers may be innervated by a single AMN, up to thousands of neurons contact single AMNs through monosynaptic corticospinal, or corticomotoneuronal (CM), connections and other descending pathways through elaborate spinal circuitry. The hallmark of CM connections in particular is their influence over multiple muscle compartments as well as multiple muscles, though typically agonist or antagonist sets<span class="citation" data-cites="cheneyFunctionalClassesPrimate1980"><sup><a href="#ref-cheneyFunctionalClassesPrimate1980" role="doc-biblioref">19</a></sup></span>. This may seem counter-intuitive as a means to produce individuated movement, but experimental evidence in primates has shown that the convergence of many CM collateral fibers onto single AMNs driving the distal muscles in particular can produce a fine grading of activity over motor units driving the distal joints. CM cells also appear to play a role in the inhibition of antagonist muscles prior to contractions required for movement.<span class="citation" data-cites="griffinMotorCortexUses2020"><sup><a href="#ref-griffinMotorCortexUses2020" role="doc-biblioref">20</a></sup></span> These findings confirm theories about the excitatory and inhibitory role of these connections dating back decades, and combine to suggest that variables encoded in cortical ensembles are more complex than kinematics or dynamics alone<span class="citation" data-cites="cheneyFunctionalClassesPrimate1980"><sup><a href="#ref-cheneyFunctionalClassesPrimate1980" role="doc-biblioref">19</a></sup></span>.</p>
+            <p>The CM tract thus acts in coordination with synergistic muscle activations of the hand to achieve control that is balanced between modularity and flexibility. Findings suggest that there is a bipartite structure in human motor cortex driving dexterous control of the distal part of the upper limb which, it has been suggested, evolved under pressure to quickly generalize between tasks. This work argues that these two streams of hand control, namely “fractionated” and “synergistic” control, may interact to produce versatility, and balancing these subsystems may be a key part of the optimization function when learning new skills<span class="citation" data-cites="Rathelot2009 griffinCorticomotoneuronalCellsAre2015 Takei2017"><sup><a href="#ref-Rathelot2009" role="doc-biblioref">21</a>–<a href="#ref-Takei2017" role="doc-biblioref">23</a></sup></span>. This dualism is likely not rigidly dichotomous, but rather a spectrum of overriding fractionation (so-called “New M1”) atop a phylogenetically older system of synergistic action<span class="citation" data-cites="dumCorticospinalSystemStructural2011"><sup><a href="#ref-dumCorticospinalSystemStructural2011" role="doc-biblioref">24</a></sup></span>. Griffin and colleagues found that CM cells are functionally tuned to a muscle’s mode of activity (agonist, antagonist, fixator) to “bypass spinal cord mechanisms and sculpt novel patterns of motor output that are essential for highly skilled movements”<span class="citation" data-cites="griffinCorticomotoneuronalCellsAre2015"><sup><a href="#ref-griffinCorticomotoneuronalCellsAre2015" role="doc-biblioref">22</a></sup></span>. The hypothesis stemming from the previously described work is that CM connections override the “consolidated” patterns putatively generated via spinal interneuron circuitry. The setup devised in our work aims to measure fractionation by tracing motor unit correlations across learning. Whether fractionation in our experiments is due to the CM pathway can only be speculation, but our work may provide direction for future studies pairing intracortical recordings with careful electromyography.</p>
+            <!-- Individual corticomotoneurons contact multiple motor pools, and rarely (if ever) individual motor neurons. -->
+            <!-- > It is generally believed that the direct corticomotoneuronal (CM) pathway, which is a phylogenetically newer pathway in higher primates, plays a critical role in the fractionation of muscle activity during dexterous hand movements. However, the present study demonstrated that PreM-INs, which are phylogenetically older, have spatiotemporal properties that correlate with muscle synergies during voluntary hand movements. Therefore, it is likely that these two systems have specialized functions for the control of primate hand movements, namely “fractionated control” and “synergistic control,” respectively. The interaction of these two putative control systems might be the source of the exceptional versatility of primate hand movements. [...] Optimization of balanced control may be an important factor also for the acquisition of new motor skills [@Takei2017]. -->
+            <!-- The degree to which fractionation of movement is learned is unknown. Skilled piano performers have been found to exhibit a higher degree of independent movement among the fingers compared to control participants. Control groups displayed a hierarchical, presumably lower dimensional, organization of finger movement patterns while pianists showed distinct but individuated movement patterns[@furuyaFlexibilityMovementOrganization2013]. These results are imply that with skilled practice humans can produce finer and more independent movements of the fingers, and construct bespoke coactivations to solve specific goals. Similarly, studies have found that coherence between the index finger and thumb is greater on the dominant hand. This might imply a developmental lateralization, but use-dependent plasticity due to greater precision grip behavior of the dominant hand is also a viable explanation[@fuglevandMechanicalPropertiesNeural2011]. -->
+            <!-- The concept of a balanced control may prove to be a fruitful direction for theoretical work on dexterous motor control, the goal being to construct a model which takes into account this spectrum of individuation into account. The experimental challenge is to identify tasks which ostensibly require the direct descending connections to fractionate learned synergies. There is work suggesting that CM connections synapse primarily on low threshold, low force motor units that are recruited first. This would imply a difference in synergy fractionation at lower force as opposed to higher force. This can be tested easily by including a force parameter in a hand control task. The hypothesis stemming from the previously described work is that CM connections override the "consolidated" patterns putatively generated via spinal interneuron circuitry. -->
+            <h2 data-number="2.4" id="supraspinal-motor-maps"><span class="header-section-number">2.4</span> Supraspinal Motor Maps</h2>
+            <p>It is known from recent work that primary motor cortex (M1) is not an isolated movement-generating dynamical system, but rather a node in the network of a feedback-modulated, distributed movement machine<span class="citation" data-cites="sauerbreiCorticalPatternGeneration2019"><sup><a href="#ref-sauerbreiCorticalPatternGeneration2019" role="doc-biblioref">4</a></sup></span>. Thinking of the structural architecture of M1 as an input-driven system with outputs along a spectrum of modularity from synergistic to fractionated, we can ask what kind of functional architecture might have evolved in the neuromuscular controller? Graziano and colleagues found that 500ms electrical stimulation to M1 reliably produced stereotyped movements in primates<span class="citation" data-cites="graziano2006"><sup><a href="#ref-graziano2006" role="doc-biblioref">25</a></sup></span>. These movements appeared to produce goal-oriented actions pulled out of other contexts such as bringing food to the mouth, and seemed to be arranged on the cortical sheet topographically in terms of spatial endpoints rather than as a humunculus. Graziano refers to this as the cortical “action map”, that these stimulations tapped into the control mechanisms of the primate’s motor system<span class="citation" data-cites="grazianoIntelligentMovementMachine2009"><sup><a href="#ref-grazianoIntelligentMovementMachine2009" role="doc-biblioref">26</a></sup></span>. These results has recently been confirmed by optogenetics work in marmosets and macaques.<span class="citation" data-cites="ebina2019 watanabeForelimbMovementsEvoked2020"><sup><a href="#ref-ebina2019" role="doc-biblioref">27</a>,<a href="#ref-watanabeForelimbMovementsEvoked2020" role="doc-biblioref">28</a></sup></span></p>
+            <p>The motor map concept suggests interpreting activity in M1 as a field of feedback control microcircuits, integrating and transforming inputs, both internal and external, to sculpt ongoing movement<span class="citation" data-cites="wiltschkoMappingSubSecondStructure2015"><sup><a href="#ref-wiltschkoMappingSubSecondStructure2015" role="doc-biblioref">29</a></sup></span>. This is in accordance with the idea that there is a structural hierarchy in M1 covering a spectrum of movement modularity. These ideas together form a picture of the motor system as a structural scaffold upon which behaviorally relevant feedback mappings from cortex to the spinal cord are continuously activated and modulated based on information and estimates about the periphery. In this view, the encoded variables of interest depend on the goals, context, and perturbations of the intended movement. Fig. <a href="#fig:strick_graziano">2</a> shows Graziano et al.’s stimulation results, what might be termed a functional view of the cortical motor system, next Strick er al.’s described above clarifying the structural view of modularity in this system.</p>
+            <div id="fig:strick_graziano" class="fignos">
+            <figure>
+            <embed src="images/physiology/strick_graziano/strick_graziano.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 2:</span> Similarities between electrical stimulation on behavorial timescales and rabies tracing identification of CM cells. CM cells are largely confined to the caudal half of M1, while this region tends to evoke complex manipulatory movements when electrically stimulated. (Top Left) Corticomotoneuronal (CM) cells traced using rabies from muscles of the elbow and finger. (Top Right) CM cells traced using rabies from muscles of the shoulder and finger. (Bottom) Complex movements evoked by 500ms electrical stimulation pulse trains. Adapted from Graziano 2005 and Rathelot et al. 2009<span class="citation" data-cites="graziano2005 Rathelot2009"><sup><a href="#ref-Rathelot2009" role="doc-biblioref">21</a>,<a href="#ref-graziano2005" role="doc-biblioref">30</a></sup></span>.</figcaption>
+            </figure>
+            </div>
+            <p>Graziano writes:</p>
+            <blockquote>
+            <p>“The usefulness of a feedback-dependent mapping from cortex to muscles is that it can in principle allow neurons in motor cortex to control a diversity of movement variables, such as direction, speed, hand position, or posture that transcend a fixed pattern of muscle activation. If the network receives feedback information about a specific movement variable, then it can learn to control that variable.”</p>
+            </blockquote>
+            <!-- **A traditional view of the neuronal machinery of movement control is that activity at a site in motor cortex propagates down a fixed pathway through the spinal cord, activating a set of muscles. Based on our stimulation results, however, the underlying mechanism seems to be less of a simple feed-forward pathway and more of a network. The effect of the network is to create a specific class of mapping from the cortex to the muscles, a mapping that can change continuously on the basis of feedback about the state of the periphery. If the periphery is relatively still, the mapping from cortex to muscles appears fixed and resembles the traditional view. But once the state of the periphery is allowed to vary as in natural movement, the mapping from cortex to muscles becomes somewhat fluid in a manner that facilitates complex movement control.** [@grazianoIntelligentMovementMachine2009] -->
+            <p>Muscle activity is, in this sense, a readout from a network transforming state-dependent inputs into movement goals. Rather than choosing muscle patterns in reconfigurable blocks, it creatively constructs and sculpts movement. The hierarchy of the motor system may not be rigidly organized around a particular set of variables. As shown in Fig. <a href="#fig:motor_system">3</a>, many loops exist connecting cortex with the spinal cord, the cerebellum, the basal ganglia, and the sensorimotor periphery. Each of these loops contributes information for the flexible activation of the relevant action maps. Put simply, prevailing evidence suggests that cerebellar loops provide predictive state information while basal gangliar loops provide state and/or action value information. Taken together, this work provides an image of the incredible complexity which generates dexterous movements of the hand. This is the foundation on which we can work to build experiments which elucidate the computations involved in the production of skilled movement. We aim to connect our results back to what is known about the system we are attempting to reverse-engineer in order to inspire future inquiries into the inner workings of the movement machine.</p>
+            <!-- Recent working studying patients with cerebellar ataxia suggests that the cerebellum plays a role in the temporal recruitment of behavioral syllables, while motor cortex may be implicated in the spatial structure of synergetic action, though this study focused on 13 proximal muscles of the shoulder and arm rather than the distal muscles driving the hand[@bergerDoesCerebellumShape2020]. -->
+            <!-- x Hand Use Predicts Sensorimotor Representation
+            https://www.nature.com/articles/nn.4038
+
+            [@Ejaz2015]
+
+            > We considered the idea that the structure of activation patterns is determined by the way we use our hands in everyday life15. Our everyday activities and interactions with objects impose a strong correlation structure on our finger movements16,17. For example, the middle and the ring fingers often move together to facilitate grasping, whereas the thumb typically moves independently10.
+
+            > We predicted that frequently co-occurring finger movements would lead to strong associations between the cortical modules that encode them. When an individual finger is moved, activation would automatically spread to these associated circuits. Thus, the hand- usage model predicts that fingers that often move together would also be associated with similar activation patterns.
+
+            > if the cortex had simply evolved to optimally activate neural synergies that are encoded in the spinal cord, then M1 would have to produce two very different activity patterns to individuate two fingers that normally move together
+
+            they're saying that natural hand use does dictate both the output (via stimulation) as well as the topographic layout of the representational map in motor cortex-- saying here if its just choosing synergies, the map could be whatever it wanted on the cortical sheet, just needs to choose the right pattern for the right synergies, but these results suggest that the representation is driven by movement statistics, through learning or development 
+
+            Motor cortical cells (many of which have corticospinal projections) discharge with movement of more than one digit and those associated with a particular movement are not tightly clustered. The corticospinal projection provides a further complication because the axons branch to supply more than one motor nucleus (Shinoda et al. 1981). These overlapping areas in the motor cortex may be optimal for daily usage of the hand, but also constrain the ability to control the digits independently. -->
+            <!-- **I added this on Friday:** {+@fig:strick_graziano} depicts the hierarchical nature of the motor system that enables its dexterity. The motor system is tuned to produce varying levels of modularity, and this is shown in Rasthelot's work at a structural level: CM cells evolved to provide modifications to coarse, synergistic action. This is reflected in Graziano's work where, loosely, more dexterous behaviors are produced when stimulation is applied to the caudal regions of motor cortex. These dexterous behaviors are driven by a hierarchical stack of cellular machinery, each level of which is modulated by estimated state, goals, uncertainty, and value. -->
+            <!-- The movement machine reasons in the space of feedback control systems and their ensuing trajectories. The phenomenal thing about the motor system is that it is able to tune itself rapidly with both high-dimensional sensory inputs and sparse reward signals[@bahlNeuralDynamicPoliciesfor2020;@ijspeertDynamicalMovementPrimitives2013]. This has some precedence in the literature and will be discussed further in {+@sec:theory}. This section has attempted to illustrate the complexity of the motor control system specifically with regard to dexterous control of the hand, with an eye toward experimental and theoretical avenues for exploration. The goal is to build and test a theoretical scheme for aspects of the compositional nature of the neural hand controller. -->
+            <!-- **A central proposal of this book is that different zones in motor cortex emphasize different modes of behavior that probably have different control requirements. It may be that one type of action, such as manipulation of objects, is more slanted toward muscle or joint control whereas another type of action, such as reaching toward objects, is more slanted toward control of spatial variables.** (Graziano2010) -->
+            <!-- Fine control of the wrist and fingers may have evolved a specialized machinery. In primates that manipulate objects with a high degree of skill, the motor cortex projects directly to the spinal motoneurons that control the hand (Bortoff and Strick, 1993; Heffner and Masterton, 1975, 1983; Maier et al., 1997). The control of other body parts, such as the upper arm, involves mainly projections from the motor cortex to spinal interneurons. (Graziano2010) -->
+            <!-- ## Flexibilty in Spinal Circuits -->
+            <!-- Renshaw cells -- synergist inhibition, maybe to synchronize synergistic activations -->
+            <!-- 
+            Looking at rapid visuomotor responses, this work found that these reflexive movement were modulated by the value of multiple goals, just as in cognitive tasks. This supports the idea that there exists flexibility at all "levels" of the hierarchy, all recieving similar feedbacks and all similarly modulated by context:
+
+            > If low-level sensorimotor circuits can contribute to value- based decisions through continuous feedback control, rather than merely executing the outcome of discrete action decisions taken in higher-order brain areas, it would support for the hy- pothesis that value-based decision algorithms are distributed throughout multiple levels of sensorimotor and cognitive pro- cessing hierarchies (Hunt et al., 2014; Hunt and Hayden, 2017). This notion differs from the traditional view that decisions arise from a serial process with modular units for choice evaluation, value comparison and action selection. According to the alterna- tive view, the basis for decisions is mutual inhibition between neural representations of alternative options, and these compu- tations occur simultaneously in multiple brain areas along both motor and abstract-value dimensions of tasks (Wang, 2012). Our current evidence that value-based decisions can be implemented through sensorimotor feedback control supports the alternative view, and the general notion that behavior emerges via a distributed consensus between circuits engaged nominally in decision and sensorimotor processes (Cisek, 2012). [@carrollRapidVisuomotorResponses2019]
+
+
+            > When we move, the brain specifies a set of feedback control gains that enable low-level motor areas not only to generate efficient and accurate movement, but also to rapidly and adaptively respond to evolving sensory information in a manner consistent with value-based decision-making.[@carrollRapidVisuomotorResponses2019]
+
+
+            Spinal stretch reflexes may also be modulated by posture, like in Graziano's work:
+
+            > We found that changing the arm’s orientation diametrically altered how spinal reflexes in the elbow muscles were evoked, and in such a way that were again efficiently scaled to the hand’s distance from the target. These findings demonstrate that spinal circuits can help efficiently control the hand during dynamic reaching actions, and show that efficient and flexible motor control is not exclusively dependent on processing that occurs within supraspinal regions of the nervous system.[@weiler2020]
+
+            This is supported by another paper:
+
+            > Our results reveal complex goal-dependent modulation of fast feedback responses in M1 that are present early enough to account for goal-dependent stretch responses in arm muscles [@pruszynski2014]
+
+            Feedback and internal dynamics play a role, and models reflect either (in this model they forgo sensory feedback, which we see as integral to modulating feedback control):
+
+            > Sensory feedback takes at least 25 ms to influence cortical responses and >50 ms to reflect the current goal. Thus, during this ~200-ms interval, the neural dynamics are not yet affected by sensory feedback and should presumably be explained via internal dynamics. This is true even of optimal feed- back control architectures, which employ a dynamically varying control policy and internal ‘efference-copy’ recurrence to generate time-varying output patterns before the arrival of feedback. Given the practical choice to use a model without sensory feedback, we verified with additional simulations that the solutions found by the model were robust to the addition of reasonable forms of feedback [@sussillo2015]
+
+            Andy has written that sensory and spinal systems work "in parallel", but do we agree with this?
+
+            > In terrestrial mammals, the rhythmic and coordinated leg movements during locomotion are controlled by a combination of interconnected neurons in the spinal cord, referred as to the central pattern generator, and sensory feedback from the segmental somatosensory system and supraspinal centers such as the vestibular system. How segmental somatosensory and the vestibular systems work in parallel to enable terrestrial mammals to locomote in a natural environment is still relatively obscure. [@akayRelativeContributionProprioceptive2021] -->
+            <!-- Muscle Spindles -- proprioceptive feedback during movement
+
+            Arm  movements  are  sensed  via  distributed  and  individually  ambiguous  activity  patterns  of  muscle  spindles,which depend on relative joint configurations rather than the absolute hand position.  Interpreting this high dimensional  input  (around  50  muscles  for  a  human  arm)  of  distributed information at the relevant behavioral level poses a challenging  decoding  problem  for  the  central  nervous  system. Proprioceptive information from the receptors undergoes several  processing  steps  before  reaching  somatosensory  cortex (3,8) - from the spindles that synapse in Clarke’s nucleus, to cuneate nucleus, thalamus (3,9), and finally to somatosensory cortex (S1).   In cortex,  a number of tuning properties have been observed, such as responsiveness to varied combinations of joints and muscle lengths (10,11), sensitivity to different loads and angles (12), and broad and unimodal tuning for movement direction during arm movements (11,13).The proprioceptive information in S1 is then hypothesized to serve as the basis of a wide variety of tasks, via its connections to motor cortex and higher somatosensory processing regions. (Sandbrink & Mathis, 2020) -->
+            <!-- ## The Heterarchical Motor System -->
+            <!-- Motor circuitsthat support online control are highly distributed, includingmany cortical and subcortical regions. Many different regionslikely contribute to each process, and a single brain regionmay participate in multiple processes.38Thus, it is highly unlikelythat a single brain region is exclusively responsible for a singleparameter or control process.For example, the control policy in which motor commands aregenerated based on the present state of the body likely involvescortical, brainstem, and spinal processing, because each levelcontributes to a certain degree to the final pattern of muscle ac-tivity during a motor action. The final motor command onlyemerges at the motoneuronal level (the final common path)51as some descending projections synapse directly onto moto-neurons.52This distributed and hierarchical organization meansthat the contribution at the highest cortical level will not simplyreflect the pattern of muscle activity for a motor action. Thus,temporary deactivation in any of these brain regions involved infeedback control could lead to impairments that look like areduction in control policy gains. 
+
+            PMd [premotor cortex] has strong projectionsto M1, brainstem, and spinal cord.62–64Thus, deactivation inthis cortical region indirectly impacts feedback performanceby altering other regions that are part of the control policy.38Alternatively, PMd may be more directly involved in online con-trol. Previous work highlights that this brain region responds inas little as 25 ms to mechanical disturbances of the limb, andthis pattern of activity is altered based on behavioral context.15
+
+            It is also interesting to note that reductions in parameters associated with the forward model led to large errors even forsmall reductions in gain and even oscillatory behavior for reductions at50%
+
+            Although OFC models proved useful for cortical circuits, more biological-inspired hierarchicalmodels will likely be necessary to interpret how the disruptionof brainstem and spinal circuits impact control.
+
+            Tomohaki, Scott 2021 
+
+            Graziano work encompasses motor and premotor cortex!
+
+            -->
+            <!-- This distributed view is crucial; a view that sensorimotor processing is a, perhaps, "complex hierarchy", or even a heterarchy...
+
+            @cohenRoleHeterarchicalControl1992
+            @huntDistributedHierarchicalRecurrent2017
+            @huntHierarchicalCompetitionsSubserving2014
+
+            This term was first used by McCulloch to describe the wat networks give rise to multiple competing values:
+
+            > Cir- cularities in preference instead of indicating inconsistencies, actually demonstrate consistency of a higher order than had been dreamed of in our philosophy. An organism possessed of this nervous system-- six neurons-- is sufficiently endowed to be unpredictable from any theory founded on a scale of values. It has a heterarchy of values, and is thus internectively too rich to submit to a summum bonum. [@mccullochHeterarchyValuesDetermined1945] ^[Supreme Good] 
+
+            He's saying that networks without a hierarchy of values, networks that inherently loopy, give rise to "unpredictability", or perhaps flexibility -- implies that if the system is optimizing, there is no Supreme Good, but rather a composite Good comprised of component values.
+
+            Summum bonum is a Latin expression meaning the highest or ultimate good, which was introduced by the Roman philosopher Cicero to denote the fundamental principle on which some system of ethics is based — that is, the aim of actions, which, if consistently pursued, will lead to the best possible life. (wiki)
+
+            used in social sciences to describe power relations between groups that aren't strictly hierarchical, but exist in a more complex arrangement:
+
+            > when a given production mechanism is regulated by multiple control mechanisms without these control mechanisms being themselves sub- sumed under a higher-level controller. To the degree one can distinguish levels of control, there may be more control- lers at higher levels than at lower levels [@crumleyHeterarchyAnalysisComplex2008]
+
+            > The addition of the term heterarchy to the vocabulary of power relations reminds us that forms of order exist that are not exclusively hierarchical and that interactive elements in complex systems need not be permanently ranked relative to one another. [@crumleyHeterarchyAnalysisComplex2008]
+
+            > many structures, both biological and social, are not organized hierarchically. There is nothing intrinsically hierarchical about an oak tree or a symphony, yet each has undeniable structure and constitutes an orderly repre- sentation of the relations among elements. Nonetheless, few terms identify other kinds of order. Hier- archy—inasmuch as it is often a reductionist metaphor for order—has disproportionately influenced theory building in both social and natural scientific contexts. [@crumleyHeterarchyAnalysisComplex2008]
+
+            > control hierarchy: decisions at higher levels affect the operation of lower levels. [@crumleyHeterarchyAnalysisComplex2008] 
+
+            is this really a good definition? i suppose it's something about the agency of the decisionmaking, it's more about control -- does the upstream control only the downstream?
+
+            in philosophy: 
+            > when a given production mechanism is regulated by multiple control mechanisms without these control mechanisms being themselves sub- sumed under a higher-level controller. To the degree one can distinguish levels of control, there may be more control- lers at higher levels than at lower levels [@bechtelGroundingCognitionHeterarchical2021]
+
+            > …the formation of a voluntary movement is much more complicated. To think that a voluntary action is formed in the narrow field of the motor cortex would be a mistake similar to an assumption that all the goods exported through a terminal are produced in the terminal. The system of cortical zones participating in the creation of a voluntary movement includes a complex of subcortical and cortical zones, each playing a highly specific role in the whole functional system.
+
+            shift in vernacular can be a shift in knowledge
+            point of science is to describe the world concretely, so our words using to do this description matter -->
+            <div id="fig:motor_system" class="fignos">
+            <figure>
+            <embed src="images/physiology/motor_system/motor_system.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 3:</span> Overview sketch of the motor system depicting the the redundancy of the system both hierarchically (multiple muscle fibers are innervated by the same motor neuron, many motor neurons innervate the same muscle) as well as heterarchically (parallel spinal, corticomotoneuronal, cerebellum, basal gangliar feedback loops). Parallel reflex responses can be classified as long latency (approximately 60-150ms) and short latency (approximately 60ms). We hope to consider the parallelism and redundancy of the motor system to inspire our data analyses and models of motor computation.</figcaption>
+            </figure>
+            </div>
+            <!-- $include sections/background_experiment.md -->
+            <!-- $include sections/background_theory.md -->
+            <h1 data-number="3" id="sec:experiment"><span class="header-section-number">3</span> Preliminary Experiments</h1>
+            <blockquote>
+            <p><em>We have some idea as to the intricate design of the puppet and the puppet strings, but we lack insight into the mind of the puppeteer.</em></p>
+            <p>— Bizzi &amp; Ajemian, <em>2020</em></p>
+            </blockquote>
+            <h2 data-number="3.1" id="goals"><span class="header-section-number">3.1</span> Goals</h2>
+            <ul>
+            <li>measure across learning</li>
+            <li>analyze this learning sequence to find traces of what’s being learned at a trajectory level</li>
+            <li>gain inspiration for what might be modeled</li>
+            </ul>
+            <h2 data-number="3.2" id="recording-setup"><span class="header-section-number">3.2</span> Recording Setup</h2>
+            <!-- I would be most interested to hear how u are thinking of approaching the analysis. I.e. u have a bunch of channels, movements, tasks what is the workflow to get from that raw data into something manageable/useful. -->
+            <!-- The long term goal of the research direction suggested here is to develop tasks which ask subjects to produce a variety of movements in response to a variety of goals and perturbations. This will allow us to study the computations that humans use in everyday tasks to solve the motor problems they face. This stands in contrast to many repetitions of the same movements. However, we wish to validate our experimental setup on classical tasks as a stepping stone to tasks with greater variety. -->
+            <!-- "we know how to design and interpret experiments that involve many repetitions of the same movement however there is limited role for online optimization in that context. instead we need experiments where subjects are required to come up with new movements all the time. how can we get experimenters to do such experiments? show cool movies of robots doing cool things,and hopefully get the experimenters excited." (todorov online optimization slides) -->
+            <p>The concept of the experimental setup is shown in Fig. <a href="#fig:setup">4</a>, where 32 monopolar electrodes are attached to a subject’s forearm to record muscle activity. The arm and hand are kinematically constrained in a custom fixture and motor activity is recorded during low-level isometric muscle contractions. The setup circumvents the limb biomechanics by mapping muscle output directly to virtual stimuli shown on a screen. By focusing on low-force, isometric contractions we intend to avoid complications due to artifacts in dynamic, high-force movements.</p>
+            <div id="fig:setup" class="fignos">
+            <figure>
+            <embed src="images/hardware/setup.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 4:</span> (a) Graphic depicting the closed-loop EMG interface concept in a center-hold, reach-out type task. The multidimensional EMG signal is transformed online through a mapping <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math> from EMG electrode space to a lower dimensional task space. In experiments shown here the task space is a two-dimensional, though the EMG interface can be extended to tasks with higher-dimensional inputs. The subject’s arm and hand are constrained during the experiment to ensure isometric contractions. (b) First prototype of custom recording hardware consisting of four bands of eight electrodes each, and a spherical hand constraint. Our recordings are 32 channel monopolar recording with reference electrode at the wrist. (c) Example cup-style monopolar recording electrodes, 5mm in diameter. (d) Side view of the recording hardware. Also pictured is the arm restraint frame to ensure isometric contractions. The frame obscures the subject’s arm from view and contains adjustable elbow and wrist rests. (d) Recording hardware shown off the arm with wireless amplifier and connection board.</figcaption>
+            </figure>
+            </div>
+            <p>As far as we are aware, this setup is novel in combining a high number of channels with an abstract mapping. Learning experiments have used joint angles and a few muscles (typically movements of the wrist or pairs of thumb and intrinsic hand muscles), but none have taken a data-driven approach in constructing a virtual learning environment in the style of cortical BMI<span class="citation" data-cites="BergerDifferencesInAdaptationRates2013a Dyson2018 radhakrishnanLearningNovelMyoelectricControlled2008 Gallego2017"><sup><a href="#ref-BergerDifferencesInAdaptationRates2013a" role="doc-biblioref">31</a>–<a href="#ref-Gallego2017" role="doc-biblioref">34</a></sup></span>. Our EMG recording setup is custom-built: the “Sessantaquattro” EMG amplifier was acquired from OT Bioelettronica, the electronic connector was designed in-house, the electrodes were acquired from Medkit UK, and the recording software was written in a mixture of Bonsai (C#) and Python. EMG is acquired at 2kHz sample rate with 24-bit precision. A clip of raw data is shown in Fig. <a href="#fig:raw_data">5</a>.</p>
+            <div id="fig:raw_data" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/fingers/raw_data.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 5:</span> 10 seconds of raw 32-channel EMG data taken during a minimal finger flexion trial. Note that some channels include a nontrivial amount of line noise. This noise will be drastically reduced through changes being made in the next recording hardware revision which include shielding, shorter cables, and better cable routing. Note that some channels (e.g. channel 24) show very low noise and putative single motor unit action potentials can be seen on many channels.</figcaption>
+            </figure>
+            </div>
+            <p>To preprocessing the data, simple filtering and rectifying were applied, as is commonly done in the literature<span class="citation" data-cites="sangerBayesianFilteringMyoelectric2007 churchlandNeuralPopulationDynamics2012a churchlandNeuralVariabilityPremotor2006 sussillo2015"><sup><a href="#ref-sangerBayesianFilteringMyoelectric2007" role="doc-biblioref">35</a>–<a href="#ref-sussillo2015" role="doc-biblioref">38</a></sup></span>. As shown in Fig. <a href="#fig:preprocessing_steps">6</a>, here we apply highpass filtering at 40Hz to remove any low-frequency oscillations and DC offsets, rectification and lowpass filtering at 5Hz to extract what is typically associated with a force readout of the EMG signal in the case that electrodes are positioned over the belly of a single muscle. These filter parameters were chosen by visual comparison across a range of values. While these preprocessing steps are in accordance with the literature and yield a signal with frequencies on a behavioral timescale though, as discussed in Section <a href="#sec:next_steps">5</a>, preprocessing of raw EMG signals is an area worth investigating the development and application of more advanced methods.</p>
+            <div id="fig:preprocessing_steps" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/fingers/preprocessing_steps.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 6:</span> Data from a single trial showing each step of preprocessing. The prototype preprocessing pipeline is highpass at 50Hz, rectification, and lowpass at 5Hz. The within-trial, per-channel means are subtracted from each trial. This matches what is typically done in the literature to find a correlate of intended force<span class="citation" data-cites="sangerBayesianFilteringMyoelectric2007 churchlandNeuralPopulationDynamics2012a churchlandNeuralVariabilityPremotor2006 sussillo2015"><sup><a href="#ref-sangerBayesianFilteringMyoelectric2007" role="doc-biblioref">35</a>–<a href="#ref-sussillo2015" role="doc-biblioref">38</a></sup></span>. There is significant room for improvement on this workflow, as discussed in the text.</figcaption>
+            </figure>
+            </div>
+            <h2 data-number="3.3" id="open-loop-finger-recordings"><span class="header-section-number">3.3</span> Open-loop Finger Recordings</h2>
+            <p>In our first preliminary experiment, a single subject produced flexions and extensions of each finger in the recording setup without any kind of artificial feedback. One trial was collected per finger movement in three blocks per session and one session per day over five days for a total of fifteen trials per finger movement. The purpose of this experiment is to determine the robustness over trials and sessions of EMG features for a simple low-contraction movement, as well as to determine the level of noise and artifacts in the data. Such baseline measurements are important to properly decompose variability due to electrode placement and exogenous noise from behavioral and physiological variability in order to ensure reproducibility of our results. Additionally, this baseline task may prove useful as a benchmark for later tasks in terms of testing analysis and decomposition techniques. A plot of all 32 channels for a single trial after preprocessing is shown in Fig. <a href="#fig:preprocessed_data">7</a>.</p>
+            <div id="fig:preprocessed_data" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/fingers/preprocessed_data.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 7:</span> All channels of data from a single trial after preprocessing. Note the difference in baseline for each channel. Ideally, each channel has a clear baseline of no activity, as further discussed in the main text.</figcaption>
+            </figure>
+            </div>
+            <p>We first asked whether PCA applied to each individual trial would extract a single, high-variance component reflecting the dimensionality of the behavior. Since each finger movement is intuitively one dimensional, we predict that PCA would find a single high-variance component when run on each individual trial. As shown in Fig. <a href="#fig:PCA_variances">8</a>, this is generally the case, though there are some outlier trials. After inspecting these outlier trials, it is likely that the subject moved multiple fingers in these trials counter to the experimenter’s instruction.</p>
+            <div id="fig:PCA_variances" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/fingers/PCA_variances.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 8:</span> Fraction of variance captured by the top 5 principle components for trials of single finger extensions and flexions. PCs were computed for individual trials. Trials were recorded from one subject for 10s each trial with finger movement frequency approximately 1Hz. Three blocks each with one trial per finger movement were recorded per day for 5 days for a total of 15 trials per finger. Electrodes were not removed between blocks but were removed between days. Each trial displays a single high-variance PC component.</figcaption>
+            </figure>
+            </div>
+            <p>We next asked, since each trial appeared to be dominated by a single principle component, whether this top component was stable across trials and across days. If the top component is stable, it implies that the recording apparatus is robust to electrode movement between sessions. The top components for each movement after running PCA on each trial are shown in Fig. <a href="#fig:PCA_components">9</a>. While it is not typical to run PCA on individual trials, for the purpose of visually inspecting the PCA weights over EMG channels it is used here.</p>
+            <div id="fig:PCA_components" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/fingers/PCA_components.pdf" style="width:100.0%" /><figcaption aria-hidden="true"><span>Figure 9:</span> The top principle component from each single finger movement trials plotted as weights across channels. PCA was computed for each trial individually. White horizontal lines show breaks between days when electrodes were removed and reapplied. Each trial’s top component is relatively stable across trials and across days, though there is drift and dropout of weights. Measures to increase cross-session stability are discussed in the main text. Movements appear to vary between strong localization on single channels and broad activation across channels.</figcaption>
+            </figure>
+            </div>
+            <p>The results here suggest that, at least up to linear decompositions, the features of low-contraction movements is relatively robust across sessions. As discussed in Section <a href="#sec:next_steps">5</a>, we will construct more reliable means to place electrodes on subjects’ forearms to further increase repeatability. Another aspect of these results is our assumption subjects are producing the same contraction each time they move their finger, and at the same contraction level. That is, we assume they are recruiting the same motor units each movement. This may not be the case, and constructing new analyses which infer motor unit activations may be useful to mitigate this issue.</p>
+            <!-- Electrode data from a single trial of a single session is held in a data matrix $X$ (n_electrodes, n_samples), and we wish to find a latent weight matrix $W$ (n_electrodes, n_components) which reconstructs $X$ by projecting latent trajectories $H$ (n_components, n_samples) into electrode space:
+
+            $$
+            X = W\cdot{H}
+            $$
+
+            $H$ is the activity of the latent processes, and $W$ is there mixing matrix. The columns of $W$ are the principal vectors spanning the latent subspace in electrode space. If we have new samples, we can project these new points onto this subspace:
+
+            $$
+            h_{new} = W^T\cdot{w_{new}}
+            $$
+
+            To justify this decomposition, we have to make some assumptions about the nature of the EMG signal, namely that the signal is linear instantaneous (each EMG sample can be instantly mapped to control space). The other assumption is that the basis $W$ should be orthonormal, that the columns of $W$ are orthogonal with unity norm. This ensures that the left inverse $W^{-1}$ is equal to the transpose $W^T$ such that:
+
+            \begin{align*}
+            X &= W\cdot{H} \\
+            W^{-1}\cdot{X} &= {H} \\
+            W^{T}\cdot{X} &= {H}
+            \end{align*}
+
+            See *Muceli 2014* for use of the Moore-Penrose pseudoinverse in place of the transpose when the columns of $W$ do not form an orthonormal basis. This would be the case for NMF. Is there a factorization that produces nonnegative, orthogonal coordinates? Or is the pseudoinverse okay? I will need to test this.
+
+            Stated in an information theoretic way, we want to minimize the reconstruction loss $\mathcal{L}$ for our derived encoder-decoder pair ($E$,$D$). We're decoding high dimensional activity into its latent dimensions, and encoding back into the high dimensional space. :
+
+            $$
+            \min_{E,D}{\mathcal{L}\left[X - EDX\right]}
+            $$
+
+            This way, forget about orthonormality and solve for an encoder and decoder directly. That is, $E\neq{D}$ is perfectly acceptable.
+
+            Each row of $D$ might be called a **spatial filter**, a linear combination of electrode activities into a surrogate, hopefully more intuitive space.
+
+            In general to find such a basis we must :
+
+            -->
+            <h2 data-number="3.4" id="center-hold-reach-out-task"><span class="header-section-number">3.4</span> Center-hold Reach-out Task</h2>
+            <p>In this task, the 32-dimensional EMG electrode activity vector is mapped to a 2D force acting on a point mass shown on the screen. The mapping <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><msup><mstyle mathvariant="double-struck"><mi>ℝ</mi></mstyle><mrow><mn>2</mn><mi>x</mi><mn>32</mn></mrow></msup></mrow><annotation encoding="application/x-tex">M\in\mathbb{R}^{2x32}</annotation></semantics></math> maps 8 “columns” each consisting of 4 electrodes placed in a line down the length of the forearm each to one of 2D root of unity. Each column of electrodes is thus mapped to one of 8 two-dimensional force vectors. In this experiment, the point mass has zero inertia and zero friction and as such displays a direct, though redundant, readout of the EMG signal. The task asks the subject to reach one of 32 equally spaced targets on each trial. Subjects must hold in the center of the task space for a designated period of time, after which the target appears. Subjects then have a time window reach the target. Data from one subject was recorded for three blocks in one session. Each block consisted of 32 trials, one per target in a randomized order.</p>
+            <p>The mapping between EMG and task space <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> can be written as</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center"><mover><mi>M</mi><mo accent="true">̃</mo></mover></mtd><mtd columnalign="center"><mover><mi>M</mi><mo accent="true">̃</mo></mover></mtd><mtd columnalign="center"><mover><mi>M</mi><mo accent="true">̃</mo></mover></mtd><mtd columnalign="center"><mover><mi>M</mi><mo accent="true">̃</mo></mover></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+            M = \begin{bmatrix}\tilde{M} &amp; \tilde{M} &amp; \tilde{M} &amp; \tilde{M}\end{bmatrix}
+            </annotation></semantics></math></p>
+            <p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>M</mi><mo accent="true">̃</mo></mover><annotation encoding="application/x-tex">\tilde{M}</annotation></semantics></math> consists of 8 equally spaced directions, one for each “column” of the 4 EMG electrode bands around the subject’s arm:</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>M</mi><mo accent="true">̃</mo></mover><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center"><mn>0</mn></mtd><mtd columnalign="center"><mn>0.71</mn></mtd><mtd columnalign="center"><mn>1</mn></mtd><mtd columnalign="center"><mn>0.71</mn></mtd><mtd columnalign="center"><mn>0</mn></mtd><mtd columnalign="center"><mo>−</mo><mn>0.71</mn></mtd><mtd columnalign="center"><mo>−</mo><mn>1</mn></mtd><mtd columnalign="center"><mo>−</mo><mn>0.71</mn></mtd></mtr><mtr><mtd columnalign="center"><mn>1</mn></mtd><mtd columnalign="center"><mn>0.71</mn></mtd><mtd columnalign="center"><mn>0</mn></mtd><mtd columnalign="center"><mo>−</mo><mn>0.71</mn></mtd><mtd columnalign="center"><mn>1</mn></mtd><mtd columnalign="center"><mo>−</mo><mn>0.71</mn></mtd><mtd columnalign="center"><mn>0</mn></mtd><mtd columnalign="center"><mn>0.71</mn></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+            \tilde{M} =
+            \begin{bmatrix}
+            0  &amp; 0.71  &amp; 1   &amp; 0.71   &amp; 0  &amp; -0.71  &amp; -1  &amp; -0.71 \\
+            1  &amp; 0.71  &amp; 0  &amp; -0.71  &amp; 1   &amp; -0.71   &amp; 0   &amp; 0.71
+            \end{bmatrix}
+            </annotation></semantics></math></p>
+            <p>A graphic showing the mappings from electrodes to force directions is shown in Fig. <a href="#fig:columns">10</a>. While there are 8 possible force vectors the subject can modulate by controlling the electrode activity on each of her 8 columns, the EMG mapping is ultimately a projection onto the 2D plane. Since the EMG signal is nonnegative, the subject could technically modulate just four modes of electrode activity, the minimum number needed to span the task space, to reach all 32 targets. This mapping was chosen in order to provide a simple starting point to explore the virtual EMG task. There are no added environmental dynamics, only a redundant readout of force, and the signal is processed online in the same manner as in the offline analyses. This task or a variant we think can serve as a foundation upon which we can build more complex mappings and virtual environments. Task space trajectories from each block are shown in Fig. <a href="#fig:trajectories">11</a>. The fraction of trials resulting in hold timeouts, reach timeouts, and target hits are shown over blocks in Fig. <a href="#fig:hit_fraction">12</a>.</p>
+            <div id="fig:columns" class="fignos">
+            <figure>
+            <embed src="images/hardware/columns.pdf" style="width:70.0%" /><figcaption aria-hidden="true"><span>Figure 10:</span> Graphic showing the mapping between electrodes in the 32-channel center-hold reach-out experiment to eight 2D force directions in the virtual task space. Each of the eight columns consists of four electrodes each mapped to the same force direction (denoted with matching color) acting on a virtual point particle.</figcaption>
+            </figure>
+            </div>
+            <div id="fig:trajectories" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/center_hold/trajectories.pdf" style="width:60.0%" /><figcaption aria-hidden="true"><span>Figure 11:</span> Point mass position trajectories in two-dimensional task space during the center-hold, reach-out task with 32 targets spaced evenly around the unit circle (shown with red borders). Color corresponds to target numbers, with target zero located at (0,1). Target order was randomized. Training was conducted over 3 blocks each with 32 trials, 1 trial per target.</figcaption>
+            </figure>
+            </div>
+            <div id="fig:hit_fraction" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/center_hold/hit_fraction.pdf" style="width:70.0%" /><figcaption aria-hidden="true"><span>Figure 12:</span> Fractions of trial outcome types for each block of the center-hold, reach-out task. Hit fraction increases on each trial, suggesting the beginnings of task learning. Hold timeout failure increases over trials as well, perhaps suggesting increased baseline excitation of muscles during the hold period. Part of learning to activate certain muscle modes is learning to inhibit others.</figcaption>
+            </figure>
+            </div>
+            <p>In this task, the subject’s first goal is to interact through the mapping <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> and learn the consequences of various motor activations. That is, they must internalize a model of the virtual environment, what might be called a system identification problem. Subjects must collect data containing motor outputs and their sensory consequences. To do this, they must explore the space of activity. We predict that over trials, subjects’ EMG activities over channels will become more varied as they attempt new movement patterns to achieve their twin goals of learning to move in this new environment and reaching the target. Running PCA on each individual trial’s EMG time series, we hypothesize that initially we will see multiple components share signal variance as subjects explore. Eventually, we would expect to see a decrease in this measure of movement complexity a subjects hone their reaching skill. Trial-level PCA component variance fractions are shown in Fig. <a href="#fig:PCA_trial_variance">13</a>. We find an initial decrease in the top component’s variance fraction, though we expect many more trials will be needed to see skill acquisition in the form of a dominant movement mode per trial.</p>
+            <div id="fig:PCA_trial_variance" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/center_hold/PCA_trial_variance.pdf" style="width:70.0%" /><figcaption aria-hidden="true"><span>Figure 13:</span> Fraction of variance captured by the top five principle components when PCA is run on the EMG time series’ of individual trials of the center-hold, reach-out task. Error bars are standard deviation. Over blocks, we see a slight decrease in the mean of the top component’s variance fraction, though with high variance. This may suggest greater exploration within-trial, as less variance is captured by a single component over blocks, though it could reflect more varied dynamics across trials as the subject discovers new, task-relevant activations.</figcaption>
+            </figure>
+            </div>
+            <p>We might model this task as the subject selecting an EMG signal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> which minimizes the distance between a target position <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> and the projection of the EMG signal through the mapping <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> as well as minimizes the norm of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> in order to conserve metabolic energy. This optimization can be written as a regularized least squares problem:</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>min</mo><mi>x</mi></munder><mfrac><mn>1</mn><mn>2</mn></mfrac><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="prefix">|</mo><mi>M</mi><mi>x</mi><mo>−</mo><mi>b</mi><mo stretchy="false" form="prefix">|</mo><msubsup><mo stretchy="false" form="prefix">|</mo><mn>2</mn><mn>2</mn></msubsup><mo>+</mo><mfrac><mi>λ</mi><mn>2</mn></mfrac><mo stretchy="false" form="prefix">|</mo><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo stretchy="false" form="prefix">|</mo><msubsup><mo stretchy="false" form="prefix">|</mo><mn>2</mn><mn>2</mn></msubsup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+            \min_x\frac{1}{2}||Mx - b||^2_2 + \frac{\lambda}{2}||x||_2^2.
+            </annotation></semantics></math></p>
+            <p>This problem is known to have a unique minimum for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>λ</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\lambda&gt;0</annotation></semantics></math> which is an approximation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>x</mi><mo>≈</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">Mx\approx b</annotation></semantics></math> regardless of the shape or rank of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>. This implies that the subject, if they are biophysically capable to do so, will learn distinct motor outputs for each target rather than reusing modes for multiple targets with different activation levels. That is the subject will, over time, learn to fractionate their muscle output to reach their goal in order to minimize effort. For instance, to reach the the target at position <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo>,</mo><mn>0</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(1,0)</annotation></semantics></math> in Cartesian coordinates, the subject could activate a bespoke activity mode and activate a combination of two or more modes for targets at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>±</mo><msup><mn>45</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">\pm45^\circ</annotation></semantics></math> from this central target. If this is the case, the model predicts that the dimensionality of the EMG signal will increase over the course of training as the subject learns to construct bespoke activity modes for each target.</p>
+            <p>In Fig. <a href="#fig:PCA_concat_variance">14</a> we compute PCA on the concatenation of all trials within blocks for which we predict an increase in the number of dominant EMG modes as subjects learn multiple movements to reach individual targets. We expect subjects to, over time, develop some number of bespoke movement modes to activate independently and as a composition to reach each target. We find a suggestion of this idea in the data with our basic PCA analysis. More trials, session, and subjects will be required to explore this idea, and we are investigating probabilistic measures of signal complexity such as entropy to formalize this hypothesis. One direction might be to further define this task a regularized regression with different regularization terms chosen normatively for different sections of the learning and control process, and fitting data to these predictions. For instance, early in training subjects may not optimize for target accuracy as much as for signal sparsity, whereas later in learning subjects may optimize for target accuracy and output signal magnitude.</p>
+            <div id="fig:PCA_concat_variance" class="fignos">
+            <figure>
+            <embed src="images/data_analysis/center_hold/PCA_concat_variance.pdf" style="width:70.0%" /><figcaption aria-hidden="true"><span>Figure 14:</span> Fraction of variance captured by PCA computed on concatenated EMG time series concatenated over trials. Over blocks, we see variance shifting from the top component to other components. We hypothesize that across learning we would see the development of bespoke modes used in combination to reach individual targets. This would predict an increase in the complexity of the EMG time series over learning. Here we see suggestions of this prediction.</figcaption>
+            </figure>
+            </div>
+            <!-- 1. System Identification -- learning a transition function $p(y_t|x_t, u_t)$
+                - How do you learn the unknown observation model from data?
+
+            1. Policy Optimization
+                - Once dynamics are learned (or at least stable?), how do we form a policy that is generalizable to new tasks under these dynamics?
+                - This is the control problem.
+
+            It's safe to assume that these processes are happening in parallel. Because we have complete and arbitrary control over the observation mapping, we can ask the subject to interact through a  dynamic that is intuitive (informative prior) or unintuitive (uninformative or inhibitive prior). Each scenario, we hypothesize, will elicit different strategies for learning and control.
+
+            -->
+            <h1 data-number="4" id="sec:theory"><span class="header-section-number">4</span> Preliminary Theory</h1>
+            <blockquote>
+            <p><em>An interesting open question is how to relate trial-to-trial dynamics of learning to asymptotic predictions regarding optimal adaptation.</em></p>
+            <p>— Todorov, <em>2007</em></p>
+            </blockquote>
+            <!-- OFC MODELING AND DISCUSSION -->
+            <h2 data-number="4.1" id="optimal-feedback-control"><span class="header-section-number">4.1</span> Optimal Feedback Control</h2>
+            <p>The optimal feedback control framework remains the strongest normative model of human movement control. The first step of our theoretical work is to build from the simplest optimal feedback control models, working towards constructing our own variants of such models in order to capture aspects of our experimental findings. The first model we will investigate is the fully-observable, discrete-time, infinite-horizon linear quadratic regulator (LQR) problem with additive Gaussian noise. Given a state <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><msup><mstyle mathvariant="double-struck"><mi>ℝ</mi></mstyle><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">x\in{\mathbb{R}^n}</annotation></semantics></math> and an control input <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi><mo>∈</mo><msup><mstyle mathvariant="double-struck"><mi>ℝ</mi></mstyle><mi>m</mi></msup></mrow><annotation encoding="application/x-tex">u\in{\mathbb{R}^m}</annotation></semantics></math>, the state evolves in discrete time according linear dynamics</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>A</mi><msub><mi>x</mi><mi>t</mi></msub><mo>+</mo><mi>B</mi><msub><mi>u</mi><mi>t</mi></msub><mo>+</mo><msub><mi>w</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">
+            x_{t+1} = Ax_t + Bu_t + w_t
+            </annotation></semantics></math></p>
+            <p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mi>t</mi></msub><mo>∼</mo><mstyle mathvariant="script"><mi>𝒩</mi></mstyle><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mstyle mathvariant="double-struck"><mi>𝕀</mi></mstyle><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">w_t\sim\mathcal{N}(0,\mathbb{I})</annotation></semantics></math> The LQR problem is to find a sequence of controls <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>u</mi><mi>t</mi></msub><annotation encoding="application/x-tex">u_t</annotation></semantics></math> which minimize a cost <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math></p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><mstyle mathvariant="double-struck"><mi>𝔼</mi></mstyle><munderover><mo>∑</mo><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><mo accent="false">∞</mo></munderover><mrow><msubsup><mi>x</mi><mi>t</mi><mi>T</mi></msubsup><mi>Q</mi><msub><mi>x</mi><mi>t</mi></msub><mo>+</mo><msubsup><mi>u</mi><mi>t</mi><mi>T</mi></msubsup><mi>R</mi><msub><mi>u</mi><mi>t</mi></msub></mrow></mrow><annotation encoding="application/x-tex">
+            J = \mathbb{E}\sum_{t=0}^{\infty}{x_t^TQx_t + u_t^TRu_t}
+            </annotation></semantics></math></p>
+            <p>according to some chosen state and control cost parameters <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>. The optimal cost-to-go or state value function for the problem is</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>t</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><munder><mo>min</mo><mi>u</mi></munder><mrow><mo stretchy="true" form="prefix">[</mo><msubsup><mi>x</mi><mi>t</mi><mi>T</mi></msubsup><mi>Q</mi><msub><mi>x</mi><mi>t</mi></msub><mo>+</mo><msubsup><mi>u</mi><mi>t</mi><mi>T</mi></msubsup><mi>R</mi><msub><mi>u</mi><mi>t</mi></msub><mo>+</mo><msub><mi>V</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mi>x</mi><mo>+</mo><mi>B</mi><mi>u</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+            V_t(x) = \min_{u}\left[{x_t^TQx_t + u_t^TRu_t + V_{t+1}(Ax+Bu)}\right].
+            </annotation></semantics></math></p>
+            <p>The optimal control law <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> which solves this problem is linear function in the state</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>u</mi><mi>t</mi><mo>*</mo></msubsup><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo>−</mo><mi>L</mi><mi>x</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+            u_t^*(x) = -Lx.
+            </annotation></semantics></math></p>
+            <p>This control law is found through iterating a Riccati equation involving <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math> to find the optimal <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> which is a quadratic function in state. There is a functional relationship between <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> that can be derived algebraically. Fig. <a href="#fig:control_field">15</a> shows simulated trajectories of the infinite-horizon problem from random initial positions. The vector field depicts the two-dimensional control vector. In this example, the model describes a second-order point mass dynamical system where the control input acts as a force on the particle. The state vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> contains two dimensions each of position, velocity, and force of the particle, each updated via Euler integration. Fig. <a href="#fig:cost_field">16</a> shows the same simulated trajectories of the point mass atop the quadratic value function. The goal state in these simulations is (0.5,0.5). Note that there are many free dynamics parameters in such simulations within <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> which drastically alter the resulting simulations. The values here were chosen to match the motor control literature.</p>
+            <div id="fig:control_field" class="fignos">
+            <figure>
+            <embed src="images/simulations/control_field.pdf" style="width:70.0%" /><figcaption aria-hidden="true"><span>Figure 15:</span> Simulation of trajectories from uniform random initial positions for the simplest LQR controller. The diffusions are controlled such that their inputs are proportional to the positional error. The plain LQR controller is invariant (up to a translation) to the goal state, as explained in the text. Here the goal state is (0.5,0.5) denoted by a white star. red circles denote the initial position of the trajectory and green circles denote the endpoint after 200 increments. Arrows show the state-dependent control signal (force) vector <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>u</mi><mi>T</mi></msup><mo>=</mo><mo stretchy="false" form="prefix">[</mo><msub><mi>f</mi><mi>x</mi></msub><mo>,</mo><msub><mi>f</mi><mi>y</mi></msub><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">u^T = [f_x,f_y]</annotation></semantics></math>.</figcaption>
+            </figure>
+            </div>
+            <div id="fig:cost_field" class="fignos">
+            <figure>
+            <embed src="images/simulations/cost_field.pdf" style="width:70.0%" /><figcaption aria-hidden="true"><span>Figure 16:</span> The same trajectory simulations as in Fig. <a href="#fig:control_field">15</a> atop the quadratic cost field.</figcaption>
+            </figure>
+            </div>
+            <p>Assuming that the original system is controllable and stabilizable, the linear optimal control problem is a matter of trading off eigenvalues of the closed loop system which drive the steady-state error of the system to 0 under the control cost. This system can be made to drive to a given target <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mo>*</mo></msup><annotation encoding="application/x-tex">x^*</annotation></semantics></math> by feeding back evolving the dynamics in terms of target error <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>x</mi><mo>−</mo><msup><mi>x</mi><mo>*</mo></msup><mo stretchy="false" form="prefix">|</mo></mrow><annotation encoding="application/x-tex">|x-x^*|</annotation></semantics></math> or by augmenting the state vector with terms which compute this error implicitly. These yield identical solutions for the control law, the latter typically being more convenient. The implication of this is that only one control law is required for the problem with a point target in the state space. If the problem were to model human movement, it might be said that we only require the internalization of a single control law up to a translation in the target’s desired state. Only the error is required in this simple case. As discussed in Section <a href="#sec:next_steps">5</a>, variants of this basic model are more interesting in that they do not display this target invariance.</p>
+            <!-- MODEL ADAPTATION VIA GRADIENT DESCENT -->
+            <h2 data-number="4.2" id="internal-model-adaptation-for-linear-quadratic-control"><span class="header-section-number">4.2</span> Internal Model Adaptation for Linear Quadratic Control</h2>
+            <!-- > Implicit adaptation seems to be driven by 436 sensory prediction error (Leow et al., 2018; Mazzoni & Krakauer, 2006; Taylor et al., 2014), which itself implies a sensory prediction which, presumably, arises as the output of a forward model. Therefore, even though changes to the forward model do not directly influence action selection, they may influence the way  in  which  the  policy  is  updated.  This  ***interdependence  between forward model learning and policy learning could lead to interesting  interactions***.  For  instance,  if  updates  to  the  controller  are  driven  by  sensory-prediction error, at some point sensory prediction error would reach zero, at which point there would no longer be any error signal to drive to changes in the controller. [@hadjiosifDidWeGet2020] -->
+            <!-- these might have different errors? -->
+            <!-- model mismatch -> riccatii K -->
+            <!-- gradient for K -> subomptimal K  -->
+            <!--  -->
+            <p>In experiments within the setup described in Section <a href="#sec:experiment">3</a>, subjects are faced with a novel muscle-to-environment mapping that they must ostensibly learn in order to achieve their goals. Here I investigate the effects of approximating dynamics models within the LQR framework. This short experiment is a first step in modeling how subjects may use endpoint error in each trial to update or adjust their internal approximations of the environment’s dynamics.</p>
+            <p>Our state space is denoted <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> and our control space <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math> where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>m</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&lt;</mo><mi>d</mi><mi>i</mi><mi>m</mi><mo stretchy="false" form="prefix">(</mo><mi>u</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">dim(x) &lt; dim(u)</annotation></semantics></math>. Each trial, we move from state <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>x</mi><mn>0</mn></msub><annotation encoding="application/x-tex">x_0</annotation></semantics></math> to x(N) in <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> timesteps. Each trial, we have a goal state <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>x</mi><mo>*</mo></msup><annotation encoding="application/x-tex">x^*</annotation></semantics></math> and a resulting endpoint error <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>e</mi><mi>N</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">|</mo><msub><mi>x</mi><mi>N</mi></msub><mo>−</mo><msup><mi>x</mi><mo>*</mo></msup><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">e_N = |x_N - x^*|^2</annotation></semantics></math>. We follow the same LQR setup as defined in the previous section. We can write the controlled, closed-loop system dynamics for the final time step <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>:</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><msub><mi>x</mi><mi>N</mi></msub></mtd><mtd columnalign="left"><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>−</mo><mi>B</mi><mi>L</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>x</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>C</mi><msub><mi>x</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>x</mi><mi>N</mi></msub></mtd><mtd columnalign="left"><mo>=</mo><mi>C</mi><msub><mi>x</mi><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>=</mo><mi>C</mi><mo stretchy="false" form="prefix">(</mo><mi>C</mi><msub><mi>x</mi><mrow><mi>N</mi><mo>−</mo><mn>2</mn></mrow></msub><mo stretchy="false" form="postfix">)</mo></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>x</mi><mi>N</mi></msub></mtd><mtd columnalign="left"><mo>=</mo><msup><mi>C</mi><mi>N</mi></msup><msub><mi>x</mi><mn>0</mn></msub><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+            \begin{aligned}
+            x_N &amp;= (A - BL)x_{N-1} = Cx_{N-1} \\
+            x_N &amp;= Cx_{N-1} = C(Cx_{N-2}) \\
+            x_N &amp;= C^Nx_0.
+            \end{aligned}
+            </annotation></semantics></math></p>
+            <p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>C</mi><mi>N</mi></msup><annotation encoding="application/x-tex">C^N</annotation></semantics></math> might be called the trajectory dynamic. If the trajectory dynamic <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>C</mi><mi>N</mi></msup><annotation encoding="application/x-tex">C^N</annotation></semantics></math> is an approximation to the true trajectory dynamic <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>C</mi><mrow><mi>N</mi><mo>*</mo></mrow></msup><annotation encoding="application/x-tex">C^{N*}</annotation></semantics></math>, we can use the error of a given trajectory to find an incremental update. The error at the final time step <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math> for trial <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math> is</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">|</mo><msup><mi>C</mi><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>x</mi><mn>0</mn></msub><mo>−</mo><msup><mi>x</mi><mo>*</mo></msup><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup><mi>.</mi></mrow><annotation encoding="application/x-tex">
+            e(r) = |C^N(r)x_{0} - x^*|^2.
+            </annotation></semantics></math></p>
+            <p>This error may be due to several sources. Our internal dynamics model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> might have error relative to the true dynamic <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>A</mi><mo>*</mo></msup><annotation encoding="application/x-tex">A^*</annotation></semantics></math>. Our control gain <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> may be optimal relative to our internal model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> but not with respect to the true dynamic <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>A</mi><mo>*</mo></msup><annotation encoding="application/x-tex">A^*</annotation></semantics></math>. Finally, we might have an approximate model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> and a suboptimal control gain <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>. Note that since this is still deterministic system, we have yet to include any source of variability in state or control.</p>
+            <p>If we assume that our computation of the control gain <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> is optimal for our approximate internal model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> (we can compute a controller given only our internal representation of the system dynamic being controlled), we can use our endpoint error to derive a gradient descent update for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> on trial <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>:</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>+</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>A</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>η</mi><mfrac><mrow><mi>∂</mi><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><mrow><mi>∂</mi><mi>A</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+            A(r+1) = A(r) - \eta\frac{\partial{e(r)}}{\partial{A}}
+            </annotation></semantics></math></p>
+            <p>We might think about this as an internal simulation of trial <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>’s trajectory, and a subsequent post hoc evaluation of the movement. To compute <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>, we must take the gradient with respect to A of the error:</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right"><mfrac><mrow><mi>∂</mi><mrow><mi>e</mi><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo></mrow></mrow><mrow><mi>∂</mi><mi>A</mi></mrow></mfrac></mtd><mtd columnalign="left"><mo>=</mo><mfrac><mrow><mi>∂</mi><mrow></mrow></mrow><mrow><mi>∂</mi><mi>A</mi></mrow></mfrac><mrow><mo stretchy="false" form="prefix">|</mo><msup><mi>C</mi><mi>N</mi></msup><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>x</mi><mn>0</mn></msub><mo>−</mo><msup><mi>x</mi><mo>*</mo></msup><msup><mo stretchy="false" form="prefix">|</mo><mn>2</mn></msup></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">
+            \begin{aligned}
+            \frac{\partial{e(r)}}{\partial{A}} &amp;= \frac{\partial{}}{\partial{A}}{|C^N(r)x_0 - x^*|^2}
+            \end{aligned}
+            </annotation></semantics></math></p>
+            <p>Since the gradient with respect to A is the same as the gradient with respect to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math>, we can compute the gradient with respect to C to find:</p>
+            <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>∂</mi><mi>e</mi></mrow><mrow><mi>∂</mi><msub><mi>A</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub></mrow></mfrac><mo>=</mo><mn>2</mn><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msub><mrow><mo stretchy="true" form="prefix">[</mo><mo stretchy="false" form="prefix">(</mo><msup><mi>C</mi><mi>N</mi></msup><msub><mi>x</mi><mn>0</mn></msub><mo>−</mo><msup><mi>x</mi><mo>*</mo></msup><msup><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msup><msup><mi>C</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="true" form="postfix">]</mo></mrow><mi>i</mi></msub><msub><mrow><mo stretchy="true" form="prefix">[</mo><msup><mi>C</mi><mrow><mi>N</mi><mo>−</mo><mi>k</mi></mrow></msup><msub><mi>x</mi><mn>0</mn></msub><mo stretchy="true" form="postfix">]</mo></mrow><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">
+            % 2∑𝑁𝑘=1(𝑀𝑁𝑣−𝑤)𝑇𝑀𝑘−1𝑀𝑁−𝑘𝑣
+            \frac{\partial{e}}{\partial{A_{ij}}} = 2\sum_{k=1}^N\left[(C^Nx_0 - x^*)^TC^{k-1}\right]_i\left[C^{N-k}x_0\right]_j
+            </annotation></semantics></math></p>
+            <p>Fig. <a href="#fig:gradient_descent">17</a> shows the LQR simulations across gradient descent updates to the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> matrix after it is corrupted by Gaussian noise. Each trajectory is a single run of the LQR controlled for 200 time steps. The star shows the target state, the colored circles show the endpoints of the trajectories. The red circle is the initial state. The descent is converging in endpoint error in position, velocity, and force dimensions of the state vector. Unfortunately, this optimization alters the dynamics incompatibly. The routine is also very fragile to parameter changes. This experiment highlights the difference in loss landscapes between the optimal control problem and the gradient descent simulated here. There are many directions for this work to proceed as discussed in Section <a href="#sec:next_steps">5</a>.</p>
+            <div id="fig:gradient_descent" class="fignos">
+            <figure>
+            <embed src="images/simulations/gradient_descent.pdf" style="width:75.0%" /><figcaption aria-hidden="true"><span>Figure 17:</span> Iterations of gradient descent on the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> matrix of an infinite-horizon LQR where the original A is corrupted with Gaussian noise. Each dotted line is a sampled trajectory using a recomputed control gain with an updated <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> matrix. Red circles denote the initial state, the star denotes the goal state, and the colored circles denote the endpoints of each trajectory sampled at each iteration. Note that the initial solution diffuses directly towards the target, and the gradient updates for the dynamics model <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> alter this trajectory in a nontrivial way. As discussed in the main text, the gradient descent is optimizing for a different cost than the controller optimization, and thus this divergence might be expected.</figcaption>
+            </figure>
+            </div>
+            <!-- 
+
+            adaptive is within trial, as you move
+            episodic has endless access to a simulator
+
+            ## List of variants, etc 
+
+            - LQR + SDN
+            - robust control (?)
+            - KL-control + composition
+            - game theoretic control-- compare solutions
+
+            ## Distributed Control
+
+            > The hierarchical organization typical of earlier sensory areas is not adhered to everywhere. On the contrary, the anatomy of associative areas and prefrontal  cortex suggests a more "democratic"  organization, and  processing  appears to take place  in webs of strongly interacting networks (8). Decisions to act and the execution of plans and  choices  could be the outcome of a  system with  distributed control rather than  a single control center. Coming to grips  with systems having distributed control will require both new experimental techniques and new  conceptual advances. Perhaps more  appropriate  metaphors for this  type of processing will emerge from studying  models of interacting  networks of neurons. [@sejnowskiPerspectivesCognitiveNeuroscience1988]
+
+            ## Policy Selection
+
+            each timestep you combine actions from component policies to choose an action
+
+            Here we'll review and discuss models of action selection and policy composition as a means of theorizing about how subjects learn novel skills. 
+
+            In a sense, we're setting up several different directions for our understanding of composition and action selection which can be experimentally tested. 
+
+            We have a direct selection algorithm, composition through policy addition, and composition through policy multiplication. 
+
+
+            ### KL-control Composition (1 day)
+
+            This setup is particular subset of OFC problems. 
+
+            Dynamics
+            Cost
+
+            Composable policies
+
+            PLOT OF INTUITIVE EXAMPLE
+
+            ### Multiplicative Policy Composition
+
+            Policies are distributionally weighted, as opposed to chosen each timestep? 
+
+            ### Temporal Composition
+
+            there is a spectrum of latency in the feedback response
+
+            can different controllers be used for different latencies, and adjusted accordingly?
+
+            ### Generalized Policy Selection (1 day)
+
+            This is in the MDP case
+
+            Learning happens in several ways-- reward regression, Q-learning
+
+            What are rewards? 
+            What are tasks?
+            What are actions?
+
+            Is GPI with LQRs / LQR-RL a good model for motor learning? Define a model and see if it recapitulates known motor learning phenomena on existing experiments + accounts for things that previous models don’t. (Similar in spirit to Geerts et al. (2020)). Can this model track the higher-order statistics of trajectories during motor learning?
+
+            ### Model-based Reinforcement Learning
+
+            Since we only have an approximate model of the system dynamic, we could simply work towards an optimal policy directly using gradient derivative-free optimization methods in a model-free approach. Since we have good evidence that humans leverage internal models to make decisions (at least in a motor problem domain), we need to define an algorithm which uses past observations and controls to update our approximation for the system dynamic. Here is a very general algorithm:
+
+            0. Define a base policy/controller and base system model ($L_0$ and $\hat{M}_0$)
+            1. Collect samples (by interacting with the true environment $M_{true}$) using the current policy/controller (collect $y_t,u_t,y_{t+1}$ triples using $L_i$ for $i \in \{0\dots N\}$
+            2. Use sample(s) / trajectories to update current system dynamical model $\hat{M}_i$
+            3. Update current policy/controller $L_i$ (using the system dynamics or using a direct policy method)
+
+            If the true system dynamics were known, we could solve the Algebraic Riccati Equation with a backwards pass, and compute our controls in a forward pass. This general algorithm structure highlights how the (unknown) system identification and controller design are intertwined: identifying a system appropriately must rely on sampling and fitting regions of the state space pertinent to adequate control in terms of cost (Ross ICML 2012). Otherwise, our approximation to the true system dynamic will only produce a valid controller in regions we have previously explored. The question is how we can effectively (sample and time efficiently) utilize new state transitions we encounter either online as feedback or between trials to update our model and policy. That is, the number of trials and/or trajectories to use before updating either the system model and/or policy is an important parameter.
+
+            In the LQG setting, this might be called "adaptive LQG". -->
+            <h1 data-number="5" id="sec:next_steps"><span class="header-section-number">5</span> Next Steps</h1>
+            <blockquote>
+            <p><em>When it comes to the problem of skilled movement, the algorithm is simply not known.</em></p>
+            <p>— Wolpert &amp; Ghahramani, <em>2000</em></p>
+            </blockquote>
+            <h2 data-number="5.1" id="emg-hardware"><span class="header-section-number">5.1</span> EMG Hardware</h2>
+            <p>Our preliminary data confirms the working principle of the setup and highlights the next steps for producing quality datasets. This is in accordance with the literature, where more advanced use of EMG is emerging as an important tool in understanding the complexities of motor computation<span class="citation" data-cites="Hug2011"><sup><a href="#ref-Hug2011" role="doc-biblioref">39</a></sup></span>. Our next steps are to build a new version of the EMG hardware doubling the number of channels to 64 electrodes placed across the forearm and to provide better hand constraints to ensure completely isometric contractions. The next hardware version will also include investments in shielding to provide proper noise mitigation. Most EMG in the literature is smoothed and trial-averaged due to noise, but we are confident that our records can be analyzed at the level of single trials, much like recent developments in neural data analyses.<span class="citation" data-cites="churchlandNeuralVariabilityPremotor2006 churchlandNeuralPopulationDynamics2012a"><sup><a href="#ref-churchlandNeuralPopulationDynamics2012a" role="doc-biblioref">36</a>,<a href="#ref-churchlandNeuralVariabilityPremotor2006" role="doc-biblioref">37</a></sup></span></p>
+            <h3 data-number="5.1.1" id="eye-tracking"><span class="header-section-number">5.1.1</span> Eye Tracking</h3>
+            <p>To completely close the loop in our experiments, we are working to integrate pupil and gaze tracking to more closely follow the perceptual aspects of our task. We hope to find correlations in line with the literature dealing with active learning<span class="citation" data-cites="yangTheoreticalPerspectivesActive2016 huangActiveLearningLearning2008"><sup><a href="#ref-yangTheoreticalPerspectivesActive2016" role="doc-biblioref">40</a>,<a href="#ref-huangActiveLearningLearning2008" role="doc-biblioref">41</a></sup></span>.</p>
+            <!-- > EMG activity was recorded using hook-wire electrodes (44 gauge with a 27 gauge cannula; Nicolet Biomedical, Madison, WI) placed in the muscle for the duration of single recording sessions. [...] Electrode voltages were amplified, bandpass filtered (150–500 Hz, four pole, 24 db/octave), sampled at 1000 Hz, and digitized. Off-line, raw traces were differentiated (to remove any remaining baseline), rectified, smoothed with a Gaussian (SD of 15 ms) and averaged. [@churchlandNeuralVariabilityPremotor2006] -->
+            <h2 data-number="5.2" id="emg-analyses"><span class="header-section-number">5.2</span> EMG Analyses</h2>
+            <h3 data-number="5.2.1" id="preprocessing"><span class="header-section-number">5.2.1</span> Preprocessing</h3>
+            <p>Preprocessing of the EMG signal per-channel is another key area for improvement. EMG signal is the convolution of motor unit action potentials terminating near the electrode sites. Ideally we could filter each channel of raw EMG to infer the signal envelope. There is precedent in the literature for Bayesian filtering of EMG signal using a Laplacian distribution. Sanger used a Laplacian distribution to filter a one-dimensional EMG signal<span class="citation" data-cites="sangerBayesianFilteringMyoelectric2007"><sup><a href="#ref-sangerBayesianFilteringMyoelectric2007" role="doc-biblioref">35</a></sup></span>. In accordance with this choice, Nazarpour found that as more motor units are recruited, the EMG distribution shifts from super-gaussian to gaussian following the central limit theorem<span class="citation" data-cites="nazarpourNoteProbabilityDistribution2013"><sup><a href="#ref-nazarpourNoteProbabilityDistribution2013" role="doc-biblioref">42</a></sup></span>. That work suggests methods for estimating high-order statistics for better filtering at low contraction levels relevant to our experiments. Such methods may prove to be more rigorous for inferring motor unit activations from our raw signal.</p>
+            <!-- 
+
+            A window of EMG of length $T$ samples can be modeled as a convolution
+
+            $$
+            \mathbf{z} = \sum_t^T \mathbf{h} * \mathbf{s}
+            $$
+
+            where $\mathbf{h}$ is a motor unit activation template, which itself is a particular neural spike waveform, and $\mathbf{s}$ is the incidence of a spike, which might be modeled as a point process.  
+
+            -->
+            <h3 data-number="5.2.2" id="calibration"><span class="header-section-number">5.2.2</span> Calibration</h3>
+            <p>With a filtered raw signal per channel, our goal is to devise mapping from EMG space to task space which are biophysically achievable by our subjects but require a degree of learning over many trials. In our preliminary task, we hardcoded mappings. Our next step would be to design a calibration task which asks subjects to actively explore the biophysical limits of EMG space that can be captured by our electrodes. This is akin to extracting features of spontaneous activity and passive viewing used in cortical BMI experiments to generate “intuitive” mappings.<span class="citation" data-cites="Clancy2014 sadtlerNeuralConstraintsLearning2014"><sup><a href="#ref-Clancy2014" role="doc-biblioref">43</a>,<a href="#ref-sadtlerNeuralConstraintsLearning2014" role="doc-biblioref">44</a></sup></span></p>
+            <p>With high-dimensional EMG, we would ideally devise a principled method of extracting modes from raw EMG that accurately reflect modes of neural drive, demixing neural modes across channels. Here we used PCA as a first step. One starting point would be to align with the cortical BMI literature and use factor analysis and Kalman filtering<span class="citation" data-cites="sadtlerNeuralConstraintsLearning2014"><sup><a href="#ref-sadtlerNeuralConstraintsLearning2014" role="doc-biblioref">44</a></sup></span>. The issue, however, is how to design a task which evokes the available modes of possible EMG activity before using dimensionality reduction to generate learnable yet non-intuitive mappings.</p>
+            <!-- autoencoders (farina paper) [@vujaklijaOnlineMappingEMG2018]  -->
+            <!-- Another direction for analysis is to study long-range correlations in EMG data within and across trials through empirical correlation functions[@crevecoeurGoldstandardApproachAddress2010]. This work may inform features of models which attempt to recover aspects of trial-to-trial learning. -->
+            <h2 data-number="5.3" id="task-design-and-data-collection"><span class="header-section-number">5.3</span> Task Design and Data Collection</h2>
+            <p>With a working calibration task, our next goal is to use this calibration data to generate mappings to track learning. Our center-hold, reach-out task combined these two steps into one task for validation of the setup using hardcoded mappings. We can maintain the center-hold, reach-out style of the task but with data-driven mappings, as well as construct novel tasks to test predictions of our models. Scaling this task up to multiple subjects across days will provide a dataset with which we can test hypotheses concerning the evolution of complexity and correlations across learning. This will also give us an opportunity to study inter-subject variability, for which there is precedent in the literature which suggests individual strategies<span class="citation" data-cites="crouzierIndividualDifferencesDistribution2019"><sup><a href="#ref-crouzierIndividualDifferencesDistribution2019" role="doc-biblioref">45</a></sup></span>.</p>
+            <h2 data-number="5.4" id="modeling-control"><span class="header-section-number">5.4</span> Modeling Control</h2>
+            <p>One relevant aspect of the basic optimal feedback control model is that the optimal controller that arises from specifying a quadratic state and control cost is invariant to the target state. In spite of this, we can use the aforementioned task to test predictions of the basic LQR model with respect to state and control noise and imperfect dynamics.</p>
+            <p>We expect to validate the basic optimal control models for our setup as we’ve designed the learning environment specifically for the EMG signal provided by the subject acts as the input to chosen virtual dynamics, which can be chosen in accordance with our model. We can then test perturbations in our task with respect to noise, goal, and dynamics and compare subjects’ responses to our models.</p>
+            <p>The question then becomes: when might subjects need to internalize a new control policy? When might they need to internalize multiple control policies? We hope to work towards answers of these questions alongside models of compositional control. Such control models could deal with, for example, target uncertainty as well as multiple competing targets<span class="citation" data-cites="gallivanActionPlanCooptimization2015 gallivanParallelSpecificationCompeting2016"><sup><a href="#ref-gallivanActionPlanCooptimization2015" role="doc-biblioref">46</a>,<a href="#ref-gallivanParallelSpecificationCompeting2016" role="doc-biblioref">47</a></sup></span>.</p>
+            <!-- 
+
+            - stochastic optimal control model comparisons
+              - cost models 
+              - perturbations in goal
+              - go-before you know / goal uncertainty 
+              - noise perturbations -- do reponses match the models?
+
+            - dynamics model fitting
+              - internal model uncertainty 
+              - modeled with robust optimal control?  
+             
+            -->
+            <!-- (task reads out from D muscles, find modes of that data; do PCA to get K < D dimensions, controller only responds to motion in those K directions)—does behavior + motor activity follow LQR? this question has already been asked, but it hasn’t been asked for this kind of high-to-low dim mapping. It’s been asked in tasks where muscles haven’t been directly in control (Valero-Cuevas 2009).  -->
+            <!-- Todorov: do a task, look at muscle signal. Muscles that aren’t necessary for task have higher variability b/c they’re not being optimized for task (but does’t introduce perturbations). Also see Loeb (2012) for a negative result saying that muscle coordination is habitual rather than optimal, but it has issues (low # muscles). Can we replicate previous reaching optimality results in our set-up? What’s unique about our set-up is the PCA/dimensionality reduction in muscle activity space. This is important because you can create arbitrary muscle-cursor mappings, so you have to learn a new skill/mapping. This is different than perturbing a fundamental movement and forcing adaptation, which is what has been previously done. For our task, the participants actually have to learn a new task/mapping, rather than just do what they already know and be robust to perturbations. We test the LQR hypothesis once they’ve learned the task, because LQR isn’t a learning theory, it’s a theory about optimal control. We can see if, once people learn a new skill, their behavior is optimal wrt LQR theory. If we establish this, then we can think about how this LQR model is actually learned (enter RL). -->
+            <h2 data-number="5.5" id="modeling-learning"><span class="header-section-number">5.5</span> Modeling Learning</h2>
+            <p>Ultimately, our goal is to adapt optimal control models which begin as coarse approximations and are updated both within and across trials. Adaptation typically refers to online alterations to control policies while learning might refer to across-trial policy changes. Our theoretical aim is to devise models of learning and movement construction which extend the optimal feedback control framework through additions of composition and error-based updates.</p>
+            <!-- gradient descent stuff -->
+            <p>Stemming from our work using simple gradient descent to update internal dynamics models, we would like to gain a better understanding of the loss landscape. It may be possible to compute the optimum analytically and to corrupt the dynamics matrix in a more principled way. We will also explore the action of the resulting gradient, and compute second-order derivatives, and compute derivatives with respect to the control law <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> as a comparison. These results can then be compared with results from the reaching adaptation literature. This work can be guided by analyzing our empirical data to understand what aspects of our trajectories in EMG and task space are changing over trial.</p>
+            <!-- 
+            - explore connections between spectral analysis perspective of optimal control and empirical correlation functions from data
+            - make the connection between control and dynamics in model and experiment more tightly integrated.  
+            - learning control via reward (RL) [@vanderkooijLearningReachTrajectory2021] -->
+            <h2 data-number="5.6" id="open-questions"><span class="header-section-number">5.6</span> Open Questions</h2>
+            <ul>
+            <li>What is the best calibration task to find the boundaries of the available EMG space?</li>
+            <li>What are the defining features of learning in our EMG-based task?</li>
+            <li>Are our experiments well-modeled by the optimal control framework?</li>
+            <li>How do subjects efficiently use error information from each trial and feedback from each time step to update their forward model and control policy/policies? How do subjects balance policy updates with model updates?</li>
+            <li>How does a subject sample the state space to efficiently learn? Do subjects sample optimally?</li>
+            <li>How can you empirically disentangle system identification (model estimation) and policy learning? If subjects are suboptimal, is it due to model mismatch or a suboptimal policy?</li>
+            </ul>
+            <!-- - On what scale (trials, timesteps) is the model altered? the policy? -->
+            <!-- - Replanning at every timestep is a model predictive control algorithm -->
+            <!-- - What prediction can we make for ID/learning every trial? -->
+            <!-- - how does a subject avoid "distribution mismatch" between their base policy and their optimal policy? How do they efficiently explore and use this new data to update their internal model? -->
+            <!-- - what exploration strategy does a subject use to avoid mismatch? -->
+            <!-- - What is a subject's baseline/prior model? $y_{t} = \hat{f}_0(x_t,u_t)$ or $y_{t} \propto p_0(y_t|x_{t},u_t)$ -->
+            <!-- - What is the base policy / prior policy? $u_t = \pi_0(\hat{x}_t)$ -->
+            <!-- - How do we think about learning a distribution over trajectories in control law space, or perhaps equivalently, in covariance/precision space? -->
+            <!-- - We might hypothesize that a subject will act as randomly as possible while minimizing cost, a maximum entropy solution that converges to an optimal controller? $\mathcal{H}(p(u_t|x_t))$ -->
+            <!-- - How does a subject penalize changes to their controllers? Do they follow a KL-divergence type of measurement when improving their policy? -->
+            <!-- - How do we best modeling learning LQR controllers trial-to-trial? -->
+            <!-- - how do we use existing controllers to construct movements? -->
+            <!-- - how do we construct controllers under dynamical and goal uncertainty? -->
+            <!-- - How does the observation mapping relate to the latent state covariance? The task state covariance? -->
+            <!-- - How do we formalize this into a probabilistic graphical model? Why would we? -->
+            <!-- - Would this make it easier to reason about what the goals are? -->
+            <!-- - Would learning $M$ become an inference problem? -->
+            <!-- - Would solving the control problem become an inference problem...? -->
+            <!-- - What noise assumptions can we make? Can we not make? -->
+            <!-- - How can we incorporate signal-dependent noise? -->
+            <h1 class="unnumbered" id="bibliography">Bibliography</h1>
+            <div id="refs" class="references csl-bib-body" data-line-spacing="2" role="doc-bibliography">
+            <div id="ref-McNamee2019" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">1. </div><div class="csl-right-inline">McNamee, D. &amp; Wolpert, D. M. Internal <span>Models</span> in <span>Biological Control</span>. <em>Annual Review of Control, Robotics, and Autonomous Systems</em> <strong>2</strong>, 339–364 (2019).</div>
+            </div>
+            <div id="ref-Todorov2004" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">2. </div><div class="csl-right-inline">Todorov, E. Optimality principles in sensorimotor control. <em>Nature Neuroscience</em> <strong>7</strong>, 907–915 (2004).</div>
+            </div>
+            <div id="ref-koberReinforcementLearningRobotics2013" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">3. </div><div class="csl-right-inline">Kober, J., Bagnell, J. A. &amp; Peters, J. Reinforcement learning in robotics: <span>A</span> survey. <em>The International Journal of Robotics Research</em> <strong>32</strong>, 1238–1274 (2013).</div>
+            </div>
+            <div id="ref-sauerbreiCorticalPatternGeneration2019" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">4. </div><div class="csl-right-inline">Sauerbrei, B. A. <em>et al.</em> Cortical pattern generation during dexterous movement is input-driven. <em>Nature</em> (2019) doi:<a href="https://doi.org/10.1038/s41586-019-1869-9">10.1038/s41586-019-1869-9</a>.</div>
+            </div>
+            <div id="ref-Bernstein1967" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">5. </div><div class="csl-right-inline">Bernstein, N. <em>The coordination and regulation of movements</em>. (<span>Pergamon</span>, 1967).</div>
+            </div>
+            <div id="ref-kitanoBiologicalRobustness2004" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">6. </div><div class="csl-right-inline">Kitano, H. Biological robustness. <em>Nature Reviews Genetics</em> <strong>5</strong>, 826–837 (2004).</div>
+            </div>
+            <div id="ref-fuglevandMechanicalPropertiesNeural2011" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">7. </div><div class="csl-right-inline">Fuglevand, A. J. Mechanical properties and neural control of human hand motor units: <span>Control</span> of human hand motor units. <em>The Journal of Physiology</em> <strong>589</strong>, 5595–5602 (2011).</div>
+            </div>
+            <div id="ref-vanduinenConstraintsControlHuman2011" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">8. </div><div class="csl-right-inline">van Duinen, H. &amp; Gandevia, S. C. Constraints for control of the human hand: <span>Control</span> of the hand. <em>The Journal of Physiology</em> <strong>589</strong>, 5583–5593 (2011).</div>
+            </div>
+            <div id="ref-yanUnexpectedComplexityEveryday2020" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">9. </div><div class="csl-right-inline">Yan, Y., Goodman, J. M., Moore, D. D., Solla, S. A. &amp; Bensmaia, S. J. Unexpected complexity of everyday manual behaviors. <em>Nature Communications</em> <strong>11</strong>, 3564 (2020).</div>
+            </div>
+            <div id="ref-Basmajian1963" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">10. </div><div class="csl-right-inline">Basmajian, J. V. Control and <span>Training</span> of <span>Individual Motor Units</span>. <em>Science</em> <strong>141</strong>, 440–441 (1963).</div>
+            </div>
+            <div id="ref-DAvella2003" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">11. </div><div class="csl-right-inline">D’Avella, A., Saltiel, P. &amp; Bizzi, E. Combinations of muscle synergies in the construction of a natural motor behavior. <em>Nature Neuroscience</em> <strong>6</strong>, 300–308 (2003).</div>
+            </div>
+            <div id="ref-giszterMotorPrimitivesNew2015" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">12. </div><div class="csl-right-inline">Giszter, S. F. Motor primitives<span></span>new data and future questions. <em>Current Opinion in Neurobiology</em> <strong>33</strong>, 156–165 (2015).</div>
+            </div>
+            <div id="ref-gao2017" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">13. </div><div class="csl-right-inline">Gao, P. <em>et al.</em> <em>A theory of multineuronal dimensionality, dynamics and measurement</em>. (2017) doi:<a href="https://doi.org/10.1101/214262">10.1101/214262</a>.</div>
+            </div>
+            <div id="ref-raczSpatiotemporalAnalysisReveals2013" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">14. </div><div class="csl-right-inline">Rácz, K. &amp; Valero-Cuevas, F. J. Spatio-temporal analysis reveals active control of both task-relevant and task-irrelevant variables. <em>Frontiers in Computational Neuroscience</em> <strong>7</strong>, (2013).</div>
+            </div>
+            <div id="ref-Ingram2009" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">15. </div><div class="csl-right-inline">Ingram, J. N. &amp; Wolpert, D. M. The statistics of natural hand movements. <em>Brain</em> <strong>188</strong>, 223–236 (2009).</div>
+            </div>
+            <div id="ref-TodorovDimensionality2005" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">16. </div><div class="csl-right-inline">Todorov, E. &amp; Ghahramani, Z. Analysis of the synergies underlying complex hand manipulation. in <em>The 26th <span>Annual International Conference</span> of the <span>IEEE Engineering</span> in <span>Medicine</span> and <span>Biology Society</span></em> vol. 4 4637–4640 (<span>IEEE</span>, 2005).</div>
+            </div>
+            <div id="ref-bizziMotorPlanningExecution2020" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">17. </div><div class="csl-right-inline">Bizzi, E. &amp; Ajemian, R. From motor planning to execution: A sensorimotor loop perspective. <em>Journal of Neurophysiology</em> <strong>124</strong>, 1815–1823 (2020).</div>
+            </div>
+            <div id="ref-brutonSynergiesCoordinationComprehensive2018" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">18. </div><div class="csl-right-inline">Bruton, M. &amp; O’Dwyer, N. Synergies in coordination: A comprehensive overview of neural, computational, and behavioral approaches. <em>Journal of Neurophysiology</em> <strong>120</strong>, 2761–2774 (2018).</div>
+            </div>
+            <div id="ref-cheneyFunctionalClassesPrimate1980" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">19. </div><div class="csl-right-inline">Cheney, P. D. &amp; Fetz, E. E. Functional classes of primate corticomotoneuronal cells and their relation to active force. <em>Journal of Neurophysiology</em> <strong>44</strong>, 773–791 (1980).</div>
+            </div>
+            <div id="ref-griffinMotorCortexUses2020" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">20. </div><div class="csl-right-inline">Griffin, D. M. &amp; Strick, P. L. The motor cortex uses active suppression to sculpt movement. <em>Science Advances</em> <strong>6</strong>, eabb8395 (2020).</div>
+            </div>
+            <div id="ref-Rathelot2009" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">21. </div><div class="csl-right-inline">Rathelot, J.-A. &amp; Strick, P. L. Subdivisions of primary motor cortex based on cortico-motoneuronal cells. <em>Proceedings of the National Academy of Sciences</em> <strong>106</strong>, 918–923 (2009).</div>
+            </div>
+            <div id="ref-griffinCorticomotoneuronalCellsAre2015" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">22. </div><div class="csl-right-inline">Griffin, D. M., Hoffman, D. S. &amp; Strick, P. L. Corticomotoneuronal cells are "functionally tuned". <em>Science</em> <strong>350</strong>, 667–670 (2015).</div>
+            </div>
+            <div id="ref-Takei2017" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">23. </div><div class="csl-right-inline">Takei, T., Confais, J., Tomatsu, S., Oya, T. &amp; Seki, K. Neural basis for hand muscle synergies in the primate spinal cord. <em>Proceedings of the National Academy of Sciences</em> <strong>114</strong>, 8643–8648 (2017).</div>
+            </div>
+            <div id="ref-dumCorticospinalSystemStructural2011" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">24. </div><div class="csl-right-inline">Dum, R. P. &amp; Strick, P. L. The <span>Corticospinal System</span>: <span>A Structural Framework</span> for the <span>Central Control</span> of <span>Movement</span>. in <em>Comprehensive <span>Physiology</span></em> (<span>John Wiley &amp; Sons, Inc.</span>, 2011). doi:<a href="https://doi.org/10.1002/cphy.cp120106">10.1002/cphy.cp120106</a>.</div>
+            </div>
+            <div id="ref-graziano2006" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">25. </div><div class="csl-right-inline">Graziano, M. The <span>Organization</span> of <span>Behaviorial Repertoire</span> in <span>Motor Cortex</span>. <em>Annual Review of Neuroscience</em> <strong>29</strong>, 105–134 (2006).</div>
+            </div>
+            <div id="ref-grazianoIntelligentMovementMachine2009" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">26. </div><div class="csl-right-inline">Graziano, M. S. A. <em>The intelligent movement machine: An ethological perspective on the primate motor system</em>. (<span>Oxford University Press</span>, 2009).</div>
+            </div>
+            <div id="ref-ebina2019" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">27. </div><div class="csl-right-inline">Ebina, T. <em>et al.</em> Arm movements induced by noninvasive optogenetic stimulation of the motor cortex in the common marmoset. <em>Proceedings of the National Academy of Sciences</em> <strong>116</strong>, 22844–22850 (2019).</div>
+            </div>
+            <div id="ref-watanabeForelimbMovementsEvoked2020" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">28. </div><div class="csl-right-inline">Watanabe, H. <em>et al.</em> Forelimb movements evoked by optogenetic stimulation of the macaque motor cortex. <em>Nature Communications</em> <strong>11</strong>, 3253 (2020).</div>
+            </div>
+            <div id="ref-wiltschkoMappingSubSecondStructure2015" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">29. </div><div class="csl-right-inline">Wiltschko, A. B. <em>et al.</em> Mapping <span>Sub</span>-<span>Second Structure</span> in <span>Mouse Behavior</span>. <em>Neuron</em> <strong>88</strong>, 1121–1135 (2015).</div>
+            </div>
+            <div id="ref-graziano2005" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">30. </div><div class="csl-right-inline">Graziano, M. S. A., Aflalo, T. N. S. &amp; Cooke, D. F. Arm <span>Movements Evoked</span> by <span>Electrical Stimulation</span> in the <span>Motor Cortex</span> of <span>Monkeys</span>. <em>Journal of Neurophysiology</em> <strong>94</strong>, 4209–4223 (2005).</div>
+            </div>
+            <div id="ref-BergerDifferencesInAdaptationRates2013a" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">31. </div><div class="csl-right-inline">Berger, D. J., Gentner, R., Edmunds, T., Pai, D. K. &amp; d’Avella, A. Differences in <span>Adaptation Rates</span> after <span>Virtual Surgeries Provide Direct Evidence</span> for <span>Modularity</span>. <em>Journal of Neuroscience</em> <strong>33</strong>, 12384–12394 (2013).</div>
+            </div>
+            <div id="ref-Dyson2018" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">32. </div><div class="csl-right-inline">Dyson, M., Barnes, J. &amp; Nazarpour, K. Myoelectric control with abstract decoders. <em>Journal of Neural Engineering</em> <strong>15</strong>, (2018).</div>
+            </div>
+            <div id="ref-radhakrishnanLearningNovelMyoelectricControlled2008" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">33. </div><div class="csl-right-inline">Radhakrishnan, S. M., Baker, S. N. &amp; Jackson, A. Learning a <span>Novel Myoelectric</span>-<span>Controlled Interface Task</span>. <em>Journal of Neurophysiology</em> <strong>100</strong>, 2397–2408 (2008).</div>
+            </div>
+            <div id="ref-Gallego2017" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">34. </div><div class="csl-right-inline">Gallego, J. A., Perich, M. G., Miller, L. E. &amp; Solla, S. A. Neural <span>Manifolds</span> for the <span>Control</span> of <span>Movement</span>. <em>Neuron</em> <strong>94</strong>, 978–984 (2017).</div>
+            </div>
+            <div id="ref-sangerBayesianFilteringMyoelectric2007" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">35. </div><div class="csl-right-inline">Sanger, T. D. Bayesian <span>Filtering</span> of <span>Myoelectric Signals</span>. <em>Journal of Neurophysiology</em> <strong>97</strong>, 1839–1845 (2007).</div>
+            </div>
+            <div id="ref-churchlandNeuralPopulationDynamics2012a" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">36. </div><div class="csl-right-inline">Churchland, M. M. <em>et al.</em> Neural population dynamics during reaching. <em>Nature</em> <strong>487</strong>, 51–56 (2012).</div>
+            </div>
+            <div id="ref-churchlandNeuralVariabilityPremotor2006" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">37. </div><div class="csl-right-inline">Churchland, M. M. Neural <span>Variability</span> in <span>Premotor Cortex Provides</span> a <span>Signature</span> of <span>Motor Preparation</span>. <em>Journal of Neuroscience</em> <strong>26</strong>, 3697–3712 (2006).</div>
+            </div>
+            <div id="ref-sussillo2015" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">38. </div><div class="csl-right-inline">Sussillo, D., Churchland, M. M., Kaufman, M. T. &amp; Shenoy, K. V. A neural network that finds a naturalistic solution for the production of muscle activity. <em>Nature Neuroscience</em> <strong>18</strong>, 1025–1033 (2015).</div>
+            </div>
+            <div id="ref-Hug2011" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">39. </div><div class="csl-right-inline">Hug, F. Can muscle coordination be precisely studied by surface electromyography? <em>Journal of Electromyography and Kinesiology</em> <strong>21</strong>, 1–12 (2011).</div>
+            </div>
+            <div id="ref-yangTheoreticalPerspectivesActive2016" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">40. </div><div class="csl-right-inline">Yang, S. C.-H., Wolpert, D. M. &amp; Lengyel, M. Theoretical perspectives on active sensing. <em>Current Opinion in Behavioral Sciences</em> <strong>11</strong>, 100–108 (2016).</div>
+            </div>
+            <div id="ref-huangActiveLearningLearning2008" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">41. </div><div class="csl-right-inline">Huang, V. S., Shadmehr, R. &amp; Diedrichsen, J. Active <span>Learning</span>: <span>Learning</span> a <span>Motor Skill Without</span> a <span>Coach</span>. <em>Journal of Neurophysiology</em> <strong>100</strong>, 879–887 (2008).</div>
+            </div>
+            <div id="ref-nazarpourNoteProbabilityDistribution2013" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">42. </div><div class="csl-right-inline">Nazarpour, K., Al-Timemy, A. H., Bugmann, G. &amp; Jackson, A. A note on the probability distribution function of the surface electromyogram signal. <em>Brain Research Bulletin</em> <strong>90</strong>, 88–91 (2013).</div>
+            </div>
+            <div id="ref-Clancy2014" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">43. </div><div class="csl-right-inline">Clancy, K. B., Koralek, A. C., Costa, R. M., Feldman, D. E. &amp; Carmena, J. M. Volitional modulation of optically recorded calcium signals during neuroprosthetic learning. <em>Nature Neuroscience</em> <strong>17</strong>, 807–809 (2014).</div>
+            </div>
+            <div id="ref-sadtlerNeuralConstraintsLearning2014" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">44. </div><div class="csl-right-inline">Sadtler, P. T. <em>et al.</em> Neural constraints on learning. <em>Nature</em> <strong>512</strong>, 423–426 (2014).</div>
+            </div>
+            <div id="ref-crouzierIndividualDifferencesDistribution2019" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">45. </div><div class="csl-right-inline">Crouzier, M. <em>et al.</em> Do individual differences in the distribution of activation between synergist muscles reflect individual strategies? <em>Experimental Brain Research</em> <strong>237</strong>, 625–635 (2019).</div>
+            </div>
+            <div id="ref-gallivanActionPlanCooptimization2015" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">46. </div><div class="csl-right-inline">Gallivan, J. P., Barton, K. S., Chapman, C. S., Wolpert, D. M. &amp; Randall Flanagan, J. Action plan co-optimization reveals the parallel encoding of competing reach movements. <em>Nature Communications</em> <strong>6</strong>, 7428 (2015).</div>
+            </div>
+            <div id="ref-gallivanParallelSpecificationCompeting2016" class="csl-entry" role="doc-biblioentry">
+            <div class="csl-left-margin">47. </div><div class="csl-right-inline">Gallivan, J. P., Logan, L., Wolpert, D. M. &amp; Flanagan, J. R. Parallel specification of competing sensorimotor control policies for alternative action options. <em>Nature Neuroscience</em> <strong>19</strong>, 320–326 (2016).</div>
+            </div>
+            </div>
+            <section class="footnotes" role="doc-endnotes">
+            <hr />
+            <ol>
+            <li id="fn1" role="doc-endnote"><p>Kitano defines robustness as “the maintenance of specific functionalities of the system against perturbations, and it often requires the system to change its mode of operation in a flexible way.” He claims that robustness requires control, alternative mechanisms, modularity and decoupling between high and low level variability.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            <li id="fn2" role="doc-endnote"><p>In a classic study, Basmajian and colleagues showed that it is possible to activate single motor units in the thumb abductor.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+            </ol>
+            </section>
+                      </div>
+      </div>
+
+
+  </body>
+</html>
